@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>视频分类</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<script type="text/javascript" src="../script/jquery-1.7.2.min.js"></script>
+		<script src="../script/vue.js"></script>
+		<script src="../layer/layer.js"></script>
+		<link rel="stylesheet" href="../css/catelists.css">
+		<style>
+			body {
+				font-size: 10pt;
+				font-family: "微软雅黑";
+			}
+			html, body {
+				width: 100%;
+				height: 100%;
+			}
+			em {
+				font-style: normal;
+			}
+			div {
+				display: block
+			}
+			.lf {
+				float: left;
+			}
+			.rt {
+				float: right;
+			}
+			.free_pri {
+				color: #1c8d19;
+			}
+			.pri_pri {
+				color: #ff0000;
+			}
+			.cr_bdbab7 {
+				color: #bdbab7;
+			}
+			.cr_898989 {
+				color: #898989 !important;
+			}
+			ul, * {
+				padding: 0;
+				margin: 0;
+			}
+			ul {
+				list-style: none;
+			}
+			li {
+				list-style: none;
+			}
+			.ft-12 {
+				font-size: 12px;
+			}
+			.ft-14 {
+				font-size: 14px;
+			}
+			.cr_catelists_free {
+				color: #5ac6f9;
+			}
+			.cr_ff0000 {
+				color: #ff0000;
+			}
+			.cr_8f8c8c {
+				color: #8f8c8c;
+			}
+			
+			._loading{
+	display: none;
+}
+._loading_center{
+	 width: 50%;
+	 margin: 0 auto;
+	 text-align: center;
+}
+._loading img{
+	vertical-align:middle;
+	margin-right: 5px;
+}
+.none{
+	display: none;
+}
+		</style>
+	</head>
+	<body>
+
+
+		<div class="m_iniubb">
+			<div class="m_catelists">
+				<!--title-->
+				<div class="m_catelists_tt" style="position: fixed;top: 0;left: 0;width: 100%;z-index: 99;display: none;">
+					<div class="m_catelists_nav">
+						<ul>
+							<li>
+								<span class="m_catelista_on " rel='' type="">全部课程</span>
+							</li>
+							<li>
+								<span>免费课程</span>
+							</li>
+						</ul>
+					</div>
+					<div class="m_catelists_nav0">
+						<ul>
+							<li>
+								<span id="class_name" rel="">全部</span>
+							</li>
+							<hr style="width: 1px;height: 14px;background: #898989;border: none;display: inline-block;vertical-align: middle;float: left;margin-top: 10px;">
+							<li>
+								<span id="video_name" rel="">全部课程</span>
+							</li>
+							<hr style="width: 1px;height: 14px;background: #898989;border: none;display: inline-block;vertical-align: middle;float: left; margin-top: 10px;">
+							<li onclick="teacher(0,0)">
+								<span id="teacher_name">讲师分类</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="m_navcont none" >
+					<!--navcont01-->
+					<div class="m_navcont01"> 
+					
+						<ul>
+							<li onclick="video_class('475','1','全部','0')">
+								<span rel='475'>全部</span>
+							</li>
+							<li onclick="video_class('476','1','股市初级班','0')">
+								<span rel='476'>股市初级班</span>
+							</li>
+							<li onclick="video_class('480','1','股市中级班','0')">
+								<span rel='480'>股市中级班</span>
+							</li>
+							<li onclick="video_class('482','1','股市高级班','0')">
+								<span rel='482'>股市高级班</span>
+							</li>
+							<li onclick="video_class('484','1','股市实战班','0')">
+								<span rel='484'>股市实战班</span>
+							</li>
+							<li onclick="video_class('486','1','股市提高班','0')">
+								<span rel='486'>股市提高班</span>
+							</li>
+						</ul>
+					</div>
+					<div class="m_navcont02">
+						<ul id="video_index">
+						   <!-- <li class="class_total">
+								<span rel="" onclick="">全部</span>
+							</li>-->
+							<li v-for="c in vi">
+								<span v-bind:rel="c.classid" v-bind:onclick="['video_class('+c.classid+',0,0,&quot;'+c.classname+'&quot;)']">{{ c.classname }}</span>
+							</li>
+				
+						</ul>
+					</div>
+					<div class="m_navcont03">
+						<ul id="teacher_list">
+							<li onclick="video_class('475','1','全部','0')">
+								<span>全部</span>
+							</li>
+							<li v-for="t in t">
+								<span v-bind:onclick="['teacher(1,&quot;'+t.title+'&quot;)']"  v-cloak>{{ t.title}}</span>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+				<div id="video_list" class="floor floor_01 " style="display: none;padding-top: 70px" >
+					<div class="floor_01_content">
+						<div class="floor_img">
+							<div>
+								共查询到<span id="num"></span>条数据
+							</div>
+							<div id="text_1" >
+								<!--循环视频信息-->
+								<div class="m_catalists_cart" v-for="site in sites" v-cloak>
+									<div class="m_catalists_" v-bind:onclick="['video_skip('+site.id+',&quot; '+site.title+'&quot;)']" >
+										<!--图片-->
+										<div class="lf m_catelists_img">
+											<img v-bind:src="'http://www.ainiubaobao.com'+site.titlepic" class="" alt="">
+											<div class="m_catelists_status">
+												<span>总章节：共<i class="m_catelists_num" v-cloak>{{ site.keshi }}</i>节课</span>
+											</div>
+										</div>
+										<div class="rt m_catalists_contt">
+											<!--title-->
+											<div class="m_catelists_title">
+												<h3 v-cloak>{{ site.title }}</h3>
+											</div>
+											<!--share-->
+											<div class="m_catelists_share" onclick="share(this)">
+												<img src="../image/catelists/share.png" alt="" class="rt">
+											</div>
+											<!--share-->
+											<div class="m_catelists_view">
+												<span class="lf catelists_free" v-cloak v-if="site.point === '0'">免费</span>
+												<span class="lf catelists_pri" v-else><i  v-cloak>{{ site.point }}牛币</i></span>
+												<span class="rt m_catevp" ><i v-cloak>{{ site.onclick }}人</i></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="scroll_tx _loading_center" style="display: none;">
+						向上滑动加载更多数据
+					</div>
+					<div class="_loading">
+						<div class="_loading_center">
+							<img src="../layer\skin\default/loading-2.gif" alt="" /><span style="display: inline-block;">正在加载......<span>
+						</div>
+						
+					</div>
+					
+					
+					<div style="height: 100px"></div>
+					
+				</div>
+				<input type="number" id="page" max="" value="2" style="display: none">
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+	
+		layer.load(2);
+		
+		var video_list = {
+		   sites:''
+		};
+		var video_index = {
+		   vi:''
+		};
+		
+		var vm = new Vue({
+			el : '#video_list',
+			data :video_list
+		})
+		 var vi = new Vue({
+			el : '#video_index',
+			data :video_index
+		})
+		//当前分页
+		var page_val = $('#page').val();
+		apiready = function() {
+		
+		init();
+			
+			//视频id
+			var video_id = api.pageParam["id"];
+			var type = api.pageParam["type"];
+			var classid = api.pageParam["classid"];
+			var name = api.pageParam["name"];
+		if(type==4){
+			   $('.m_catelists_nav ul li:eq(1) span').addClass('catelista_active');
+			   $('.m_catelists_nav ul li:eq(0) span').removeClass('catelista_active');
+			   $('.m_catelists_nav0').css('display', 'none');
+			   $('.m_navcont').css('display', 'none');
+			   $('#video_list').css('padding-top','35px');
+			 
+			    free_video();
+			    $('#video_list').css('display', 'block');
+		    
+			}else{
+				if(type==0){
+				  video_class(video_id,type,0,name,classid);
+				}else if(type==1){
+				 video_class(video_id,type,name,0,classid);
+				}
+				$('.m_catelists_nav ul li:eq(0) span').addClass('catelista_active');
+			    $('.m_catelists_nav ul li:eq(1) span').removeClass('catelista_active');
+				
+				 $('.m_navcont').css('display', 'block');
+				
+				
+				}
+			 $('.m_catelists_tt').css('display', 'block');
+			
+			var classname = ['股市初级班','股市中级班','股市高级班','股市实战班','股市提高班'];
+			var class_id = ['476','480','482','484','486'];
+			
+			for(i=0;i<5;i++){
+				if( classid == class_id[i]){
+			
+				$('#class_name').text(classname[i]);
+				break
+				}
+			}
+			
+			
+			var success;
+			$('.m_catelista_on').attr('rel',video_id);
+		
+										
+			//监听页面滑到底部
+			api.addEventListener({
+				name : 'scrolltobottom',
+				extra : {
+					threshold : -200 //设置距离底部多少距离时触发，默认值为0，数字类型
+				}
+			}, function(ret, err) {
+                //判断当前分页是否为最大
+				if (parseInt(page_val) > parseInt($('#page').attr('max'))) {
+				
+					$('.scroll_tx').css('display','block');
+				    $('._loading').css('display','none');
+				    $('.scroll_tx').text('已经到最底了');
+				} else {
+					
+					 $('._loading').css('display','block');
+					api.ajax({
+						url : app_url + '/app-php/index.php?m=Videolist&a=video_list',
+						method : 'get',
+						data : {
+							values : {
+								video_id : $('.m_catelista_on').attr('rel'),   //视频id
+								p : page_val,                                  //分页码
+								type : $('.m_catelista_on').attr('type')       //视频类型  1父分类   0子分类  3 讲师分类  4 免费分类
+							}
+						}
+					}, function(ret, err) {
+//					  alert(JSON.stringify(ret) );
+						if (ret) {
+						ret = ret.video_list;
+												
+							for (var i = 0; i < ret.length; i++) {
+							
+							  video_list.sites.push(ret[i]);
+							}
+							page_val++;
+							toast('加载成功', 2000, 'buttom');
+							//							api.alert({ msg: JSON.stringify(ret) });
+						} else {
+							//							api.alert({ msg: JSON.stringify(err) });
+							layer.msg('加载失败', {icon: 5});
+						}
+					});
+				}
+			});
+		};
+		
+		function share() {
+		
+		  alert('分享');
+			
+			
+		}
+		//分类切换
+		jQuery(function(){
+		  $('.m_catelists_nav0 ul li:eq(0)').click(function(){
+		     $('.m_navcont01').slideToggle("slow");
+		     $('.m_navcont02').css('display', 'none');
+			 $('.m_navcont03').css('display', 'none');
+		  });
+		  
+		  
+		  $('.m_catelists_nav0 ul li:eq(1)').click(function() {
+			 $('.m_navcont01').css('display', 'none');
+			 $('.m_navcont02').slideToggle("slow");
+			 $('.m_navcont03').css('display', 'none');
+		   })
+		  $('.m_catelists_nav0 ul li:eq(2)').click(function() {
+			 $('.m_navcont01').css('display', 'none');
+			 $('.m_navcont02').css('display', 'none');
+			 $('.m_navcont03').slideToggle("slow");
+		   })
+		  
+		  
+		});
+		
+		
+        //全部和免费切换
+		$('.m_catelists_nav ul li:eq(1)').click(function(){
+		   $('.m_catelists_nav ul li:eq(1) span').addClass('catelista_active');
+		   $('.m_catelists_nav ul li:eq(0) span').removeClass('catelista_active');
+		   $('.m_catelists_nav0').css('display', 'none');
+		   $('.m_navcont').css('display', 'none');
+		   $('#video_list').css('padding-top','35px');
+		   free_video();
+		})
+		$('.m_catelists_nav ul li:eq(0)').click(function(){
+		   $('.m_catelists_nav ul li:eq(0) span').addClass('catelista_active');
+		   $('.m_catelists_nav ul li:eq(1) span').removeClass('catelista_active');
+		   $('.m_catelists_nav0').css('display', 'block');
+		   $('.m_navcont').css('display', 'block');
+		    $('#video_list').css('padding-top','70px');
+		   video_class('475','1','全部','0');
+		})
+		
+		
+		/**
+		 * 获取分类下的视频列表 
+		 * @param int class_id 视频类别id
+		 * @param int  type  0 子分类  1父分类
+		 * @param string video_nmae  父分类名字（type为1时传，否则传0）
+		 * @param string classid  子分类名字 （type为0时传，否则传0）
+		 */
+		function video_class(class_id, type,name,video_name,classid) {
+
+            layer.load(2);
+			api.ajax({
+				url : app_url + '/app-php/index.php?m=Videolist&a=video_list',
+				method : 'get',
+				data : {
+					values : {
+						video_id : class_id,
+						type : type,
+						classid:classid
+					}
+				}
+			}, function(rettt, err) {
+				if (rettt) {
+				   layer.closeAll('loading');
+				ret = rettt.video_list;
+					success = ret;
+					//总条数
+					var max_num = parseInt(ret[0]['max_num']);
+					$('#num').html(max_num);
+					//最大页数
+					$('#page').attr('max', Math.ceil(max_num / 10));
+					stop_hideProgress();
+                    //渲染数据
+                    video_list.sites = ret;
+                    
+					$('#video_list').css('display', 'block');
+					$('.m_navcont01').css('display', 'none');
+					$('.m_navcont02').css('display', 'none');
+					$('.m_navcont03').css('display', 'none');
+					
+					//分类名字
+					if(name!=0){
+						$('#class_name').text(name);
+						
+						$('#class_name').attr('rel',class_id);
+					}
+					if(video_name!=0){
+					
+					$('#video_name').text(video_name);
+					
+						$('#video_name').attr('rel',class_id);
+					}
+					
+					//分类id赋值
+					$('.m_catelista_on').attr('rel',class_id);
+					
+					$('.m_catelista_on').attr('type',type);
+					
+					
+//					if(type==0){
+//					  $('.class_total').attr('rel',class_id);
+//					   $('.class_total').attr('onclick',"video_class("+$('#class_name').attr('rel')+",'1','全部','0')");
+//					}
+					
+					//初始化分页数据
+					page_val = parseInt(2);
+					
+					if(rettt.video_name!=''){
+					  video_index.vi = rettt.video_name;
+					}
+					
+		
+				} else {
+					//      api.alert({ msg: JSON.stringify(err) });
+					layer.msg('加载失败', {icon: 5});
+				}
+			});
+		}
+		//初始化数据
+		function init(){
+		  api.ajax({
+				url : app_url + '/app-php/index.php?m=Videolist&a=index',
+				method : 'get',
+				data : {
+					values : {
+						type : 0,
+						
+					}
+				}
+				},function(ret,err){
+				    video_index.vi = ret;
+		    })
+		}
+		/**
+		 * 讲师视频分类
+		 * @param int type   0 获取讲师列表     1获取讲师的视频
+		 * @param string/int name type为0时值也传0    否则传讲师名字    
+		 * @return JSON   
+		 */
+		function teacher(type,name){
+	     layer.load(2);
+		 api.ajax({
+				url : app_url + '/app-php/index.php?m=Videolist&a=teacher',
+				method : 'get',
+				data : {
+					values : {
+						type : type,
+						name : name,
+						
+					}
+				}
+				},function(ret,err){
+				    
+                    layer.closeAll('loading');
+                    if(type==0){
+                     new Vue({
+							el : '#teacher_list',
+							data :{
+							   t:ret
+							}
+						})
+                    }else{
+                    $('.m_navcont03').css('display', 'none');
+                     video_list.sites = ret;
+                     $('.m_catelista_on').attr('rel',name);
+					
+					$('.m_catelista_on').attr('type',3);
+					
+					var max_num = parseInt(ret[0]['max_num']);
+					$('#num').html(max_num);
+					//最大页数
+					$('#page').attr('max', Math.ceil(max_num / 10));
+                     $('#teacher_name').text(name);
+//                  alert(JSON.stringify(ret) );
+                    }
+				 
+				    
+			  
+		        })
+		
+		}
+//		免费视频
+		function free_video(){
+		layer.load(2);
+		   api.ajax({
+				url : app_url + '/app-php/index.php?m=Videolist&a=video_list',
+				method : 'get',
+				data : {
+					values : {
+						type : 4,
+					}
+				}
+				},function(free,err){
+//				 alert(JSON.stringify(free) );
+				if (free) {
+				  layer.closeAll('loading');
+				ret = free.video_list;
+				
+				  video_list.sites = ret;
+				  
+				  var max_num = parseInt(ret[0]['max_num']);
+					$('#num').html(max_num);
+					//最大页数
+					$('#page').attr('max', Math.ceil(max_num / 10));
+				      $('.m_catelista_on').attr('type',4);
+				
+				}
+				    
+			       
+		        })
+		
+		}
+	</script>
+</html>

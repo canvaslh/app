@@ -1,0 +1,510 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>index导航</title>
+		<link rel="stylesheet" type="text/css" href="./css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+		<style>
+			body {
+				background-color: #ffffff;
+			}
+			header {
+				background-color: #1d80e6;
+				
+			}
+			header ul li {
+				height: 0;
+				line-height: 50px;
+				text-align: center;
+				display: none;
+				color: #323237;
+				position: relative;
+				font-size: 18px;
+			}
+			header ul li.active {
+				display: block;
+			}
+			#footer {
+				background-color: #fff;
+			}
+			#footer ul li {
+				padding-top: 36px;
+				padding-bottom: 4px;
+				background: url() no-repeat center 2px;
+				background-size: auto 30px;
+				text-align: center;
+				color: #000;
+			}
+			#footer ul li.active {
+				color: #6ab494;
+			}
+			#footer ul li:nth-child(1) {
+				background-image: url(./image/index/index-1.png);    background-size: 30%;    background-position: 26px 10px;
+			}
+			#footer ul li:nth-child(2) {
+				background-image: url(./image/index/index-2.png);    background-size: 30%;    background-position: 26px 10px;
+			}
+			#footer ul li:nth-child(3) {
+				background-image: url(./image/index/index-3.png);    background-size: 30%;    background-position: 26px 10px;
+			}
+			#footer ul li:nth-child(4) {
+				background-image: url(./image/index/index-4.png);    background-size: 30%;    background-position: 26px 10px;
+			}
+			#footer ul li:nth-child(5) {
+				background-image: url(./image/index/index-5.png);    background-size: 30%;    background-position: 26px 10px;
+			}
+			#footer ul li:nth-child(1).active {
+				background-image: url(./image/index/index-11.png);    background-size: 30%;    background-position: 26px 10px;
+			}
+			#footer ul li:nth-child(2).active {
+				background-image: url(./image/index/index-22.png);    background-size: 30%;    background-position: 26px 10px;
+			}
+			#footer ul li:nth-child(3).active {
+			    background-image: url(./image/index/index-33.png);    background-size: 30%;    background-position: 26px 10px;
+			}
+			#footer ul li:nth-child(4).active {
+				background-image: url(./image/index/index-44.png);    background-size: 30%;    background-position: 26px 10px;
+			}
+			#footer ul li:nth-child(5).active {
+				background-image: url(./image/index/index-55.png);    background-size: 30%;    background-position: 26px 10px;
+			}
+			.searchWrap {
+				border-radius: 15px;
+				border: 1px solid #000;
+				background: #fff;
+				height: 2em;
+			}
+			input {
+				outline: 0 !important;
+				width: 50%
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap" class="flex-wrap flex-vertical">
+			<header>
+				<ul>
+					<li class="border-b active" >
+					首页
+						<!--<div>
+							<img src="image/img/logo.png" alt="爱牛宝宝" class="img-rounded img-responsive" height="25px" width="25px" >
+						</div>
+						<div class="searchWrap"  onclick="skip('html/seach_window')">
+							<input type="search" placeholder="搜索"  id="te" disabled="disabled" value="">
+						</div>
+						<div >
+							<img src="image/index/yuyin.png" alt="" onclick="te()"/>
+						</div>-->
+					</li>
+					<li class="border-b" >
+						视频分类
+					</li>
+					<li class="border-b" >
+						直播
+					</li>
+					<li class="border-b" >
+						商城
+					</li>
+					<li class="border-b" ></li>
+				</ul>
+			</header>
+			<div id="main" class="flex-con"></div>
+			<div id="footer" class="border-t">
+				<ul class="flex-wrap" >
+					<li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con active" >
+						首页
+					</li>
+					<li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" >
+						全部
+					</li>
+					<li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" >
+						直播
+					</li>
+					<li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" >
+						商城
+					</li>
+					<li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" >
+						我的
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="script/api.js"></script>
+<script type="text/javascript" src="script/jquery-1.7.2.min.js"></script>
+
+<script type="text/javascript">
+
+    var jpush = null;
+	apiready = function() {
+	
+	var userid = $api.getStorage('userid');
+	
+	var groupid = $api.getStorage('groupid');
+	
+	/**
+	 * 获得设备型号
+	 *  ios            //iOS系统
+		android        //Android系统
+		win            //Windows系统
+		wp             //Windows Phone系统
+	 */
+	var systemType = api.systemType;
+	
+//	alert(userid);alert(groupid);
+
+	 
+	
+	/**监听Android按两次返回键退出***/
+        var closeAPP = {
+                count: 0,
+                timer: null,
+                time: 1500
+        }
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err) {
+                closeAPP.count++;
+                   
+                if(closeAPP.count >= 2){
+//                        api.closeWidget({
+//                      id: api.appId,
+//                      silent: true,
+//                      animation: {
+//                          type: 'none',
+//                          
+//                      }
+//                  });
+                    api.toLauncher();
+                }else{
+                        api.toast({
+                            msg: '再按一次退出应用',
+                            duration: closeAPP.time,
+                            location: 'bottom'
+                        });
+                }
+                
+                clearTimeout(closeAPP.timer);
+                closeAPP.timer = setTimeout(function(){
+                        closeAPP.count = 0;
+                },closeAPP.time)
+                
+        });
+	/****end*****/
+
+     /***监听极光推送消息******/
+      jpush = api.require('ajpush');
+      
+      
+
+
+	jpush.init(function(ret) {
+	    if (ret && ret.status){
+	        //success
+	        var param = {alias:userid,tags:['all',groupid,systemType]};
+//	        alert(JSON.stringify(param));
+			jpush.bindAliasAndTags(param,function(ret) {
+			        var statusCode = ret.statusCode;
+			});
+				    }
+	});
+      
+      
+      
+      
+	
+		api.addEventListener({name:'pause'}, function(ret,err) {
+    		onPause();//监听应用进入后台，通知jpush暂停事件
+    		
+  		})
+  			
+  		api.addEventListener({name:'resume'}, function(ret,err) {
+    		onResume();//监听应用恢复到前台，通知jpush恢复事件
+  		})
+  		
+		//监听通过web页面进入到app的参数
+		api.addEventListener({
+			name : 'appintent'
+		}, function(ret, err) {
+		
+		
+		if(ret.appParam.key=='app'){
+		
+		 var key = ret.appParam.type;
+//		 var key = ret.appParam.type;
+		  		
+		
+			 api.openWin({
+				name : key,
+				url : './html/' + key + '_window.html',
+//				 pageParam: {
+//	                _type: shop_id, 
+//			        _key: shop_name
+//			    }
+			});
+			
+			
+		}else{
+		
+		
+		
+		
+		
+//		 alert('通知被点击，收到数据：\n' + JSON.stringify(ret));//监听通知被点击后收到的数据
+		
+		var ajpush = ret.appParam.ajpush; 
+         var jsonStr = JSON.parse(ajpush.extra); 
+		 //键值  --键
+		var key = jsonStr['key'];
+		//键值--类型     0栏目页面  1活动页面
+		var type = jsonStr['type'];
+		//标题
+		var title = ajpush['title'];
+		//内容
+		var content = ajpush['content'];
+		
+		
+//	islogin_skip('html/'+key+'_window');
+	
+	  if(type==1){
+	
+	   api.openWin({
+				name : key,
+				url : './html/' + key + '_window.html',
+				     pageParam: {
+	          _key :key,
+	          _type: type
+	    }	
+				
+				
+				
+			});
+	  }else if(type==1){
+	  
+	
+	  
+	    
+	    
+	    
+	  }
+	
+
+}
+//			
+
+		});
+
+    /***end****/
+
+
+//var push = api.require('push');
+//push.bind({
+//  userName:'testName',
+//  userId:'testId'
+//},function(ret,err){
+//  if(ret.status){
+//      api.alert({msg:'绑定成功'});
+//  }else{
+//      api.alert({msg:err.msg});
+//  }
+//});
+//
+////设置监听
+//
+//push.setListener(
+//  function(ret,err){
+//      if(ret){
+//          api.alert({msg:ret.data});
+//      }
+//  }
+//);
+//
+//// 加入群组
+//
+//push.joinGroup({
+//  groupName:'department'
+//},function(ret,err){
+//  if(ret.status){
+//      api.alert({msg:'加入组成功'});
+//  }else{
+//      api.alert({msg:err.msg});
+//  }
+//});
+
+
+
+
+    /******首次进入应用引导页面*******/
+	var WelcomePage = api.require('welcomePage');
+			WelcomePage.openWelcomePage({
+				isFullscreen: true, //是否全屏(全屏不显示状态栏)  默认false
+				AnimationType: 'DepthPage', //动画类型   'Default默认', 'DepthPage深入浅出', 'Cube立方体', 'Rotate旋转','Accordion左右折叠',
+				//'InRightUp右上角进入' , 'InRightDown右下角进入', 'ZoomOutPage淡入淡出'
+				imgs: ['widget://image/welcome/daohang1.jpg',
+					'widget://image/welcome/daohang2.jpg',
+					'widget://image/welcome/daohang3.jpg',
+					'widget://image/welcome/daohang4.jpg'
+				],
+				setting: {
+					isShow: true, // 是否显示页面点 默认不显示
+//					SelectedImg: 'widget://image/Welcome/2.png',
+//					NotSelectedImg: 'widget://image/Welcome/1.png',
+					ImgSize: 30, // 图片size
+					ImgSpacing: 30 // 图片之间的间隔
+				}
+			}, function(ret, err) {
+				if(ret) {
+//					alert(JSON.stringify(ret));
+				} else {
+//					alert(JSON.stringify(err));
+				}
+			});
+     /*****end********/
+
+         //设置设备状态栏样式 -----手机电量信号那一行
+		$api.fixStatusBar($api.dom('header'));
+		api.setStatusBarStyle({
+			style : 'light',
+			color : '#1d80e6'
+		});
+		
+		//监听网络
+		api.addEventListener({
+			name : 'offline'
+		}, function(ret, err) {
+			api.toast({
+				msg : '网络断开连接',
+				duration : 2000,
+				location : 'middle'
+			});
+		});
+		 funIniGroup();
+	}
+
+    
+    //多页面
+	function funIniGroup() {
+		var eHeaderLis = $api.domAll('header li'), frames = [];
+		for (var i = 0, len = eHeaderLis.length; i < len; i++) {
+			frames.push({
+				name : 'frame' + i,
+				url : './html/frame' + i + '.html',
+				bgColor : 'rgba(0,0,0,.2)',
+				bounces : false
+			})
+		}
+		api.openFrameGroup({
+			name : 'group',
+			scrollEnabled : true,
+			preload:5,
+
+			rect : {
+				x : 0,
+				y : $api.dom('header').offsetHeight - 1,
+				w : api.winWidth,
+				h : $api.dom('#main').offsetHeight
+			},
+			index : 0,
+			frames : frames
+		}, function(ret, err) {
+         /**先去掉所有li的active  然后给ret.index加上active***/
+        
+		var eFootLis = $api.domAll('#footer li');
+		for (var i = 0, len = eFootLis.length; i < len; i++) {
+			$api.removeCls(eFootLis[i], 'active');
+		}
+		$api.addCls(eFootLis[ret.index], 'active');
+		
+		});
+	}
+	// 底部导航切换
+	function randomSwitchBtn(tag) {
+	
+	if (tag == $api.dom('#footer li.active'))
+			return;
+		var eFootLis = $api.domAll('#footer li'), index = 0;
+		for (var i = 0, len = eFootLis.length; i < len; i++) {
+			if (tag == eFootLis[i]) {
+				index = i;
+			} else {
+				$api.removeCls(eFootLis[i], 'active');
+				
+			}
+		}
+		$api.addCls(eFootLis[index], 'active');
+		
+		api.setFrameGroupIndex({
+			name : 'group',
+			index : index
+		});
+	}
+	
+     //更新用户数据
+//	setInterval(userinfo, 8000);
+	function userinfo() {
+//		var userid = $api.getStorage('userid');
+		/*
+		 * 判断是否存储有用户数据
+		 */
+		$.ajax({
+			url : app_url + '/app-php/index.php?m=User&a=index',
+			method : 'post',
+			success : function(ret) {
+//								  api.alert({ msg: JSON.stringify(ret) });
+				/*
+				 * 判断用户是否登录
+				 */
+				if (ret['result'] == '1') {
+					var userid = ret[0]['userid'];
+					/*
+					 * 判断是否正确获取用户数据
+					 */
+					if (userid != '') {
+						$api.setStorage('username', ret[0]['username']);
+						$api.setStorage('userid', ret[0]['userid']);
+						$api.setStorage('groupid', ret[0]['groupid']);
+						$api.setStorage('userdate', ret[0]['userdate']);
+						$api.setStorage('groupname', ret[0]['groupname']);
+						$api.setStorage('userfen', ret[0]['userfen']);
+						$api.setStorage('rnd', ret[0]['rnd']);
+					} else {
+						//							toast_err5();
+						    $api.rmStorage('username');
+					$api.rmStorage('userid');
+					$api.rmStorage('groupid');
+					$api.rmStorage('groupname');
+					$api.rmStorage('groupname');
+					$api.rmStorage('userdate');
+					$api.rmStorage('cache_userpic');
+					}
+				}
+			},
+			error : function(err) {
+				//					toast_err5();
+			}
+		})
+	}
+	
+	
+	
+//统计-app恢复
+function onResume(){
+    jpush.onResume();
+    console.log('JPush onResume');
+   
+}
+
+//统计-app暂停
+function onPause(){
+    jpush.onPause();
+    console.log('JPush onPause');
+   
+}
+
+
+
+</script>

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+		<script src="../../script/jquery-1.7.2.min.js"></script>
+		<script src="../../script/vue.js"></script>
+		<script src="../../layer/layer.js"></script>
+		<style>
+			body {}
+			.t-777777 {
+			color: #777777;
+			}
+			.ui-list {
+			background-color: #fff;
+			width: 100%;
+			}
+			.ui-list>li {
+			position: relative;
+			margin-left: 10px;
+			display: -webkit-box;
+			}
+			.right_jian {
+			color: #C0C0C0;
+			top: 10px;
+			right: 15px;
+			position: absolute !important;
+			font-size: 15px;
+			}
+			.jian {
+			vertical-align: middle;
+			width: 15px;
+			height: 15px;
+			border: 0;
+			}
+			.userpic {
+			top: 5px;
+			/*border-radius: 60px;*/
+			margin-top: 5px;
+			right: 30px;
+			position: absolute !important;
+			width: 50px;
+			height: 50px;
+			}
+			#img_header {
+			border-radius: 60px;
+			}
+			.text {
+			-webkit-box-flex: 1;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-box-pack: center;
+			padding-right: 15px;
+			}
+			.ui-nowrap {
+			max-width: 100%;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			}
+			.ftz15 {
+			font-size: 15px;
+			}
+			.pad-l-05 {
+			padding-left: 5px;
+			}
+			h5,
+			.ui-txt-sub {
+			font-size: 14px;
+			}
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6 {
+			font-size: 100%;
+			font-weight: normal;
+			}
+			.box-a {
+			margin: 0 auto;
+			}
+			@media screen and (-webkit-min-device-pixel-ratio: 2) zv.css:472 .ui-border-radius {
+			position: relative;
+			border: 0;
+			}
+			.ui-border-radius {
+			border: 1px solid #e0e0e0;
+			border-radius: 4px;
+			}
+			.wd-pre-100 {
+			width: 100%;
+			}
+			.ui-txt-center {
+			text-align: center;
+			}
+			.ftz14 {
+			font-size: 14px;
+			}
+			.pad-t-15 {
+			padding-top: 15px;
+			}
+			.umh40 {
+			line-height: 40px;
+			}
+			.nick {
+			margin: 0 auto;
+			width: 100%;
+			text-align: left;
+			color: #666;
+			font-size: 14px;
+			padding-bottom: 15px;
+			padding-top: 5px;
+			}
+			.ui-input {
+			height: 30px;
+			line-height: 30px;
+			margin: 7px 10px;
+			background: #fff;
+			padding-left: 10px;
+			-webkit-box-flex: 1;
+			}
+			.ui-input input {
+			width: 100%;
+			height: 100%;
+			border: 0;
+			background: 0 0;
+			-webkit-appearance: none;
+			outline: 0;
+			}
+			.wd-pre-100 {
+			width: 100%;
+			}
+			.wd-pre-100 {
+			width: 100%;
+			}
+			.h-40 {
+			height: 40px;
+			}
+			.ui-flex,
+			.ui-tiled {
+			display: -webkit-box;
+			width: 100%;
+			-webkit-box-sizing: border-box;
+			}
+			.ui-tiled li {
+			-webkit-box-flex: 1;
+			width: 100%;
+			text-align: center;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-box-pack: center;
+			-webkit-box-align: center;
+			}
+			.ui-txt-center {
+			text-align: center;
+			}
+			#nickname {
+			display: none
+			}
+			.userinfo {
+			top: 5px;
+			/*border-radius: 60px;*/
+			margin-top: 5px;
+			right: 30px;
+			position: absolute !important;
+			height: 50px;
+			}
+			section {
+			z-index: 1
+			}
+		</style>
+	</head>
+	<body>
+		<section id="info">
+			<div v-for="user in sites">
+				<ul class="t-777777 ui-list">
+					<li style="line-height:50px" onclick="toast2('会员名不可修改')">
+						<span class="right_jian"> <img src="../../icon/icon_right02s.png" class="jian " > </span>
+						<span class='userinfo' id="username" v-cloak> {{user.username}} </span>
+						<div class="text">
+							<h5 class="ui-nowrap pad-l-05 ftz15">会员名</h5>
+						</div>
+					</li>
+					<li style="line-height:50px" onclick="showUpload()">
+						<span class="right_jian"> <img src="../../icon/icon_right02s.png" class="jian " > </span>
+						<span class="userpic"> <img v-if="user.userpic === ''" src="../../icon/ssss.png" alt=""  width="100%" height="100%" id="img_header"/> <img v-else v-bind:src="user.userpic" alt=""  width="100%" height="100%" id="img_header"/> </span>
+						<div class="text">
+							<h5 class="ui-nowrap pad-l-05 ftz15">头像</h5>
+						</div>
+					</li>
+					<li style="line-height:50px" onclick="truename()">
+						<span class="right_jian"> <img src="../../icon/icon_right02s.png" class="jian " > </span>
+						<span class='userinfo' id="userinfo"  v-cloak v-bind:val="user.truename"> {{user.truename}} </span>
+						<div class="text">
+							<h5 class="ui-nowrap pad-l-05 ftz15">真实姓名</h5>
+						</div>
+					</li>
+					<li style="line-height:50px">
+						<span class="right_jian"> <img src="../../icon/icon_right02s.png" class="jian " > </span>
+						<span class='userinfo' style="width: 70%">
+							<select   id="sex" onchange="updsex()"  style="-size:16px;    padding-left: 90%; border-color: #fff;   color:#777777;  height: 100%;width: 100%;outline:none;-webkit-appearance:none;background: transparent;" >
+								<option value="女" >女</option>
+								<option value="男" >男</option>
+							</select> </span>
+						<div class="text">
+							<h5 class="ui-nowrap pad-l-05 ftz15">性别</h5>
+						</div>
+					</li>
+					<li style="line-height:50px" onclick="toast2('手机号暂不支持修改')">
+						<span class="right_jian"> <img src="../../icon/icon_right02s.png" class="jian " > </span>
+						<span class='userinfo' v-cloak> {{user.phone}} </span>
+						<div class="text">
+							<h5 class="ui-nowrap pad-l-05 ftz15 ">手机</h5>
+						</div>
+					</li>
+					<li style="line-height:50px" onclick="qq()">
+						<span class="right_jian"> <img src="../../icon/icon_right02s.png" class="jian " > </span>
+						<span class='userinfo' id="oicq" v-cloak v-bind:val="user.oicq"> {{user.oicq}} </span>
+						<div class="text">
+							<h5 class="ui-nowrap pad-l-05 ftz15">QQ</h5>
+						</div>
+					</li>
+					<li style="line-height:50px" onclick="email()">
+						<span class="right_jian"> <img src="../../icon/icon_right02s.png" class="jian " > </span>
+						<span class='userinfo' id="email"  v-cloak v-bind:val="user.email"> {{user.email}} </span>
+						<div class="text">
+							<h5 class="ui-nowrap pad-l-05 ftz15">邮箱</h5>
+						</div>
+					</li>
+					<li style="line-height:50px" onclick="address()">
+						<span class="right_jian"> <img src="../../icon/icon_right02s.png" class="jian " > </span>
+						<span class='userinfo' id="address"  v-cloak v-bind:val="user.address"> {{user.address}} </span>
+						<div class="text">
+							<h5 class="ui-nowrap pad-l-05 ftz15">地址</h5>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</section>
+		<!--修改昵称-->
+		<!--<div class="box-a ui-border-radius" id="nickname" style=" position: fixed ; width:75%; left:12.5%; top:30%; height: 159px; background:#FFFFFF;z-index: 1000">
+		<div class=" wd-pre-100 ui-txt-center ftz14 t-777777 umh40 pad-t-15">
+		昵称修改
+		</div>
+		<div class="nick">
+		<div class="ui-input ui-border-radius">
+		<input type="text" id="nicknames" placeholder="请输入昵称" autofocus="autofocus" value="">
+		</div>
+		</div>
+		<div class=" wd-pre-100 umh40 t-777777 ui-border-t">
+		<div class="wd-pre-100 h-40">
+		<ul class="ui-tiled">
+		<li class="ui-border-r h-40" tapmode="bg-e5e6e7" onclick="updNickname()">
+		<div class="ftz14 ui-txt-center">
+		确认修改
+		</div>
+		</li>
+		<li class="h-40" tapmode="bg-e5e6e7" onclick="closeFrame()">
+		<div class="ftz14 ui-txt-center">
+		取消
+		</div>
+		</li>
+		</ul>
+		</div>
+		</div>
+		</div>-->
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			var username = $api.getStorage('username');
+			$('#username').html(username);
+			layer.load(2);
+			api.ajax({
+				url : app_url + '/app-php/index.php?m=User&a=userinfo',
+				method : 'get',
+				data : {
+				}
+			}, function(ret, err) {
+				layer.closeAll('loading');
+				if (ret) {
+					if (ret[0]['xingbie'] == '男') {
+						$("option[value='男']").attr("selected", "selected");
+					} else {
+						$("option[value='女']").attr("selected", "selected");
+					}
+					new Vue({
+						el : '#info',
+						data : {
+							sites : ret
+						}
+					})
+					//					      api.alert({ msg: JSON.stringify(ret) });
+				} else {
+					//      api.alert({ msg: JSON.stringify(err) });
+					toast_err5();
+				}
+			});
+			//		var obj = api.require('UIWebBrowser');
+			//obj.open({
+			//  rect: {
+			//       x: 0,
+			//      y: -50,
+			//      w: 'auto',
+			//      h: 'auto',
+			//  },
+			//  path: mweb_url+'/e/member/EditInfo/',
+			//  fixedOn: api.frameName,
+			//  fixed: true,
+			//
+			//}, function(ret) {
+			////  api.alert({
+			////      msg: JSON.stringify(ret)
+			////  });
+			//});
+			//var browser = api.require('webBrowser');
+			//
+			//browser.openView({
+			//  url: 'http://m.iniubb.cn/e/ShopSys/ListDd/',
+			//  rect: {
+			//      x: 0,
+			//      y: 60,
+			//      w: 'auto',
+			//      h: 'auto'
+			//  }
+			//}, function(ret, err) {
+			//
+			//  switch (ret.state) {
+			//      case 0:
+			//          break;
+			//      case 1:
+			//          break;
+			//      case 2:
+			//          break;
+			//      case 3:
+			//          break;
+			//      case 4:
+			//          break;
+			//      default:
+			//          break;
+			//  }
+			//});
+		};
+		/*
+		 * 修改头像底部弹出框
+		 */
+		function showUpload() {
+			//底部弹出框
+			api.actionSheet({
+				title : '修改头像',
+				cancelTitle : '关闭',
+				buttons : ['打开相机', '本地图库'],
+				style : {
+					fontNormalColor : '#777777',
+					fontPressColor : '#e03b6c'
+				}
+			}, function(ret, err) {
+				if (ret.buttonIndex == 1) {
+					openPicCardFront('camera');
+				}
+				if (ret.buttonIndex == 2) {
+					openPicCardFront('library');
+				}
+			});
+		}
+
+		/*
+		 * 选择要设置为图像的图片
+		 * type      camera--相机   library--图片库
+		 */
+		function openPicCardFront(type) {
+			api.getPicture({
+				sourceType : type,
+				encodingType : 'jpg',
+				mediaValue : 'pic',
+				destinationType : 'url',
+				allowEdit : true,
+				quality : 100,
+				targetWidth : 720,
+				targetHeight : 720,
+				saveToPhotoAlbum : false
+			}, function(ret, err) {
+				if (ret) {
+					if (ret.data == '') {
+						toast1('没有选择图片', 2000);
+						return false;
+					}
+					//ajax请求***********
+					api.showProgress({
+						title : '努力上传中...',
+						text : '请稍后...',
+						modal : false
+					});
+					api.ajax({
+						url : app_url + '/app-php/index.php?m=User&a=upd_userpic',
+						method : 'post',
+						data : {
+							files : {
+								pic : ret.data
+							}
+						}
+					}, function(rets, err) {
+						if (rets) {
+							api.hideProgress();
+							//  alert(rets.result);
+							if (rets.result == '1') {
+								toast2('上传成功');
+								$('#img_header').attr('src', ret.data);
+								//向资料页发送修改图像消息
+								api.sendEvent({
+									name : 'userinfo',
+									extra : { }
+								});
+							} else if (rets.result == '0') {
+								toast2('图片太大');
+							} else if (rets.result == '3') {
+								toast2('修改失败');
+							} else {
+								toast2('上传失败');
+							}
+							//      api.alert({ msg: JSON.stringify(ret) });
+						} else {
+							//   alert(err['result']);
+							api.alert({
+								msg : JSON.stringify(err)
+							});
+						}
+					});
+				} else {
+					toast1('没有选择图片', 2000);
+				}
+			});
+		}
+
+		var oldnick = '';
+		function truename() {
+			layer.prompt({
+				title : '输入真实姓名，并确认',
+				formType : 5,
+				maxlength : 8,
+				value : $('#userinfo').text()
+			}, function(pass, index) {
+				upd_userinfo('truename', pass);
+			})
+		}
+
+		function qq() {
+			layer.prompt({
+				title : '输入QQ号码，并确认',
+				formType : 5,
+				maxlength : 11,
+				value : $('#oicq').text()
+			}, function(pass, index) {
+				upd_userinfo('oicq', pass);
+			})
+		}
+
+		function email() {
+			layer.prompt({
+				title : '输入电子邮箱，并确认',
+				formType : 5,
+				maxlength : 30,
+				value : $('#email').text()
+			}, function(pass, index) {
+				upd_userinfo('email', pass);
+			})
+		}
+
+		function address() {
+			layer.prompt({
+				title : '输入地址，并确认',
+				formType : 5,
+				maxlength : 40,
+				value : $('#address').text()
+			}, function(pass, index) {
+				upd_userinfo('address', pass);
+			})
+		}
+
+		/*
+		* 修改昵称
+		*/
+		//		function updNickname() {
+		//			var nick = $('#nicknames').val();
+		//			if (nick == '') {
+		//				toast1('昵称为空', 2000);
+		//				$('#nickname').css('display', 'none');
+		//			} else {
+		//				if (nick == oldnick) {
+		//					toast1('你没有做任何修改', 2000);
+		//					$('#nickname').css('display', 'none');
+		//				} else {
+		//					//ajax请求****************
+		//					var result = upd_userinfo('nicheng', nick);
+		//					//		     alert(result);
+		//					//		     if(result==1){
+		//					$('#userinfo').html(nick);
+		//					$('#nickname').css('display', 'none');
+		//					//		     }
+		//				}
+		//			}
+		//		}
+		/*
+		 * 关闭修改昵称弹出层
+		 */
+		function closeFrame() {
+			$('#nickname').css('display', 'none');
+		}
+
+		/*
+		 * 修改性别
+		 */
+		function updsex() {
+			var sex = $('#sex').val();
+			upd_userinfo('xingbie', sex);
+		}
+
+		/*
+		 * 此方法用于修改会员资料
+		 * @param type  参数在数据库的键名
+		 * @param text要修改的值
+		 * @author 李辉
+		 * @return 修改结果  1成功  0失败
+		 */
+		function upd_userinfo(type, text) {
+			text = text.replace(/\s/g, "");
+			if (filterSqlStr(text)) {
+				layer.msg('输入内容包含了敏感字符，请重新输入！', {
+					time : 1000
+				});
+			} else {
+				layer.load(2);
+				var result = '';
+				api.ajax({
+					url : app_url + '/app-php/index.php?m=User&a=upd_userinfo',
+					method : 'post',
+					data : {
+						values : {
+							type : type,
+							text : text
+						}
+					}
+				}, function(ret, err) {
+					layer.closeAll('loading');
+					if (ret.result == '1') {
+						//			          alert('123');
+						toast1('修改成功', 2000);
+						$('#' + type).text(text);
+						layer.closeAll();
+					} else {
+						toast1('修改失败', 2000);
+					}
+				});
+			}
+		}
+
+		function filterSqlStr(value) {
+			var sqlStr = sql_str().split(',');
+			var flag = false;
+			for (var i = 0; i < sqlStr.length; i++) {
+				if (value.toLowerCase().indexOf(sqlStr[i]) != -1) {
+					flag = true;
+					break;
+				}
+			}
+			return flag;
+		}
+
+		function sql_str() {
+			var str = "and,delete,or,exec,insert,select,union,update,count,*,',join,>,<";
+			return str;
+		}
+	</script>
+</html>

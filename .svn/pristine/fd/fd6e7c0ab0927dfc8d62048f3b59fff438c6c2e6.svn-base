@@ -1,0 +1,261 @@
+.shop_store{
+
+}
+.shop_ads{
+
+}
+.shop_ads img{
+    width: 100%;
+}
+
+.shop_acitivty{
+
+}
+.shop_acitivty ul{
+    overflow: auto;
+    background: #fafafa;
+}
+.shop_acitivty ul li{
+    width: 25%;
+    display: block;
+    float: left;
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: .5em;
+}
+.shop_acitivty ul li img{
+    width: 48px;
+    height: 48px;
+    display: block;
+    margin: 0 auto;
+}
+.shop_acitivty ul li span{
+    display: block;
+    line-height: 2.5em;
+    color: #696969;
+    font-size: 13px;
+    letter-spacing: .05em;
+    margin-top: .3em;
+}
+.shop_act_f{
+    position: relative;
+}
+.shop_actz{
+    position: absolute;
+    top: 1em;
+    line-height: 0;
+}
+.shop_floor{
+    background: #fafafa;
+    margin-top: 10px;
+    padding:2em .7em .7em .7em;
+}
+.shop_floor_cart{
+    background: #ffffff;
+    margin-bottom: 30px;
+
+
+}
+.shop_floor_title{
+    /*height: 40px;*/
+
+    /*height: 45px;*/
+    margin-top: -1em;
+    padding: .5em;
+
+}
+.shop_floor_tt{
+
+    /*background: url("../image/shop/title_bg.png") center center no-repeat;*/
+    display:block;
+    position: relative;
+    height: 45px;
+    border-bottom: 1px solid #eeeeee;
+
+}
+.shop_floor_th3{
+    /*z-index: 99;*/
+    position: absolute;
+    z-index: 99;
+    height: 35px;
+    line-height: 35px;
+    width: 150px;
+    text-align: center;
+    color: #ffffff;
+    font-weight:200;
+    letter-spacing: .05em;
+    font-size: 16px;
+}
+.shop_floor_tbg{
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index:1;
+    height: 35px;
+    width: 150px;
+}
+.shop_floor_tbg img{
+
+    height: 100%;
+}
+.shop_floor_content{
+
+}
+.shop_floor_ul{
+    overflow: auto;
+    padding-top: .4em;
+}
+.shop_floor_ul li{
+    width: 50%;
+    float: left;
+    margin-bottom: .7em;
+}
+.shop_pro{
+    width: 90%;
+    margin: 0 auto;
+    border: 1px solid #f3f3f3;
+}
+.shop_pro_img{
+    text-align: center;
+    /*padding: 1em;*/
+}
+.shop_pro img{
+    width: 100%;
+}
+.shop_pro_cont{
+    width: 90%;
+    margin: 0 auto;
+    border-top:1px solid #eeeeee;
+}
+.shop_floor_prices{
+    overflow: auto;
+    line-height: 2.5em;
+}
+.shop_floor_prlf{
+    float: left;
+    color: #fe4070;
+
+}
+.shop_floor_prrt{
+    float: right;
+    font-size: 12px;
+    color: #d2d2d2;
+    text-decoration: line-through;
+
+}
+.shop_floor_buybtn{
+    overflow: auto;
+    /*line-height: 3em;*/
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: .5em;
+    padding-right: .5em;
+
+}
+.shop_floor_buynum{
+    float: left;
+    color: #d7d7d7;
+    font-size: 11px;
+    line-height: 25px;
+
+}
+.shop_floor_buybtn_{
+    float: right;
+
+}
+.shop_buybtn{
+    display: block;
+    padding:.3em  .7em;
+    background: #4bbbfa;
+    color: #ffffff;
+    border: 1px solid #27adf9;
+    border-radius: .5em;
+    font-size: 12px;
+}
+@media screen and (max-width: 320px) {
+
+    .shop_floor_tbg{
+        position: absolute;
+        top:0;
+        left: 0;
+        z-index:1;
+        height: 30px;
+        width: 129px;
+    }
+    .shop_floor_th3{
+        /*z-index: 99;*/
+        position: absolute;
+        z-index: 99;
+        height: 30px;
+        line-height: 30px;
+        width: 129px;
+        text-align: center;
+        color: #ffffff;
+
+        letter-spacing: .05em;
+        font-weight:200;
+        font-size: 15px;
+    }
+    .shop_floor_title{
+        /*height: 40px;*/
+        border-bottom: none;
+        height: 40px;
+        margin-top: -1em;
+
+    }
+    .shop_floor_tt{
+
+        /*background: url("../image/shop/title_bg.png") center center no-repeat;*/
+        display:block;
+        position: relative;
+        height: 40px;
+        border-bottom: 1px solid #eeeeee;
+
+    }
+}
+@media screen and (max-width: 768px) {
+    .shop_floor_prices{
+        line-height: normal;
+        padding-top: 1em;
+    }
+    .shop_floor_prlf{
+        /*float: left;*/
+        color: #fe4070;
+        display: block;
+        padding-left: .5em;
+        float: none;
+        /*line-height: 1.5em;*/
+        padding-bottom: .1em;
+
+    }
+    .shop_floor_prrt{
+        /*float: right;*/
+        font-size: 12px;
+        color: #d2d2d2;
+        text-decoration: line-through;
+        display: block;
+        float: none;
+        /*line-height: 2em;*/
+        padding-left: .5em;
+
+    }
+}
+@media screen and (max-width: 360px){
+    .shop_floor_ul li{
+        width: 100%;
+        float: none;
+    }
+    .shop_floor_prlf{
+        float: left;
+        color: #fe4070;
+
+    }
+    .shop_floor_prrt{
+        float: right;
+        font-size: 12px;
+        color: #d2d2d2;
+        text-decoration: line-through;
+
+    }
+
+}

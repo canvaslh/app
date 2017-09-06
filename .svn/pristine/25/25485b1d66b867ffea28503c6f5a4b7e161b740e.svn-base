@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>设置</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+		<style>
+			body {}
+			
+			.t-777777 {
+				color: #777777;
+			}
+			
+			.ui-list {
+				background-color: #fff;
+				width: 100%;
+			}
+			
+			.ui-list>li {
+				position: relative;
+				margin-left: 10px;
+				display: -webkit-box;
+			}
+			
+			.right_jian {
+				color: #C0C0C0;
+				top: 10px;
+				right: 15px;
+				position: absolute !important;
+				font-size: 15px;
+			}
+			
+			.jian {
+				vertical-align: middle;
+				width: 15px;
+				height: 15px;
+				border: 0;
+			}
+			
+			.userpic {
+				top: 5px;
+				/*border-radius: 60px;*/
+				margin-top: 5px;
+				right: 30px;
+				position: absolute !important;
+				width: 50px;
+				height: 50px;
+			}
+			
+			#img_header {
+				border-radius: 60px;
+			}
+			
+			.text {
+				-webkit-box-flex: 1;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				-webkit-box-pack: center;
+				padding-right: 15px;
+			}
+			
+			.ui-nowrap {
+				max-width: 100%;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+			
+			.ftz15 {
+				font-size: 15px;
+			}
+			
+			.pad-l-05 {
+				padding-left: 5px;
+			}
+			
+			h5,
+			.ui-txt-sub {
+				font-size: 14px;
+			}
+			
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6 {
+				font-size: 100%;
+				font-weight: normal;
+			}
+			
+			.box-a {
+				margin: 0 auto;
+			}
+			
+			@media screen and (-webkit-min-device-pixel-ratio: 2) zv.css:472 .ui-border-radius {
+				position: relative;
+				border: 0;
+			}
+			
+			.ui-border-radius {
+				border: 1px solid #e0e0e0;
+				border-radius: 4px;
+			}
+			
+			.wd-pre-100 {
+				width: 100%;
+			}
+			
+			.ui-txt-center {
+				text-align: center;
+			}
+			
+			.ftz14 {
+				font-size: 14px;
+			}
+			
+			.pad-t-15 {
+				padding-top: 15px;
+			}
+			
+			.umh40 {
+				line-height: 40px;
+			}
+			
+			.nick {
+				margin: 0 auto;
+				width: 100%;
+				text-align: left;
+				color: #666;
+				font-size: 14px;
+				padding-bottom: 15px;
+				padding-top: 5px;
+			}
+			
+			.ui-input {
+				height: 30px;
+				line-height: 30px;
+				margin: 7px 10px;
+				background: #fff;
+				padding-left: 10px;
+				-webkit-box-flex: 1;
+			}
+			
+			.ui-input input {
+				width: 100%;
+				height: 100%;
+				border: 0;
+				background: 0 0;
+				-webkit-appearance: none;
+				outline: 0;
+			}
+			
+			.wd-pre-100 {
+				width: 100%;
+			}
+			
+			.wd-pre-100 {
+				width: 100%;
+			}
+			
+			.h-40 {
+				height: 40px;
+			}
+			
+			.ui-flex,
+			.ui-tiled {
+				display: -webkit-box;
+				width: 100%;
+				-webkit-box-sizing: border-box;
+			}
+			
+			.ui-tiled li {
+				-webkit-box-flex: 1;
+				width: 100%;
+				text-align: center;
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+			}
+			
+			.ui-txt-center {
+				text-align: center;
+			}
+			
+			#nickname {
+				display: none
+			}
+			
+			.userinfo {
+				top: 5px;
+				/*border-radius: 60px;*/
+				margin-top: 5px;
+				right: 30px;
+				position: absolute !important;
+				height: 50px;
+			}
+			
+			section {
+				z-index: 1
+			}
+			#cache_size{
+			    float: right;
+                margin-right: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<section id="info">
+			<div v-for="user in sites">
+				<ul class="t-777777 ui-list">
+					<li style="line-height:50px" onclick="islogin_skip('../setpwd_window')">
+						<span class="right_jian"> <img src="../../icon/icon_right02s.png" class="jian " > </span>
+						<span class='userinfo' id="username" v-cloak></span>
+						<div class="text">
+							<h5 class="ui-nowrap pad-l-05 ftz15">修改密码</h5>
+						</div>
+					</li>
+					
+						<li style="line-height:50px" onclick="clearCache()">
+						<span class="right_jian"> <img src="../../icon/icon_right02s.png" class="jian " > </span>
+						<span class='userinfo' id="username" v-cloak></span>
+						<div class="text">
+							<h5 class="ui-nowrap pad-l-05 ftz15">清除缓存<span id="cache_size" class="f">0B</span></h5>
+						</div>
+					</li>
+					
+					
+				</ul>
+			</div>
+		</section>
+
+		
+
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+
+	<script type="text/javascript">
+	
+	  var cache_size = document.getElementById('cache_size');
+		apiready = function() {
+	
+		 
+            $api.text(cache_size, cachesize()); 
+		}
+		
+		function clearCache(){
+		  api.clearCache(function() {
+		    api.toast({
+		        msg: '清除完成'
+		    });
+		      $api.text(cache_size, '0 B'); 
+         });
+		}
+		
+		//计算缓存大小
+		function cachesize(){
+			var bytes = api.getCacheSize({
+			    sync: true
+			});
+			
+//			size = size/(1024*1024);
+//			
+//			size = size.toFixed(2);
+//			
+//			return size;
+
+		    if (bytes === 0) return '0 B';
+		    
+		    var k = 1024, 
+		        sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+		        i = Math.floor(Math.log(bytes) / Math.log(k));
+		   return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+
+		}
+	</script>
+
+</html>

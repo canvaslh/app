@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+		<script src="../../script/jquery-1.7.2.min.js"></script>
+		<script src="../../script/vue.js"></script>
+		<!--<script src="../../dialog/jquery-ui.min.js"></script>-->
+		<!--<link rel="stylesheet" href="http://apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">-->
+		<script src="../../layer/layer.js"></script>
+		<style>
+			#tab {
+				margin: 20px 5px 0 5px;
+			}
+			#tab > ul {
+				list-style: none;
+				height: 30px;
+				line-height: 30px;
+				border-bottom: 2px #CCC solid;
+			}
+			#tab > ul > li {
+				background: #FFF;
+				cursor: pointer;
+				display: inline-block;
+				list-style: none;
+				height: 29px;
+				line-height: 29px;
+				padding: 0px 10px;
+				margin: 0px 10px;
+				border: 1px solid #BBB;
+				cursor: pointer;
+			}
+			#tab > ul > li.on {
+				border-top: 2px solid #FC403F;
+				border-bottom: 2px solid #FFF;
+			}
+			#tab > div {
+				height: 100%;
+				width: 100%;
+				margin-top: 20px;
+			}
+			.FC403F {
+				color: #FC403F;
+			}
+			#class {
+				margin: 0 auto;
+				z-index: 100;
+			}
+			#class ul li {
+				width: 32%;
+				height: 50px;
+				border: 1px solid #ccc;
+				float: left;
+				cursor: pointer;
+			}
+			.foot_money {
+				width: 100%;
+				height: 50px;
+				position: fixed;
+				bottom: 0;
+				z-index: 1000000;
+			}
+			.hide {
+				display: none;
+			}
+			.show {
+				display: block;
+			}
+			.foot_money div {
+				display: inline-block;
+			}
+			.foot_money div:nth-child(1) {
+				background: #fff;
+				width: 68%;
+				color: #f11211;
+				text-align: right;
+				font-weight: 600;
+				line-height: 50px;
+                height: 50px;
+			}
+			.foot_money div:nth-child(2) {
+				background: #f11211;
+				width: 30%;
+				text-align: center;
+				line-height: 50px;
+				height: 100%;
+				color: #fff;
+				cursor: pointer;
+			}
+			.clear {
+				clear: both
+			}
+			.border1 {
+				border: 1px solid #f11211 !important;
+				color: #f11211 !important;
+			}
+			.border2 {
+				border: 1px solid #f11211 !important;
+				color: #f11211 !important;
+			}
+			input[name=money] {
+				border: 1px solid #ccc;
+			}
+			input {
+				border: 1px solid #ccc;
+			}
+			.pay_type {
+				width: 100%;
+				z-index: 10;
+			}
+			.pay_type ul {
+				width: 100%;
+			}
+			.pay_type > ul > li {
+				display: inline-block;
+				width: 30%;
+				height: 50px;
+				border: 1px solid #ccc;
+				margin: 5px;
+				text-align: center;
+			}
+
+			#dh_submit {
+				width: 50%;
+				height: 50px;
+				background: #FC403F;
+				border-radius: 15px;
+				cursor: pointer;
+			}
+		</style>
+		<script type="text/javascript">
+			$(function() {
+			money_nb();
+			
+		
+				$('#niubi1').css('display', 'none');
+				$('#exchange1').css('display', 'none');
+				$('#yue').click(function() {
+					$(this).addClass("on").siblings().removeClass("on");
+					$('#yue1').css('display', 'block');
+					$('#niubi1').css('display', 'none');
+					$('#exchange1').css('display', 'none');
+				})
+				$('#niubi').click(function() {
+					$(this).addClass("on").siblings().removeClass("on");
+					$('#yue1').css('display', 'none');
+					$('#niubi1').css('display', 'block');
+					$('#exchange1').css('display', 'none');
+				})
+				$('#exchange').click(function() {
+					$(this).addClass("on").siblings().removeClass("on");
+					$('#yue1').css('display', 'none');
+					$('#niubi1').css('display', 'none');
+					$('#exchange1').css('display', 'block');
+				})
+				/*
+				 * 获取充值数据
+				 */
+				$.ajax({
+					type : "post",
+					url : app_url + "/app-php/index.php?m=Money&a=recharge",
+					//                  url:"http://localhost/app-php/index.php?m=Money&a=recharge",
+					async : true,
+					success : function(ret) {
+//												alert(JSON.stringify(ret));
+						$('.start_text').hide();
+						$('#money').text(ret[0]['point']);
+						for (var i = 0; i < ret.length; i++) {
+							var html1 = '';
+							if (i == 0) {
+								html1 += "<li class='border1'>";
+							} else {
+								html1 += "<li>";
+							}
+							html1 += "<h4><span>" + ret[i]['tpoint'] + "</span>元</h4>";
+							html1 += "<p>售价:<span rel="+ret[i]['id']+">" + ret[i]['point'] + "</span></p>";
+							html1 += "</li>";
+							$("#money_option").append(html1);
+						}
+						//						<li class="start_text border1">
+						//
+						//								<h4><span>100</span>元</h4>
+						//							<p>售价:<span>100.00</span></p>
+						//						</li>
+						//						new Vue({
+						//						el: '#class',
+						//						data: {
+						//							sites: ret
+						//						}
+						//					})
+					},
+					error : function(err) {
+					}
+				});
+				$.ajax({
+					type : "post",
+					url : app_url + "/app-php/index.php?m=Money&a=pay_type",
+					//                  url:"http://localhost/app-php/index.php?m=Money&a=recharge",
+					async : true,
+					success : function(ret) {
+						//						alert(JSON.stringify(ret[0]['code']));
+						$('.pay_o').hide();
+						for (var i = 0; i < ret.length; i++) {
+							$(".pay_type ul").append(ret[i]['code']);
+						}
+					}
+				})
+				//选择商品
+				//默认价格
+				$("#money_option").on("click", "li", function() {
+					$(this).addClass("border1").siblings().removeClass("border1");
+					$('#money').text($(this).find('p span').html());
+					$('#money').attr('rel_id',$(this).find('p span').attr('rel'));
+					
+//					alert($(this).find('p span').attr('rel'));
+				});
+				$(".pay_type").on("click", "li", function() {
+					$(this).addClass("border2").siblings().removeClass("border2");
+				});
+			})
+		</script>
+	</head>
+	<body>
+		当前余额 <span id="money_yue"></span> 当前牛币 <span id="nb"></span>
+		<div id="tab">
+			<ul id="tab_class">
+				<li class="on" id="yue">
+					充值余额
+				</li>
+				<li class="off" id="niubi">
+					充值牛币
+				</li>
+				<li class="off" id="exchange">
+					兑换牛币
+				</li>
+			</ul>
+			<!--充值余额-->
+			<div id="yue1" class="clear">
+				<div id="class" class="clear">
+					<ul id="money_option">
+						<!--<li  v-for="site in sites" >
+						<h4 ><span v-text="site.tpoint"></span>元</h4>
+						<p >售价:<span v-text="site.point"></span></p>
+						</li>-->
+						<li class="start_text ">
+							<p>
+								<h4>100元</h4>
+							</p>
+							<p>
+								售价:<span>100.00</span>
+							</p>
+						</li>
+						<li class="start_text">
+							<p>
+								<h4>200元</h4>
+							</p>
+							<p>
+								售价:<span>200.00</span>
+							</p>
+						</li>
+						<li class="start_text">
+							<p>
+								<h4>300元</h4>
+							</p>
+							<p>
+								售价:<span>300.00</span>
+							</p>
+						</li>
+						<li class="start_text ">
+							<p>
+								<h4>400元</h4>
+							</p>
+							<p>
+								售价:<span>400.00</span>
+							</p>
+						</li>
+						<li class="start_text">
+							<p>
+								<h4>500元</h4>
+							</p>
+							<p>
+								售价:<span>500.00</span>
+							</p>
+						</li>
+						<li class="start_text">
+							<p>
+								<h4>600元</h4>
+							</p>
+							<p>
+								售价:<span>600.00</span>
+							</p>
+						</li>
+						<li class="hide_money hide">
+							<p>
+								<span></span>
+							</p>
+						</li>
+					</ul>
+				</div>
+				<div style="display: inline-block;    margin-top: 20px;z-index: 100;">
+					<label> 其他金额
+						<input name="money" type="text" maxlength="10" value="" size="8" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0');}else{this.value=this.value.replace(/\D/g,'';)}" onkeyup="dochg(this.value)" oninput="dochg(this.value)" onpropertychange="dochg(this.value)" onfocus="dochg(this.value)">
+						元</label>
+				</div>
+				<div class="pay_type" id="money_pay">
+					<h4>支付方式</h4>
+					<ul>
+						<li rel="1" class="pay_o">
+							微信
+						</li>
+						<li rel="2" class="pay_o">
+							支付宝
+						</li>
+					</ul>
+				</div>
+				<div class="foot_money">
+					<div>
+						合计:￥<span id="money" rel_id="1"></span>
+					</div>
+					<div class="btn_li" id="btn_submit">
+						立即充值
+					</div>
+				</div>
+	
+			</div>
+			<!--购买牛币-->
+			<div id="niubi1">
+				<ul>
+					<li>
+						充值牛币数:
+						<input type="tel" maxlength="9" name="num_nb" value="10" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0');}else{this.value=this.value.replace(/\D/g,'';)}" onkeyup="pay_nb(this.value)" oninput="pay_nb(this.value)" onpropertychange="pay_nb(this.value)" size="9">
+					</li>
+					<li>
+						需要支付金额
+						<input type="tel" maxlength="9" disabled="disabled" value="10" name="money_nb" style="border: none; width: 20%;" />
+						元 ( 1元 = 1 牛币数)
+					</li>
+					<li></li>
+				</ul>
+				<div class="pay_type" id="nb_pay">
+					<h4>支付方式</h4>
+					<ul>
+						<li rel="1" class="pay_o">
+							微信
+						</li>
+						<li rel="2" class="pay_o">
+							支付宝
+						</li>
+					</ul>
+				</div>
+				<div class="foot_money">
+					<div>
+						合计:￥<span id="nb_money">10</span>
+					</div>
+					<div class="btn_li" id="nb_submit">
+						立即充值
+					</div>
+				</div>
+		
+			</div>
+			<!--兑换牛币-->
+			<div id="exchange1">
+				<ul>
+					<li>
+						兑换牛币数:
+						<input type="tel" maxlength="9" name="num_dh" value="10" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0');}else{this.value=this.value.replace(/\D/g,'';)}" onkeyup="pay_dh(this.value)" oninput="pay_dh(this.value)" onpropertychange="pay_dh(this.value)" size="9">
+					</li>
+					<li>
+						需支付余额:
+						<input type="tel" maxlength="9" disabled="disabled" value="10" name="money_dh" style="border: none;width: 20%;" />
+						元 ( 1元 = 1 牛币数)
+					</li>
+					<li></li>
+				</ul>
+				<div id="dh_pay">
+					<h4>支付方式</h4>
+					<ul>
+						<li>
+							余额支付
+						</li>
+					</ul>
+				</div>
+				<div>
+					<button id="dh_submit">
+						确认兑换
+					</button>
+				</div>
+	
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script src="../../script/aes.js" type="text/javascript"></script>
+	<script src="../../script/md5.js" type="text/javascript"></script>
+	<script src="../../script/pad-zeropadding-min.js" type="text/javascript"></script>
+	<script>
+	
+	userid = $api.getStorage('userid');
+	
+	function money_nb(){
+					$.ajax({
+					type : "post",
+					url : app_url + "/app-php/index.php?m=Money&a=yue_nb",
+					async : true,
+					success : function(ret) {
+						//						alert(JSON.stringify(ret));
+						if (ret.result == 0) {
+							alert('你还没登录,请先登录');
+						} else {
+							$('#money_yue').text(ret['info']['money']);
+							$('#nb').text(ret['info']['userfen']);
+						}
+					}
+				})
+			}
+	
+	function layer_msg(text){
+	layer.msg(text, function(){});
+	}
+
+	  /**充值余额  监听input**/
+		function dochg(id) {
+			if (id == '') {
+				$("#money").html('');
+				$(".hide_money span").text('')
+			} else {
+				$("#money").html(parseInt(id));
+				$(".hide_money span").text(parseInt(id))
+			}
+			$('.hide_money').addClass('border1');
+			$('.hide_money').siblings().removeClass("border1");
+		}
+		
+		 /**充值牛币牛币   监听input**/	
+		function pay_nb(nb) {
+			if (nb == '') {
+				$('input[name=money_nb]').val('');
+				$('#nb_money').html('');
+			} else {
+				$('input[name=money_nb]').val(parseInt(nb));
+				$('#nb_money').html(parseInt(nb));
+			}
+		}
+		
+	  /**兑换牛币   监听input**/	
+	  function pay_dh(dh) {
+			var yue = $('#money_yue').text();
+			if (parseInt(yue) < parseInt(dh)) {
+				layer_msg('余额不足,请先充值');
+			}
+			if (dh == '') {
+				$('input[name=money_dh]').val('');
+				$('#dh_money').html('');
+			} else {
+				$('input[name=money_dh]').val(parseInt(dh));
+				$('#dh_money').html(parseInt(dh));
+			}
+		}
+
+
+        /**
+         *充值余额 
+         */
+		$("#btn_submit").on("click", function() {
+		    //选择的价格
+			var point_moey;
+			//商品id
+			var rel_id = $("#money").attr('rel_id');
+		
+			//最终充值金额
+			var money = $("#money").text();
+			//充值下面显示金额
+			var border1_text = $('.border1 p span').text();
+			//其他金额
+			var money_text = $('input[name=money]').val();
+			//其他金额
+			if (money_text != '' && border1_text != '') {//判断用户是选中的金额还是其他金额
+				point_moey = parseInt(money_text);
+				rel_id = 888;
+			} else {
+				point_moey = border1_text
+			}
+			var pay_rel = $('.border2').attr('rel');
+			if (isNaN(pay_rel)) {
+				layer_msg('请选择支付方式');
+			} else {
+				//				alert(pay_rel);
+				//				alert(point_moey);
+				//ajax提交
+
+					layer.confirm('确认使用支付宝充值'+point_moey+'元余额吗？', {
+					     btn: ['是的，马上支付','等会再支付'], //按钮
+					       title:'爱牛宝宝温馨提示'
+					}, function(){
+//						 layer.msg('正在带你去支付界面', {icon: 1});
+						 /**支付**/
+						layer.closeAll();
+						alipay(userid,1,point_moey,2);
+//alert(rel_id);
+						
+					}, function(){
+				         layer_msg('你放弃了本次充值');
+					});
+			}
+		})
+		
+		
+		/**
+		 *支付宝支付 
+		 * @param userid  用户id
+		 * @param rel_id  商品id
+		 * @param point_moey  商品价格
+		 */
+		function alipay(userid,rel_id,point_moey,type){
+		
+		
+		    
+		    $.ajax({
+				url : app_url + '/app-php/index.php?m=Pay&a=index',
+				type : "POST",
+				data : {
+					'rel_id' : rel_id,
+					'userid' : userid,
+					'type' : type,
+					'point_moey' : point_moey
+				},
+				success:function(pay_ret){
+//				   alert(decrypt(pay_ret['s']['p']));
+//				  alert(JSON.stringify(pay_ret)); 
+				    					switch (pay_ret['result']) {
+						case '8':
+//								 	  alert(decrypt(pay_ret['s']['s']));
+//								 	   alert(decrypt(pay_ret['s']['b']));
+//								 	    alert(decrypt(pay_ret['s']['p']));
+//								 	     alert(decrypt(pay_ret['shop_type']));
+							if (decrypt(pay_ret['s']['i']) == '8888' && decrypt(pay_ret['type']) == 'alipay') {
+								var aliPay = api.require('aliPay');
+								aliPay.pay({
+									subject : decrypt(pay_ret['s']['s']),  ////商品名称
+									body : decrypt(pay_ret['s']['b']),  //商品详情
+									amount : decrypt(pay_ret['s']['p']),//商品价格
+									tradeNO : decrypt(pay_ret['s']['o'])  //订单编号
+								}, function(ni_ret, err) { 
+//								alert(JSON.stringify(ni_ret));
+									switch (ni_ret.code) {
+									
+										case '6001':
+//											alert('用户中途取消支付操作');
+
+												$.ajax({
+												url : app_url + '/app-php/index.php?m=Pay&a=notify',
+												type : "POST",
+												data : {
+													'code' : ni_ret.code,
+													'shop_id' : rel_id,
+								                    'user_id' : userid,
+								                    'shop_type': decrypt(pay_ret['shop_type']),
+								                    'pramm':decrypt(pay_ret['s']['p']),
+								                    'bnoo':decrypt(pay_ret['s']['o'])
+													
+												},
+												success : function(str1) {
+//												  alert(JSON.stringify(str1));
+											
+													 switch (str1['r']['r']) {
+											             case '88':
+											             
+											        
+											      layer.msg('充值成功', {icon: 1});
+										              money_nb();
+											               break;
+									             
+														 case '85':
+														 	
+														 	layer.msg('充值失败,请联系管理员', {icon:2});
+														    break;
+														    
+														    default:
+											               layer.msg('充值失败,请联系管理员', {icon:2});
+											break;
+//													  
+													};
+													},
+												error:function(err){
+												layer.msg('充值失败,请联系管理员', {icon:2});
+												 }
+												})
+											break;
+										case '6000':
+											
+											layer.alert('支付服务正在进行升级操作', {icon: 2});
+											break;
+										case '4010':
+											layer.alert('重新绑定账户', {icon: 2});
+											break;
+										case '4006':
+											layer.alert('订单支付失败', {icon: 2});
+											break;
+										case '4005':
+											
+											layer.alert('绑定失败或没有绑定', {icon: 2});
+											break;
+										case '4004':
+										
+											layer.alert('该用户已解除绑定', {icon: 2});
+											break;
+										case '4003':
+										
+											layer.alert('该用户绑定的支付宝账户被冻结或不允许支付', {icon: 2});
+											break;
+										case '4001':
+										
+											layer.alert('数据格式不正确', {icon: 2});
+											break;
+										case '4000':
+									
+												layer.alert('系统异常', {icon: 2});
+											break;
+										case '9000':
+											
+														
+					$.ajax({
+												url : app_url + '/app-php/index.php?m=Pay&a=notify',
+												type : "POST",
+												data : {
+													'code' : ni_ret.code,
+													'shop_id' : rel_id,
+								                    'user_id' : userid,
+								                    'shop_type': decrypt(pay_ret['shop_type']),
+								                    'pramm':decrypt(pay_ret['s']['p']),
+								                    'bnoo':decrypt(pay_ret['s']['o'])
+													
+												},
+												success : function(str1) {
+//												  alert(JSON.stringify(str1));
+											
+													 switch (str1['r']['r']) {
+											             case '88':
+											             
+											        
+											      layer.msg('充值成功', {icon: 1});
+											       money_nb();
+										             
+											               break;
+									             
+														 case '85':
+														 	
+														 	layer.msg('充值失败,请联系管理员', {icon:2});
+														    break;
+														    
+														    default:
+											               layer.msg('充值失败,请联系管理员', {icon:2});
+											break;
+//													  
+													};
+													},
+												error:function(err){
+												layer.msg('充值失败,请联系管理员', {icon:2});
+												 }
+												})
+									
+											break;
+										default:
+											
+											layer.alert('交易异常', {icon: 2});
+											break;
+									}
+								});
+							} else {
+								layer.alert('交易异常', {icon: 2});
+							}
+							break;
+		
+						
+						default: layer.alert('交易异常', {icon: 2});
+							break;
+					}
+				},
+				error:function(err){
+				layer.alert('交易异常', {icon: 2});
+				}
+		
+		})
+		
+		}
+
+        
+        /**
+         *充值牛币 
+         */
+		$("#nb_submit").on("click", function() {
+			var point_moey;
+			//最终付款金额
+			var pay_rel = $('#nb_pay .border2').attr('rel');
+			var money_nb = $('input[name=money_nb]').val();
+			var num_nb = $('input[name=num_nb]').val();
+			if (num_nb == '') {
+				alert('个数不能为0')
+			} else {
+				if (money_nb != num_nb) {
+					layer_msg('提交失败');
+				} else {
+					if (isNaN(pay_rel)) {
+						layer_msg('请选择支付方式');
+					} else {
+						//					alert(pay_rel);
+						point_moey = money_nb;
+						//					alert(point_moey);
+						//ajax提交
+
+							layer.confirm('确认使用支付宝充值'+point_moey+'元牛币吗？', {
+							  btn: ['是的，马上支付','等会再支付'] ,//按钮
+						 title:'爱牛宝宝温馨提示'
+					}, function(){
+//						 layer.msg('正在带你去支付界面', {icon: 1});
+						 /**支付**/
+						layer.closeAll();
+						alipay(userid,0,point_moey,3);
+//alert(userid);alert(point_moey);
+						
+							 
+							  /**支付**/
+							}, function(){
+							layer_msg('你放弃了本次充值');
+							});
+					}
+				}
+			}
+		})
+
+        /***
+         *兑换牛币 
+         */
+		$("#dh_submit").on("click", function() {
+			var money_dh = $('input[name=money_dh]').val();
+			var num_dh = $('input[name=num_dh]').val();
+			var yue = $('#money_yue').text();
+			if (num_dh == '') {
+				layer_msg('牛币数不能为0')
+			} else {
+				if (num_dh != money_dh) {
+					layer_msg('提交失败');
+				} else {
+					if (parseInt(num_dh) > parseInt(yue)) {
+						layer_msg('余额不足,请先充值');
+					} else {
+					
+						layer.confirm('确认使用余额兑换'+num_dh+'牛币吗？', {
+							  btn: ['是的，马上兑换','等会再兑换'] //按钮
+							}, function(){
+//							 layer.msg('正在带你去支付界面', {icon: 1});
+							  /**支付**/
+							 				//ajax提交
+									$.ajax({
+										type : "post",
+										url : app_url + "/app-php/index.php?m=Money&a=dh_nb",
+										async : true,
+										data : {
+											'dh_nb' : num_dh
+										},
+										success : function(ret) {
+											//											alert(JSON.stringify(ret));
+											if (ret.result == 2) {
+												
+												 layer.msg('兑换成功', {icon: 1});
+												 money_nb();
+											} else if (ret.result == 0) {
+												
+												layer.msg('你还么登录', {icon:0});
+												
+											} else if (ret.result == 1) {
+												layer.msg('余额不足', {icon:0});
+											} else {
+												
+												layer.msg('网络出现错误', {icon:2});
+											}
+										},
+										error : function(err) {
+											layer.msg('网络出现错误', {icon:2});
+										}
+									});
+							}, function(){
+							layer_msg('你放弃了本次充值');
+							});
+					}
+				}
+			}
+		})
+		
+		/**
+		 * 解密
+		 *
+		 * @param str 解密字符
+		 */
+		function decrypt(str) {
+			var key = CryptoJS.enc.Utf8.parse("7411851119631123");
+			// 秘钥
+			var iv = CryptoJS.enc.Utf8.parse('1234567890123412');
+			//向量iv
+			var decrypted = CryptoJS.AES.decrypt(str, key, {
+				iv : iv,
+				padding : CryptoJS.pad.ZeroPadding
+			});
+			return decrypted.toString(CryptoJS.enc.Utf8);
+		}
+
+		/**
+		 * 加密
+		 * @param str  加密字符
+		 */
+		function encrypt(str) {
+			key = CryptoJS.enc.Utf8.parse("7411851119631123");
+			// 秘钥
+			var iv = CryptoJS.enc.Utf8.parse('1234567890123412');
+			//向量iv
+			var encrypted = CryptoJS.AES.encrypt(str, key, {
+				iv : iv,
+				mode : CryptoJS.mode.CBC,
+				padding : CryptoJS.pad.ZeroPadding
+			});
+			return encrypted.toString();
+		}
+		
+
+		
+		
+	</script>
+</html>

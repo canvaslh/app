@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title></title>
+		<!--<link rel="stylesheet" href="__PUBLIC__/css/common.css">
+		<link rel="stylesheet" href="__PUBLIC__/css/style.css">-->
+		<link rel="stylesheet" href="../css/miniubb.css">
+		<link rel="stylesheet" href="../css/shopstore.css">
+		<link rel="stylesheet" href="../css/m_comment.css">
+		<link rel="stylesheet" href="../css/pro_details.css">
+		<!--<link rel="stylesheet" href="__PUBLIC__/layer/skin/default/layer.css">-->
+		<link rel="stylesheet" href="../layer/build/css/layui.css" media="all">
+		<script type="text/javascript" src="../script/jquery-1.7.2.min.js"></script>
+		<script src="../layer/build/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../script/vue.js"></script>
+		<style>
+			.layui-this {
+				color: #5dc7f9!important
+			}
+			
+			.layui-this:after {
+				border-bottom: 3px solid #5dc7f9!important;
+			}
+			
+			.layui-tab-title li {
+				width: 26%;
+			}
+			[v-cloak] {
+				display: none;
+			}
+			.header_n{
+			position: fixed;
+		    top: 0;
+		    left: 0;
+		    z-index: 999999;
+            width: 100%;
+            height: 40px;
+   
+			}
+			.m_pro_image{
+				 height: 250px;
+				 overflow: hidden
+			}
+			.m_pro_image img {
+			  position: relative;
+			}
+			
+			.m_pro_image img:after { 
+			  content: url('../image/shop_info.png');     /*商品底图*/
+			  display: block;
+			  position: absolute;
+			  
+			  z-index: 2;
+			  top: 0;
+			  left: 0;
+			  width: 100%;
+			  height: 250px;
+			  background-color: #fff;
+			}
+			   
+		
+		</style>
+		
+	</head>
+
+	<body>
+	<div class="header_n">
+	<header class="aui-bar aui-bar-nav _color" id="head">
+			<a class="aui-btn _color aui-pull-left" onclick="backs()">
+				<span class="aui-iconfont aui-icon-left"></span>
+			</a>
+			<div class="aui-title"></div>
+			
+		</header>
+		</div>
+		<div class=" layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" style="    margin-top: 40px;">
+
+			<!--商品详情tab-->
+			<!--商品描述-->
+			<div class="m_pro_tabcont m_pro_describe nav_header"  id="shopIn" v-cloak>
+				<div class="m_product_intro">
+					<div class="m_pro_image" v-cloak>
+						<img v-bind:src="'http://www.ainiubaobao.com'+site.titlepic" alt="" v-cloak >
+					</div>
+					<div class="m_pro_pricebox">
+						<div class="m_pro_prilf" v-cloak>
+							抢购价：￥{{ site.price}}
+						</div>
+						<div class="m_pro_prirt" v-cloak>
+							原价：￥{{ site.tprice}}
+						</div>
+					</div>
+					<div class="m_pro_otherbox">
+						<div class="m_pro_otherbox01">
+							<div class="m_pro_otherlf" v-cloak>
+								用户评分:{{ site.unit}}
+							</div>
+							<div class="m_pro_otherrt" v-cloak>
+								购买评论：<span class="m_pro_commonnum">{{ site.pl_count}}条</span>
+							</div>
+						</div>
+						<div class="m_pro_otherbox02">
+							<div class="m_pro_otherlf">
+								累计出售：<span class="cr_5ecaf7" v-cloak>{{ site.onclick}}件</span>
+							</div>
+							<div class="m_pro_otherrt">
+								库存数量：<span class="cr_5ecaf7" v-cloak>{{ site.pmaxnum}}件</span>
+							</div>
+						</div>
+					</div>
+
+					<!--<div class="m_pro_vmore">
+						<span class="m_pro_vmorebtn">展开全部 </span>
+					</div>-->
+
+				</div>
+				<!--商品购买-->
+				<div class="m_pro_buybox">
+					<div class="m_pro_bottom_lf">
+						<ul>
+							<li>
+								<img src="../image/shop/pro_bottom/1.png" alt="">
+								<span class="m_pro_bfont">咨询</span>
+							</li>
+							<li>
+								<img src="../image/shop/pro_bottom/2.png" alt="">
+								<span class="m_pro_bfont">分享</span>
+							</li>
+							<li v-bind:onclick="['favas('+site.id+',&quot; '+site.classid+'&quot;)']" v-if="site.fava === '0'">
+									<img src="../image/shop/pro_bottom/3.png" alt="" class="fava">
+									<span class="m_pro_bfont">收藏</span>
+								</li>
+								<li  v-else onclick="layer.msg('已经收藏过了', {time: 1000});">
+									<img src="../image/shop/pro_bottom/4.png" alt="" class="fava">
+									<span class="m_pro_bfont">已收藏</span>
+								</li>
+								
+
+						</ul>
+					</div>
+					<div class="m_pro_bottom_rt">
+						<input type="button" value="立即购买" class="m_pro_buybtn" v-bind:onclick="['buy('+site.id+',&quot; '+site.classid+'&quot;)']">
+					</div>
+				</div>
+			</div>
+			<ul class="layui-tab-title">
+				<li class=" layui-this">商品描述</li>
+				<hr style="width: 1px;height: 14px;background: #dfdfdf;border: none;display: inline-block;vertical-align: middle;float: left; margin-top: 10px;">
+				<li rel="">购买评价</li>
+				<hr style="width: 1px;height: 14px;background: #dfdfdf;border: none;display: inline-block;vertical-align: middle;float: left; margin-top: 10px;">
+				<li rel="">相关推荐</li>
+			</ul>
+
+			<!--商品详情tabcontent-->
+			<div class="m_pro_tabcontent layui-tab-content">
+
+				<div class="m_pro_morecont layui-tab-item layui-show">
+					<!--{{ site.newstext}}-->
+				</div>
+				<!--购买评价-->
+				<div class="m_pro_tabcont m_pro_common layui-tab-item ">
+					<div class="m_pro_comment0">
+						<div class="m_pro_textarea">
+							<!--输入框-->
+							<textarea class="m_ct_textarea" maxlength="50" name="pl" id="" classid=""></textarea>
+							<!--评论按钮-->
+							<input type="button" class="m_comment_btn" value="评论" onclick="submit_pl()">
+						</div>
+					</div>
+					<!--评论区-->
+					<div class="m_comment_box">
+						<div class="m_comment_lists">
+							<div class="m_comment_list" v-for="c in site">
+								<!--头像-->
+								<div class="m_comment_img">
+									<img v-bind:src="c.userpic" class="" alt="" v-if="c.userpic != ''">
+									<img src="http://www.ainiubaobao.com/e/data/images/nouserpic.gif" class="" alt="" v-else>
+								</div>
+								<!--内容-->
+								<div class="m_comment_cont">
+									<!--用户名-->
+									<div class="m_comment_name">
+										{{ c.username }}
+									</div>
+									<!--发表时间-->
+									<div class="m_comment_date">
+										{{ c.saytime|time }}
+									</div>
+									<!--内容-->
+									<div class="m_comment_">
+										<p>
+											{{c.saytext}}
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--相关推荐-->
+				<div class="m_pro_tabcont m_pro_intro layui-tab-item ">
+					<ul class="shop_floor_ul">
+						<li v-for="c in vi">
+							<div class="shop_pro" v-bind:onclick="['shop_skip('+c.id+',&quot; '+c.title+'&quot;)']">
+									<div class="shop_pro_img">
+										<img v-bind:src="'http://www.ainiubaobao.com'+c.titlepic" alt="">
+									</div>
+									<div class="shop_pro_cont">
+										<div class="shop_floor_prices">
+											<!--lf-->
+											<div class="shop_floor_prlf">
+												抢购价：￥{{c.price}}
+											</div>
+											<!--rt-->
+											<div class="shop_floor_prrt">
+												市场价：￥{{c.tprice}}
+											</div>
+										</div>
+										<div class="shop_floor_buybtn">
+											<!--lf-->
+											<div class="shop_floor_buynum">
+												{{c.onclick}}人购买
+											</div>
+											<!--rt-->
+											<div class="shop_floor_buybtn_">
+												<input type="button" class="shop_buybtn" value="立即购买">
+											</div>
+										</div>
+									</div>
+								
+							</div>
+						</li>
+
+					</ul>
+
+				</div>
+			</div>
+		</div>
+		<div id="sharedWrap"> </div>
+		<div id="shared">
+			<div class="header">
+				<div class="sharedClose" style=""></div>
+			</div>
+			<h2 style="margin-bottom: 12px;color: #000;font-weight: 400;">分享到:</h2>
+			<ul>
+				<li onclick="tencentWeiBo()" id="icon3"><img src="../image/shop/pro_bottom/tx.png" width="44px" height="44px">腾讯微博</li>
+				<li onclick="shareTSina()" id="icon2"><img src="../image/shop/pro_bottom/sina.png" width="44px" height="44px">新浪微博</li>
+				<li onclick="qqZone()" id="icon4"><img src="../image/shop/pro_bottom/qz.png" width="44px" height="44px">QQ空间</li>
+			</ul>
+		</div>
+	</body>
+	
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/js/suf.js"></script>
+	<script>
+	  
+		var username = '';
+		var shop_id = '';
+		var shop_name = '';
+		var class_id = '';
+		
+				apiready = function() {
+				
+					username = $api.getStorage('username');
+					//商品的id
+					shop_id = api.pageParam["id"];
+					shop_name = api.pageParam["name"];
+					
+					
+					//判断该商品是否为会员组商品
+		//			if (shop_name.indexOf("年卡") > 0) {
+		//				$('#add_buy').css('display', 'none');
+		//			}
+//					start_hideProgress();
+					show(shop_id);
+					
+				};
+				
+					
+				var info_x = {
+					site: ''
+				};
+
+				var info = new Vue({
+					el: '#shopIn',
+					data: info_x
+				})
+				
+				
+
+
+		//获取数据
+		function show(shop_id) {
+
+			$.post(app_url + '/app-php/index.php?m=Shoplist&a=info', {
+				shop_id: shop_id
+			}, function(ret) {
+			
+				if(ret) {
+				   layer.closeAll('loading');
+
+					$('.m_pro_morecont').html(ret.newstext);
+                    $('.m_ct_textarea').attr('id',ret.id);
+                    $('.m_ct_textarea').attr('classid',ret.classid);
+                    
+                      info_x.site = ret;
+                      
+                       /****页面重新渲染*****/
+                       window.shop_id = ret.id;
+                       window.class_id = ret.classid;
+                       $('.aui-title').html(ret.title);
+					   $('.layui-tab-title li:eq(1)').attr('rel','');
+					   $('.layui-tab-title li:eq(2)').attr('rel','');
+					   $('.layui-tab-title li:eq(0)').click();
+				       $('body,html').animate({scrollTop:0},1000);
+                      
+															      
+				} else {
+					//					api.alert({
+					//						msg : JSON.stringify(err)
+					//					});
+				}
+			})
+
+		}
+		
+	function shop_skip(shop_id,shop_name){
+	   layer.load(2);
+	  
+	   show(shop_id);
+		   
+	}
+
+
+
+		//注意：选项卡 依赖 element 模块，弹框依赖 layer
+		layui.use(['element', 'layer'], function() {
+			var element = layui.element();
+			
+
+			//监听Tab切换，以改变地址hash值
+			element.on('tab(docDemoTabBrief)', function(data) {
+				if(data.index == 0) {
+					 $('.m_pro_buybox').show();
+				}
+				if(data.index == 1) {
+                    $('.m_pro_buybox').hide();
+					if($('.layui-tab-title li:eq(1)').attr('rel') == '') {
+						layer.load(2);
+						get_pl();
+					}
+
+				} else if(data.index == 2) {
+					 $('.m_pro_buybox').show();
+					if($('.layui-tab-title li:eq(2)').attr('rel') == '') {
+						layer.load(2);
+						get_tj();
+					}
+
+				}
+
+			});
+
+		});
+
+		var pl_list = {
+			site: ''
+		};
+
+		var pl_vm = new Vue({
+			el: '.m_comment_lists',
+			data: pl_list
+		})
+
+		var tj_index = {
+			vi: ''
+		};
+
+		var tj_vm = new Vue({
+			el: '.shop_floor_ul',
+			data: tj_index
+		})
+
+		Vue.filter('time', function(value) {
+			return new Date(parseInt(value) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
+		})
+
+		function get_pl() {
+
+			$.post(app_url + '/app-php/index.php?m=Shoplist&a=videoloadingpl', {
+				'id': shop_id,
+				'classid': class_id
+			}, function(ret) {
+				layer.closeAll('loading');
+				$('.layui-tab-title li:eq(1)').attr('rel', 'm');
+				pl_list.site = ret.pl_list;
+			})
+		}
+
+		function get_tj() {
+			$.post(app_url + '/app-php/index.php?m=Shoplist&a=tj', function(ret) {
+				layer.closeAll('loading');
+				$('.layui-tab-title li:eq(2)').attr('rel', 'm');
+				tj_index.vi = ret.tj_list;
+			})
+		}
+		$('.sharedClose').click(function() {
+			$('#shared').hide();
+			$('#sharedWrap').hide();
+		})
+		$('.m_pro_bottom_lf ul li:eq(1)').click(function() {
+			$('#shared').show();
+			$('#sharedWrap').show();
+		})
+		
+		function buy(id,classid){
+		
+		$.post(app_url + '/app-php/index.php?m=User&a=base',{'sitli':$api.getStorage('rnd'),'dfg':$api.getStorage('userid'),'id':id,'classid':classid},function(ret){
+		   if (ret.r == '0') {
+		   			toast('你还没登录，请先登录', 2000, 'bottom');
+					api.openWin({
+						name : 'login_window',
+						url : 'login_window.html',
+						pageParam : {
+						}
+					});
+		   }else{
+		    api.openWin({
+						name : 'confirm_shop_window',
+						url : 'confirm_shop_window.html',
+						pageParam : {
+							id : id,
+							classid : classid,
+						}
+					});
+		   }
+		});
+//		  $.ajax({
+//				url : app_url + '/app-php/index.php?m=User&a=base',
+//				method : 'post',
+//				data:{'sitli':$api.getStorage('rnd'),'dfg':$api.getStorage('userid')},
+//				success : function(ret) {
+//				 alert(JSON.stringify(ret));
+//				  if (ret['result'] == '1') {
+//					  api.openWin({
+//						name : 'confirm_shop_window',
+//						url : 'confirm_shop_window.html',
+//						pageParam : {
+//							id : id,
+//							classid : classid,
+//						}
+//					});
+//				  }else{
+//					  toast('你还没登录，请先登录', 2000, 'bottom');
+//					api.openWin({
+//						name : 'login_window',
+//						url : 'login_window.html',
+//						pageParam : {
+//						}
+//					});
+//				  }
+				
+//				}
+//				
+//				})
+		}
+
+		function qqZone() {
+			var _url = window.location.href;
+			var _showcount = 0;
+			var _desc = $('.aui-title').text();
+			var _summary = "一家专业做股票视频教学的网站";
+			var _title = $('title').text();
+			var _site = "爱牛宝宝网";
+			var _width = "600px";
+			var _height = "800px";
+			var _pic = $('.m_pro_image img').attr('src');
+			var _shareUrl = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?';
+			_shareUrl += 'url=' + encodeURIComponent(_url || document.location); //参数url设置分享的内容链接|默认当前页location  
+			_shareUrl += '&showcount=' + _showcount || 0; //参数showcount是否显示分享总数,显示：'1'，不显示：'0'，默认不显示  
+			_shareUrl += '&desc=' + encodeURIComponent(_desc || '分享的描述'); //参数desc设置分享的描述，可选参数  
+			_shareUrl += '&summary=' + encodeURIComponent(_summary || '分享摘要'); //参数summary设置分享摘要，可选参数  
+			_shareUrl += '&title=' + encodeURIComponent(_title || document.title); //参数title设置分享标题，可选参数  
+			_shareUrl += '&site=' + encodeURIComponent(_site || ''); //参数site设置分享来源，可选参数  
+			_shareUrl += '&pics=' + encodeURIComponent(_pic || ''); //参数pics设置分享图片的路径，多张图片以＂|＂隔开，可选参数  
+			window.open(_shareUrl, 'width=' + _width + ',height=' + _height + ',top=' + (screen.height - _height) / 2 + ',left=' + (screen.width - _width) / 2 + ',toolbar=no,menubar=no,scrollbars=no,resizable=1,location=no,status=0');
+		}
+
+		function tencentWeiBo() {
+			var _url = window.location.href;
+			var _showcount = 0;
+			var _summary = "一家专业做股票视频教学的网站";
+			var _title = $('.aui-title').text();
+			var _site = window.location.href;
+			var _width = "600px";
+			var _height = "800px";
+			var _pic = $('.m_pro_image img').attr('src');
+			var _shareUrl = 'http://share.v.t.qq.com/index.php?c=share&a=index';
+			_shareUrl += '&title=' + encodeURIComponent(_title || document.title); //分享的标题  
+			_shareUrl += '&url=' + encodeURIComponent(_url || location.href); //分享的链接  
+			_shareUrl += '&site=' + encodeURIComponent(_site || ''); //分享来源  
+			_shareUrl += '&pic=' + encodeURIComponent(_pic || ''); //分享的图片，如果是多张图片，则定义var _pic='图片url1|图片url2|图片url3....'  
+			window.open(_shareUrl, 'width=' + _width + ',height=' + _height + ',left=' + (screen.width - _width) / 2 + ',top=' + (screen.height - _height) / 2 + ',toolbar=no,menubar=no,scrollbars=no,resizable=1,location=no,status=0');
+		}
+
+		function shareTSina() {
+			var title = $('.aui-title').text();
+			var rLink = window.location.href;
+			var backUrl = window.location.href;
+			var site = $('.aui-title').text();
+			var pic = $('.m_pro_image img').attr('src');
+			window.open("http://service.weibo.com/share/share.php?pic=" + encodeURIComponent(pic) + "&title=" +
+				encodeURIComponent(title.replace(/ /g, " ").replace(/<br \/>/g, " ")) + "&url=" + encodeURIComponent(rLink),
+				"分享至新浪微博",
+				"height=500,width=600,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no");
+		}
+	</script>
+
+</html>

@@ -1,0 +1,164 @@
+.ainiu_login{
+    width: 100%;
+    height: 100%;
+}
+.ainiu_loginimg{
+    width: 100%;
+}
+.ainiu_loginimg img{
+    width: 100%;
+}
+.m_login_form,.m_register_form{
+    width: 75%;
+    margin: 0 auto;
+}
+.m_login_form form ,.m_register_form form{
+
+}
+.m_login_form form ul,.m_register_form form ul{
+
+}
+.m_login_form form ul li{
+    border: 1px solid #1d80e6;
+    border-radius: 2em;
+    line-height: 2.5em;
+    margin-top: 2em;
+    height: 2.5em;
+}
+.m_login_form form ul li span,.m_register_form form ul li span{
+    display: block;
+
+}
+.m_login_form form ul li input,.m_register_form form ul li input{
+    border: none;
+    line-height: 2.5em;
+    height: 2.5em;
+    padding-left: .4em;
+    /*width: 85%;*/
+    
+
+}
+.m_login_form form ul li input[placeholder],.m_register_form form ul li input[placeholder]{
+    font-size: 9pt;
+    color: #969799;
+}
+.m_login_form form ul li input:focus,.m_register_form form ul li input:focus{
+    outline: none;
+}
+.m_login_username{
+    line-height: 2.4em;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+.m_loginuser_icon{
+    display: block;
+    float: left;
+    width: 20px;
+    height: 20px;
+    padding-top:2.2em;
+    background: url("../image/login/login_user.png")center center no-repeat;
+        background-size: 16px;
+}
+.m_loginuser{
+
+}
+.m_login_pwd{
+    padding-left:1em;
+    padding-right: 1em;
+}
+.m_loginpwd_icon{
+    display: block;
+    float: left;
+    width: 20px;
+    height: 20px;
+    padding-top: 2.2em;
+    background: url("../image/login/login_pwd.png") center center no-repeat;
+        background-size: 16px;
+}
+.m_loginpwd{
+
+}
+.m_login_fast{
+    margin-top: 3em;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.m_login_one{
+    text-align: center;
+}
+.m_login_hr{
+    height: 1.2px;
+    border: none;
+    width: 100%;
+    background: #bfbfbf;
+    /*background: url(../image/login/hr.png) no-repeat;*/
+
+}
+.m_login_font{
+    display:block;
+    width: 80px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: -.7rem;
+    background: #ffffff;
+    color: #7c7c7c;
+
+}
+.m_login_box{
+    overflow: auto;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-top:1.5em;
+    color: #969799;
+}
+.m_login_btn{
+    margin-top: 1.6em;
+    width: 95%;
+    margin-left:auto;
+    margin-right: auto;
+    display: block;
+    background: #439cfa;
+    border: none;
+    border-radius:2em;
+    height: 3em;
+    line-height:3em;
+    color: #ffffff;
+    text-align: center;
+   -webkit-appearance: none;    /*去除 ios input阴影*/
+}
+.m_login_{
+
+}
+.m_forget_pwd{
+
+}
+.m_login_other{
+
+}
+.m_login_other ul{
+    overflow: auto;
+    margin-top: 2em;
+}
+.m_login_other ul li{
+    width: 50%;
+    display: block;
+    float: left;
+    text-align: center;
+    padding-top: 30px;
+}
+.m_login_other ul li span{
+    color: #7c7c7c;
+    font-size: 7pt;
+    display: block;
+    padding-top: .6em;
+}
+.m_login_qq{
+    background: url("../image/login/login_qq.png") top center  no-repeat;
+    background-size: 35px;
+}
+.m_login_wx{
+    background: url("../image/login/login_wx.png") top center no-repeat;
+     background-size: 35px;
+    
+}

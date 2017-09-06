@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>购买成功--爱牛宝宝</title>
+		<link rel="stylesheet" href="../../css/miniubb.css">
+		<link rel="stylesheet" href="../../css/shop/pay_success.css">
+		<link rel="stylesheet" href="../../css/teacher_team.css">
+		<script type="text/javascript" src="../../script/jquery-1.7.2.min.js"></script>
+		<script src="../../layer/layer.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../script/vue.js"></script>
+	</head>
+
+	<body>
+	
+		<div class="nav_header" >
+				<div class="header_seach">
+			<header class="aui-bar aui-bar-nav _color" style="height: 40px;line-height: 40px;">
+			<!--<a class=" _color  	" v-bind:onclick="['dd_info('+site.ddid+')']" style="    float: left;font-size: 15px;margin-left: 10px;">
+				查看订单详情
+				</a>-->
+				<!--<div class="aui-title">
+				购买成功
+				</div>-->
+				<a class="aui-btn _color  aui-pull-right" onclick="api.closeWin()"> 完成 </a>
+			</header>
+		</div>
+			<!--支付成功-->
+			<div class="m_pay_success" style="margin-top: 40px;">
+				<!--top-->
+				<div class="m_pay_notice" v-cloak>
+					<!--	<if condition="$info.r eq 88">-->
+					<span v-if="site.r == '88'"> <img src="../../image/pay/pay_success01.png" alt="" > 购买成功 </span>
+					<span v-else> <img src="../../image/pay/error.png" alt="">购买失败({{site.t}}) </span>
+					<!--<else/>-->
+					<!--</if>-->
+				</div>
+				<div>
+					<div style="width: 100%;text-align: center;" class="free_pri" v-if="site.r == '88'" v-cloak>
+						系统确认中...我们会尽快联系你进行发货
+					</div>
+				</div>
+				<div v-if="site.r == '88'" v-cloak>
+					<div class="m_pay_prodetails">
+						<div class="m_pay_proadress">
+							<ul v-if="site.type == '535'">
+								<li>
+									充值账号：{{site.username}}
+								</li>
+								<li>
+									充值类型： {{site.name}}
+								</li>
+								<li>
+									到期时间：{{site.enddate}}
+								</li>
+								<li>
+									交易订单号： {{site.card_no}}
+								</li>
+								<li>
+									交易时间： {{site.pay_time}}
+								</li>
+							</ul>
+							<ul v-else-if="site.type == '564'">
+								<li>
+									充值账号：{{site.username}}
+								</li>
+								<li>
+									充值类型： {{site.name}}
+								</li>
+								<li>
+									到期时间：{{site.enddate}}
+								</li>
+								<li>
+									交易订单号： {{site.tradeno}}
+								</li>
+								<li>
+									交易时间： {{site.notify_time}}
+								</li>
+							</ul>
+							<ul v-else-if="site.type == '573'">
+								<li>
+									交易账号：{{site.username}}
+								</li>
+								<li>
+									交易订单号：{{site.ddno}}
+								</li>
+								<li>
+									交易时间：{{site.ddtime}}
+								</li>
+								<li>
+									物流方式：{{site.psname}}
+								</li>
+							</ul>
+
+							<!--				<if condition="$info.r eq 88">
+							<div class="m_pay_prodetails">
+							<div class="m_pay_proadress">
+							<if condition="$info.classid eq 535">
+							<ul>
+							<li>充值账号：{$info.username}</li>
+							<li>充值类型：{$info.name}</li>
+							<li>到期时间：{$info.enddate}</li>
+							<li>交易订单号：{$info.tradeno}</li>
+							<li>交易时间：{$info.notify_time}</li>
+							</ul>
+							<elseif condition="$info.classid eq 564" />
+							<ul>
+							<li>充值账号：{$info.username}</li>
+							<li>充值类型：{$info.name}</li>
+							<li>到期时间：{$info.enddate|date='Y-m-d H:i:s',###}</li>
+							<li>交易订单号：{$info.tradeno}</li>
+							<li>交易时间：{$info.notify_time}</li>
+							</ul>
+							<elseif condition="$info.classid eq 573" />
+							<ul>
+							<li>交易账号：{$info.username}</li>
+							<li>交易订单号：{$info.ddno}</li>
+							<li>交易时间：{$info.ddtime}</li>
+							<li>物流方式：{$info.psname}</li>
+							</ul>
+							<else/>
+							</if>-->
+						</div>
+						<!--商品信息-->
+						<div class="m_pay_proinfor">
+							<div class="my_order_list">
+								<!--<div class="my_order_listbott">
+								<div class="my_order_listbox">
+								<div class="my_order_lb01">
+								<img src="http://www.ainiubaobao.com/d/file/video/advancedcombat/wave/2017-06-12/f0b6160a9460e5256951720b16d47652.png">
+								</div>
+								<div class="my_order_lb02">
+								<ul>
+								<li>伏击涨停板系列之大浪淘金伏击涨...</li>
+								</ul>
+								</div>
+								<div class="my_order_lb03">
+								<div class="my_order_lb03_box">
+								<div class="my_order_pros">
+								<span class="pay_cr01">￥256.23</span>
+								</div>
+								</div>
+								</div>
+								</div>
+								</div>-->
+								<div class="pay_success_box">
+									<ul>
+										<li>
+											价格： <span class="pay_success_price">￥{{site.point}}</span>
+										</li>
+										<li>
+											优惠： <span class="pay_success_price">￥0.00</span>
+										</li>
+										<li>
+											实付款： <span class="pay_success_price01">￥{{site.point}}</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--<else/>-->
+				<!--</if>-->
+
+			</div>
+		</div>
+						<div class="teacher_hots" v-cloak>
+					<!--title-->
+					<div class="teacher_floor_tt">
+						<h3 class="teachers_classes"> 相关推荐 <span class="teacher_vmore rt"><a href="/video">查看更多> </a></span></h3>
+					</div>
+					<!--cont-->
+					<div class="teacher_ways_cont">
+						<div class="m_index_classes">
+							<ul class="m_classes_lists">
+								
+								<li v-for="c in sites">
+									<a href="">
+										<div class="m_class_div">
+											<div class="m_class_divimg">
+												<img v-bind:src="'http://www.ainiubaobao.com'+c.titlepic" alt="">
+											</div>
+											<div class="m_class_divcont">
+												<div class="m_class_tt">
+													{{ c.title }}
+												</div>
+											</div>
+											<div class="m_class_divpri">
+												<span class="lf free_pri" v-cloak v-if="c.point === '0'">免费</span>
+								<em style="vertical-align: middle;" class="pri_pri" v-cloak v-else> <img src="../../image/img/nb.png" alt="" style="display: inline;width: 12px;height: 12px;margin: 0 auto;vertical-align: middle;">{{ c.point }}牛币 </em>
+								<span class="rt cr_bdbab7"> <img src="../../image/m_view.png" alt="" style="vertical-align:middle;margin-right: 3px;"> <i style="font-style: normal;vertical-align: middle;" v-cloak>{{ c.onclick }}</i> </span>
+												<!--<if condition="$vo.point eq 0">
+											<span class="lf free_pri" v-if="jpkcs.point === '0'">免费</span>
+											<else />
+											<em style="vertical-align: middle;" class="pri_pri" v-else>
+											<img src="../../image/index/nb.png" alt="" style="display: inline;width: 12px;height: 12px;margin: 0 auto;vertical-align: middle;">
+											{$vo.point}牛币
+											</em>
+											</if>-->
+												<!--<span class="rt cr_bdbab7"> <img src="../../image/m_view.png" alt="" style="vertical-align:middle;margin-right: 3px;"> <i style="font-style: normal;vertical-align: middle;">{$vo.onclick}</i> </span>-->
+											</div>
+										</div>
+									</a>
+								</li>
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script>
+
+
+				apiready = function() {
+					var types = api.pageParam["type"];
+					//		    alert(JSON.stringify(type));
+							var shop_r = {
+								site: '',
+							};
+							var vm = new Vue({
+								el: '.nav_header',
+								data: shop_r
+							})
+							shop_r.site = types;
+				}
+				
+
+
+	
+		$(function() {
+			$.post(app_url + '/app-php/index.php?m=Index&a=tj_video', {
+				'num': 4
+			}, function(ret) {
+				console.log(ret.video_list);
+				
+				new Vue({
+					el: '.teacher_hots',
+					data: {
+						sites: ret.video_list
+					}
+				})
+			})
+		})
+	</script>
+
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>爱牛宝宝网--讲师</title>
+
+    <link rel="stylesheet" href="../../css/teacher_team.css">
+    <link rel="stylesheet" href="../../css/miniubb.css">
+		<script type="text/javascript" src="../../script/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="../../script/vue.js"></script>
+		<script src="../../layer/layer.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body >
+	<header class="aui-bar aui-bar-nav _color" id="head">
+			<a class="aui-btn _color aui-pull-left" onclick="backs()">
+				<span class="aui-iconfont aui-icon-left"></span>
+			</a>
+			<div class="aui-title"></div>
+
+		</header>
+<div class="m_iniubb" v-cloak>
+    <div class="teacher_team">
+        <!--讲师-->
+        <div class="teacher_img">
+            <div class="teacher_team_one">
+                <div class="teacher_team_img">
+                    <img v-bind:src="info.titlepic" alt="">
+                </div>
+                <div class="teacher_team_name">
+                    <div class="teacher_box">
+                        <div class="teacher_name">
+                            <ul>
+                                <li><span class="teacher_name_">{{info.title}}</span></li>
+                                <li><span class="teacher_cw">{{info.tclb}}</span></li>
+                            </ul>
+                        </div>
+                        <div class="teacher_share">
+                            <img src="../../image/teacher_team/2..png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--个人简介-->
+        <div class="teacher_intro">
+            <!--title-->
+            <div class="teacher_floor_tt">
+                <h3 class="teachers_intro">
+                    个人简介
+                </h3>
+            </div>
+            <!--cont-->
+            <div class="teacher_intro_cont">
+                <p>
+									{{info.smalltext}}
+                </p>
+            </div>
+        </div>
+        <!--方法总结-->
+        <div class="teacher_ways">
+            <!--title-->
+            <div class="teacher_floor_tt">
+                <h3 class="teachers_ways">
+                    方法总结
+                </h3>
+            </div>
+            <!--cont-->
+            <div class="teacher_ways_cont">
+                <ul class="teacher_ways_cont_ul">
+                        <li v-for="vo in info.keyboard">{{vo}}</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+		<!--热门课程-->
+		<div class="teacher_hots">
+				<!--title-->
+				<div class="teacher_floor_tt">
+						<h3 class="teachers_classes">
+								热门课程
+
+									 <span class="teacher_vmore rt"  v-bind:onclick="['video_list_skips(0,&quot; '+info.title+'&quot;'+',3'+')']">查看更多> </span>
+
+						</h3>
+
+
+				</div>
+				<!--cont-->
+				<div class="teacher_ways_cont">
+						<div class="m_index_classes">
+								<ul class="m_classes_lists">
+
+
+												<li v-for="video in video">
+
+
+													<div class="m_class_div" v-bind:onclick="['video_skip('+video.id+',&quot; '+video.title+'&quot;)']">
+														<div class="m_class_divimg">
+															<img v-bind:src="'http://www.ainiubaobao.com'+video.titlepic" alt="">
+														</div>
+														<div class="m_class_divcont">
+															<div class="m_class_tt" v-cloak>
+																{{ video.title }}
+															</div>
+														</div>
+														<div class="m_class_divpri">
+															<span class="lf free_pri" v-cloak v-if="video.point === '0'">免费</span>
+															<em style="vertical-align: middle;" class="pri_pri" v-cloak v-else> <img src="../../image/img/nb.png" alt="" style="display: inline;width: 12px;height: 12px;margin: 0 auto;vertical-align: middle;" v-cloak>{{ video.point }}牛币 </em>
+															<span class="rt cr_bdbab7"> <img src="../../image/m_view.png" alt="" style="vertical-align:middle;margin-right: 3px;"> <i style="font-style: normal;vertical-align: middle;" v-cloak>{{ video.onclick }}</i> </span>
+														</div>
+													</div>
+
+												</li>
+
+
+								</ul>
+						</div>
+				</div>
+		</div>
+
+</div>
+<script type="text/javascript" src="../../script/api.js"></script>
+
+<script>
+apiready = function(){
+	var id = api.pageParam["id"];
+
+	$.post( app_url + '/app-php/index.php?m=Index&a=teacher_info',{'id':id},function(rett){
+      // alert(JSON.stringify(rett));
+			var tea = new Vue({
+				el:'.m_iniubb',
+				data:{
+					info:rett.teacher_info,
+					video:rett.video_list
+
+				}
+			});
+	})
+
+
+
+}
+
+</script>
+
+</body>
+</html>

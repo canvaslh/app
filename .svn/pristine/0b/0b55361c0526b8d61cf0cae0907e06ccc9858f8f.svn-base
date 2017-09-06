@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,
+			user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	
+
+	</head>
+
+	<body>
+
+	</body>
+	<!--<script type="text/javascript" src="../../script/api.js"></script>-->
+	<script type="text/javascript">
+//		var smsVerify = null;
+		apiready = function() {
+	
+		
+//var obj = api.require('UIWebBrowser');
+//obj.open({
+//  rect: {
+//       x: 0,
+//      y: -50,
+//      w: 'auto',
+//      h: 650	
+//  },
+//  path: url,
+//  fixedOn: api.frameName,
+//  fixed: true,
+// 
+//}, function(ret) {
+////  api.alert({
+////      msg: JSON.stringify(ret)
+////  });
+//});
+
+
+var browser = api.require('webBrowser');
+
+browser.openView({
+      url: 'http://app.iniubb.cn/video/21460.html',
+progress:{
+color:'#fff'
+},
+
+    rect: {
+        x: 0,
+        y: 65,
+        w: 'auto',
+        h: 'auto'
+    }
+}, function(ret, err) {
+
+    switch (ret.state) {
+      
+//      case 2:stop_hideProgress();
+//          break;
+
+    }
+});
+
+
+
+
+
+		
+			}
+		
+	</script>
+
+</html>

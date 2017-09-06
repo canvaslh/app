@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>在线充值--爱牛宝宝</title>
+		<link rel="stylesheet" href="../../css/miniubb.css">
+		<link rel="stylesheet" href="../../css/user/account_b.css">
+		<script type="text/javascript" src="../../script/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="../../layer/layer.js"></script>
+		<script src="../../script/vue.js"></script>
+	</head>
+	<body>
+		<div class="nav_header" >
+			<!--账户余额-->
+			<div class="m_account_b">
+				<!--账户余额头-->
+				<div class="m_account_btop" id="info_head">
+					<!--账户头像-->
+					<div class="m_account_top01">
+						<!--左-->
+						<div class="m_account_top01_lf">
+							<div class="m_account_headimg">
+								<img src="http://www.ainiubaobao.com/e/data/images/nouserpic.gif" alt="" class="" v-if="sites.userpic == ''" v-cloak>
+								<img v-bind:src="sites.userpic" class="" alt="" v-else v-cloak>
+							</div>
+							<div class="m_account_username">
+								<span id="m_account_username" v-cloak>{{sites.username}}</span>
+							</div>
+						</div>
+						<!--右-->
+						<div class="m_account_top01_rt">
+							<ul>
+								<li>
+									<label for="">可用牛币：</label>
+									<span class="account_price" v-cloak>{{sites.userfen}}</span>
+								</li>
+								<li>
+									<label for="">会员等级：</label>
+									<span class="account_rank" v-cloak>{{sites.groupname}}</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--余额-->
+					<div class="m_account_price">
+						<ul>
+							<li>
+								<ul class="m_account_yue">
+									<li>
+										牛币余额
+									</li>
+									<li class="m_ab_icon">
+										<img src="../..//image/user_center/m_ab_icon.jpg" alt="">
+										<span v-cloak>{{sites.userfen}}</span>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<ul class="m_account_useyue">
+									<li>
+										可用余额
+									</li>
+									<li>
+										<em>￥</em>
+										<span v-cloak>{{sites.money}}</span>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!--账户余额中-->
+				<div class="m_account_middle">
+					<!--tab-->
+					<div class="m_account_mtab">
+						<ul>
+							<li class="m_ab_lion">
+								充值余额
+							</li>
+							<li>
+								兑换牛币
+							</li>
+						</ul>
+					</div>
+					<!--tabcont-->
+					<div class="m_account_mtabcont">
+						<!--充值余额cont-->
+						<div class="m_account_tabcont m_account_tabcont01">
+							<form name="re_money" action="/Home/User/recharge" method="post" >
+								<input type="hidden" name="type" value="re" />
+								<div class="m_account_label01">
+									<label for="">充值金额：</label>
+									<div class="m_account_input">
+										<input type="tel" name="re_num" class="re_num" maxlength="10" placeholder="请输入整数" value="10" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0');}else{this.value=this.value.replace(/\D/g,'';)}" />
+									</div>
+								</div>
+								<div class="m_account_label02">
+									<label for="">支付方式：</label>
+								</div>
+								<div class="m_account_inputbox">
+									<ul>
+										<li>
+											<input type="submit" value="支付宝支付">
+										</li>
+									</ul>
+								</div>
+							</form>
+						</div>
+						<!--兑换牛币cont-->
+						<div class="m_account_tabcont m_account_tabcont02 none">
+							<form name="dh_nb" >
+								<div class="m_account_label01">
+									<label for="">兑换牛币数：</label>
+									<div class="m_account_input">
+										<input type="tel" maxlength="10"  placeholder="请输入整数" value="10" class="nb_num" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0');}else{this.value=this.value.replace(/\D/g,'';)}" onkeyup="pay_nb(this.value)" oninput="pay_nb(this.value)" onpropertychange="pay_nb(this.value)" />
+									</div>
+								</div>
+								<div class="m_account_label01">
+									<label for="">需支付余额：</label>
+									<div class="m_account_input">
+										<input type="tel" maxlength="10" placeholder="请输入整数" value="10" disabled="disabled" class="money_num" />
+									</div>
+								</div>
+								<div class="m_account_label02">
+									<label for="">支付方式：</label>
+									<div class="m_account_input">
+										余额支付 <span class="m_account_notice">1元=1牛币数</span>
+									</div>
+								</div>
+								<div class="m_account_inputbox">
+									<ul>
+										<li>
+											<input type="submit" value="兑换牛币">
+										</li>
+									</ul>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script src="../../script/aes.js" type="text/javascript"></script>
+	<script src="../../script/md5.js" type="text/javascript"></script>
+	<script src="../../script/pad-zeropadding-min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		userid = $api.getStorage('userid');
+		$(function() {
+			var info = {
+				sites : ''
+			};
+			var vm = new Vue({
+				el : '#info_head',
+				data : info
+			})
+			money_nb();
+			function money_nb() {
+				$.ajax({
+					type : "post",
+					url : app_url + "/app-php/index.php?m=Money&a=yue_nb",
+					async : true,
+					success : function(ret) {
+						if (ret.result == 0) {
+							alert('你还没登录,请先登录');
+						} else {
+							info.sites = ret.info;
+						}
+					}
+				})
+			}
+
+
+			$('.m_account_mtab ul li:eq(0)').click(function() {
+				$('.m_account_mtab ul li:eq(0)').addClass('m_ab_lion');
+				$('.m_account_mtab ul li:eq(1)').removeClass('m_ab_lion');
+				$('.m_account_tabcont01').show();
+				$('.m_account_tabcont02').hide();
+			})
+			$('.m_account_mtab ul li:eq(1)').click(function() {
+				$('.m_account_mtab ul li:eq(1)').addClass('m_ab_lion');
+				$('.m_account_mtab ul li:eq(0)').removeClass('m_ab_lion');
+				$('.m_account_tabcont02').show();
+				$('.m_account_tabcont01').hide();
+			})
+			var dh_nb = $('form[name=dh_nb]');
+			dh_nb.submit(function() {
+				var nb_num = $('.nb_num').val();
+				if (nb_num == '') {
+					$('.nb_num').focus();
+					layer.tips('牛币数不能为空', '.nb_num', {
+						tips : [2, '#78BA32']
+					});
+				}
+				layer.msg('正在为你兑换中,请稍等', {
+					icon : 16,
+					shade : 0.01,
+					time : 0
+				});
+				$.post(app_url + "/app-php/index.php?m=Money&a=dh_nb", {
+					dh_nb : nb_num,
+					type : 'dh'
+				}, function(ret) {
+					if (ret.result == 2) {
+						layer.alert('<p class="pop_info_show">兑换成功</p>', {
+							icon : 1,
+							time : 2000,
+							end : function() {
+								location.reload();
+							}
+						});
+						money_nb();
+					} else if (ret.result == 0) {
+						layer.msg('你还么登录', {
+							icon : 0
+						});
+					} else if (ret.result == 1) {
+						layer.msg('余额不足', {
+							icon : 0,time : 2000,
+						});
+					} else {
+						layer.msg('网络出现错误', {
+							icon : 2,time : 2000,
+						});
+					}
+					layer.closeAll('loading');
+				})
+				return false;
+			})
+			var re_money = $('form[name=re_money]');
+			$('form[name=re_money] input[type=submit]').click(function() {
+				var re_num = $('.re_num').val();
+				if (re_num == '') {
+					$('.re_num').focus();
+					layer.tips('金额不能为空', '.re_num', {
+						tips : [2, '#78BA32']
+					});
+				} else {
+					layer.confirm('确认使用支付宝充值' + re_num + '元余额吗？', {
+						btn : ['是的，马上支付', '等会再支付'], //按钮
+						title : '爱牛宝宝温馨提示'
+					}, function() {
+						layer.msg('正在为你充值,请稍等', {
+							icon : 16,
+							shade : 0.01,
+							time : 0
+						});
+						alipay(userid,888, re_num, 2);
+					}, function() {
+						layer.msg('你放弃了本次充值', function() {
+						});
+					});
+				}
+				return false;
+			});
+		
+		
+
+		/**
+		 * 解密
+		 *
+		 * @param str 解密字符
+		 */
+		function decrypt(str) {
+			var key = CryptoJS.enc.Utf8.parse("7411851119631123");
+			// 秘钥
+			var iv = CryptoJS.enc.Utf8.parse('1234567890123412');
+			//向量iv
+			var decrypted = CryptoJS.AES.decrypt(str, key, {
+				iv : iv,
+				padding : CryptoJS.pad.ZeroPadding
+			});
+			return decrypted.toString(CryptoJS.enc.Utf8);
+		}
+
+		/**
+		 * 加密
+		 * @param str  加密字符
+		 */
+		function encrypt(str) {
+			key = CryptoJS.enc.Utf8.parse("7411851119631123");
+			// 秘钥
+			var iv = CryptoJS.enc.Utf8.parse('1234567890123412');
+			//向量iv
+			var encrypted = CryptoJS.AES.encrypt(str, key, {
+				iv : iv,
+				mode : CryptoJS.mode.CBC,
+				padding : CryptoJS.pad.ZeroPadding
+			});
+			return encrypted.toString();
+		}
+
+		/**
+		 *支付宝支付
+		 * @param userid  用户id
+		 * @param rel_id  商品id
+		 * @param point_moey  商品价格
+		 */
+		function alipay(userid, rel_id, point_moey, type) {
+			$.ajax({
+				url : app_url + '/app-php/index.php?m=Pay&a=index',
+				type : "POST",
+				data : {
+					'rel_id' : rel_id,
+					'userid' : userid,
+					'type' : type,
+					'point_moey' : point_moey
+				},
+				success : function(pay_ret) {
+					//				   alert(decrypt(pay_ret['s']['p']));
+//									  alert(JSON.stringify(pay_ret));
+					switch (pay_ret['result']) {
+						case '8':
+							//								 	  alert(decrypt(pay_ret['s']['s']));
+							//								 	   alert(decrypt(pay_ret['s']['b']));
+							//								 	    alert(decrypt(pay_ret['s']['p']));
+							//								 	     alert(decrypt(pay_ret['shop_type']));
+							if (decrypt(pay_ret['s']['i']) == '8888' && decrypt(pay_ret['type']) == 'alipay') {
+								var aliPay = api.require('aliPay');
+								aliPay.pay({
+									subject : decrypt(pay_ret['s']['s']), ////商品名称
+									body : decrypt(pay_ret['s']['b']), //商品详情
+									amount : decrypt(pay_ret['s']['p']), //商品价格
+									tradeNO : decrypt(pay_ret['s']['o']) //订单编号
+								}, function(ni_ret, err) {
+//																	alert(JSON.stringify(ni_ret));
+									switch (ni_ret.code) {
+										case '6001':
+											//											alert('用户中途取消支付操作');
+											$.ajax({
+												url : app_url + '/app-php/index.php?m=Pay&a=notify',
+												type : "POST",
+												data : {
+													'code' : ni_ret.code,
+													'shop_id' : rel_id,
+													'user_id' : userid,
+													'shop_type' : decrypt(pay_ret['shop_type']),
+													'pramm' : decrypt(pay_ret['s']['p']),
+													'bnoo' : decrypt(pay_ret['s']['o'])
+												},
+												success : function(str1) {
+//																									  alert(JSON.stringify(str1));
+													switch (str1['r']['r']) {
+														case '88':
+															layer.msg('充值成功', {
+																icon : 1
+															});
+															money_nb();
+															break;
+														case '85':
+															layer.msg('充值失败,请联系管理员', {
+																icon : 2
+															});
+															break;
+														default:
+															layer.msg('充值失败,请联系管理员', {
+																icon : 2
+															});
+															break;
+														//
+													};
+												},
+												error : function(err) {
+													layer.msg('充值失败,请联系管理员', {
+														icon : 2
+													});
+												}
+											})
+											break;
+										case '6000':
+											layer.alert('支付服务正在进行升级操作', {
+												icon : 2
+											});
+											break;
+										case '4010':
+											layer.alert('重新绑定账户', {
+												icon : 2
+											});
+											break;
+										case '4006':
+											layer.alert('订单支付失败', {
+												icon : 2
+											});
+											break;
+										case '4005':
+											layer.alert('绑定失败或没有绑定', {
+												icon : 2
+											});
+											break;
+										case '4004':
+											layer.alert('该用户已解除绑定', {
+												icon : 2
+											});
+											break;
+										case '4003':
+											layer.alert('该用户绑定的支付宝账户被冻结或不允许支付', {
+												icon : 2
+											});
+											break;
+										case '4001':
+											layer.alert('数据格式不正确', {
+												icon : 2
+											});
+											break;
+										case '4000':
+											layer.alert('系统异常', {
+												icon : 2
+											});
+											break;
+										case '9000':
+									$.ajax({
+												url : app_url + '/app-php/index.php?m=Pay&a=notify',
+												type : "POST",
+												data : {
+													'code' : ni_ret.code,
+													'shop_id' : rel_id,
+													'user_id' : userid,
+													'shop_type' : decrypt(pay_ret['shop_type']),
+													'pramm' : decrypt(pay_ret['s']['p']),
+													'bnoo' : decrypt(pay_ret['s']['o'])
+												},
+												success : function(str1) {
+//																									  alert(JSON.stringify(str1));
+													switch (str1['r']['r']) {
+														case '88':
+															layer.msg('充值成功', {
+																icon : 1
+															});
+															money_nb();
+															break;
+														case '85':
+															layer.msg('充值失败,请联系管理员', {
+																icon : 2
+															});
+															break;
+														default:
+															layer.msg('充值失败,请联系管理员', {
+																icon : 2
+															});
+															break;
+														//
+													};
+												},
+												error : function(err) {
+													layer.msg('充值失败,请联系管理员', {
+														icon : 2
+													});
+												}
+											})
+											break;
+										default:
+											layer.alert('交易异常', {
+												icon : 2
+											});
+											break;
+									}
+								});
+							} else {
+								layer.alert('交易异常', {
+									icon : 2
+								});
+							}
+							break;
+						default:
+							layer.alert('交易异常', {
+								icon : 2
+							});
+							break;
+					}
+				},
+				error : function(err) {
+					layer.alert('交易异常', {
+						icon : 2
+					});
+				}
+			})
+		}
+		})
+		function pay_nb(v) {
+			$('.money_num').val(v);
+		}
+	</script>
+</html>

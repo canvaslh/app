@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>爱牛宝宝网-- 个人中心</title>
+		<link rel="stylesheet" href="../css/miniubb.css">
+		<link rel="stylesheet" href="../css/user_center.css">
+		<script type="text/javascript" src="../script/jquery-1.7.2.min.js" charset="UTF-8"></script>
+		<script type="text/javascript" src="../layer/layer.js"></script>
+		<style>
+			#user_info {
+				display: none
+			}
+			.back_btn {
+				width: 60%;
+				border-radius: 15px;
+				background: #1d80e6;
+				display: block;
+				margin: 0 auto;
+				font-family: "微软雅黑";
+				color: #fff;
+				height: 2em;
+				border: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="m_iniubb">
+			<!--用户中心-->
+			<div class="m_usercenter">
+				<!--top-->
+				<div class="m_user_ctop">
+					<!--登录、注册-->
+					<!--<if condition="$result eq 0">-->
+					<div id="user_login">
+						<div class="m_user_tx">
+							<div class="m_user_via">
+								<img src="../image/user_center/index-5.png" alt="" class="">
+							</div>
+							<div class="m_user_setimg">
+								<img src="../image/user_center/user_center_imgb.png" alt="">
+							</div>
+						</div>
+						<!--登录前-->
+						<div class="m_user_login_box">
+							<div class="m_user_login" onclick="skip('login_window')">
+								<input type="button" value="登录">
+							</div>
+							<div class="m_user_register" onclick="skip('register_window')">
+								<input type="button" value="注册">
+							</div>
+						</div>
+					</div>
+					<!--登录后-->
+					<!--头像-->
+					<div id="user_info">
+						<div class="m_user_tx" onclick="islogin_skip('user/userinfo_window')">
+							<div class="m_user_via">
+								<img src="../image/user_center/index-5.png" alt="" class="" id="userpic">
+							</div>
+							<div class="m_user_setimg">
+								<img src="../image/user_center/user_center_imgb.png" alt="">
+							</div>
+						</div>
+						<div class="m_user_login_box">
+							<div class="m_user_name">
+								<span id="username"></span>
+							</div>
+							<div class="m_user_login">
+								<span class="m_user_rank">级别:<span id="groupname"></span></span>
+							</div>
+							<div class="m_user_register">
+								<span class="m_user_price">牛币：<span id="userfen"></span></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--middle-->
+				<div class="m_user_cmiddle">
+					<div class="m_userc_classes">
+						<ul>
+							<li onclick="web_open('/Home/User/myvideo')">
+								<div class="m_user_imgicon">
+									<img src="../image/user_center/my_classes.png" alt="">
+								</div>
+								<span>我的课程</span>
+							</li>
+							<li onclick="web_open('/Home/User/history')">
+								<div class="m_user_imgicon">
+									<img src="../image/user_center/my_history.png" alt="">
+								</div>
+								<span>播放记录</span>
+							</li>
+							<li onclick="web_open('/Home/User/fave')">
+								<div class="m_user_imgicon">
+									<img src="../image/user_center/my_collect.png" alt="">
+								</div>
+								<span>我的收藏</span>
+							</li>
+							<li onclick="islogin_skip('user/money_window')">
+								<div class="m_user_imgicon">
+									<img src="../image/user_center/my_yue.png" alt="">
+								</div>
+								<span>账户余额</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!--特服、牛币-->
+				<div class="m_user_clists">
+					<ul class="m_user_lists">
+						<li>
+							<em class="m_user_icon m_user_icon01"></em> 爱牛零特服务 <span class="m_user_vmore"></span>
+						</li>
+						<li onclick="islogin_skip('user/money_window')">
+							<em class="m_user_icon m_user_icon02"></em> 我的牛币 <span class="m_user_vmore"></span>
+						</li>
+					</ul>
+				</div>
+				<!--课程管理-->
+				<div class="m_user_clists">
+					<ul class="m_user_lists">
+						<li onclick="web_open('/Home/User/myvideo')">
+							<em class="m_user_icon m_user_icon03"></em> 课程管理 <span class="m_user_vmore"></span>
+						</li>
+					</ul>
+				</div>
+				<!--购物车、记录、设置-->
+				<div class="m_user_clists">
+					<ul class="m_user_lists">
+						<!-- <li>
+							<em class="m_user_icon m_user_icon04"></em> 购物车 <span class="m_user_vmore"></span>
+						</li> -->
+						<li onclick="web_open('/Home/User/order')">
+							<em class="m_user_icon m_user_icon05"></em> 购买记录 <span class="m_user_vmore"></span>
+						</li>
+						<li onclick="web_open('/Home/User/info')">
+							<em class="m_user_icon m_user_icon06"></em> 我的设置 <span class="m_user_vmore"></span>
+						</li>
+					</ul>
+				</div>
+				<!--充值、客服-->
+				<div class="m_user_clists">
+					<ul class="m_user_lists">
+						<li onclick="islogin_skip('user/money_window')">
+							<em class="m_user_icon m_user_icon07"></em> 我要充值 <span class="m_user_vmore"></span>
+						</li>
+						<li>
+							<em class="m_user_icon m_user_icon08"></em> 在线客服 <span class="m_user_vmore"></span>
+						</li>
+					</ul>
+				</div>
+				<!--清除缓存-->
+				<div class="m_user_clists">
+					<ul class="m_user_lists">
+						<li onclick="clearCache()">
+							<em class="m_user_icon m_user_icon09"></em> 清除缓存 <span class="m_user_vmore"></span>
+							<span id="cache_size" style="float: right">缓存计算中...</span>
+						</li>
+					</ul>
+				</div>
+				<div style="    background: #fff;padding: 20px 0">
+					<button class="back_btn" onclick="back_btn()" >
+						退出当前账号
+					</button>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+
+
+
+	<script>
+		var userid = '';
+		var username = '';
+		apiready = function() {
+
+			//监听页面用户信息是否有变更
+			api.addEventListener({
+				name : 'userinfo'
+			}, function(ret, err) {
+				userinfo();
+			});
+
+			username = $api.getStorage('username');
+			userid = $api.getStorage('userid');
+
+			// alert(userid);
+
+			//判断是否存储有用户数据
+			if (typeof(userid) == "undefined") {
+
+				$('#user_login').css('display', 'block');
+				$('#user_info').css('display', 'none');
+			} else {
+	      userinfo();
+				$('#user_login').css('display', 'none');
+				$('#user_info').css('display', 'block');
+			}
+
+			$('#cache_size').text(cachesize());
+		}
+
+		//更新用户数据
+		function userinfo() {
+
+      $.post(app_url + '/app-php/index.php?m=User&a=index',{
+				'userid':$api.getStorage('userid'),'rnd':$api.getStorage('rnd')
+			},function(ret){
+				// alert(JSON.stringify(ret));
+
+				 //没有登录
+				 if (ret['result'] == '0') {
+					 $('#user_login').css('display', 'block');
+					 $('#user_info').css('display', 'none');
+					 del_userinfo();
+				 } else {
+
+					 $('#user_login').css('display', 'none');
+					 $('#user_info').css('display', 'block');
+					 var userids = ret['userid'];
+					 //判断是否返回有数据
+					 if (userids != '') {
+						 $api.setStorage('username', ret['username']);
+						 $api.setStorage('userid', ret['userid']);
+						 $api.setStorage('groupname', ret['groupname']);
+						 $api.setStorage('rnd', ret['rnd']);
+						 $api.setStorage('groupid', ret['groupid']);
+						 $('#username').html(ret['username']);
+						 $('#groupname').html(ret['groupname']);
+						 $('#userfen').html(ret['userfen']);
+						 $('#userpic').attr('src', ret['userpic']);
+					 } else {
+						 //获取数据失败
+					 }
+				 }
+			})
+
+			// $.ajax({
+			// 	url : app_url + '/app-php/index.php?m=User&a=index',
+			// 	method : 'post',
+			// 	dada:{'userid':userid,'rnd':$api.getStorage('rnd')},
+			// 	success : function(ret) {
+			//
+			//
+			// 	},
+			// 	error : function(err) {
+			// 		//获取数据失败  执行缓存
+			// 	}
+			// })
+		}
+
+    //删除本地存储用户数据
+		function del_userinfo() {
+			$api.rmStorage('username');
+			$api.rmStorage('userid');
+				$api.rmStorage('rnd');
+			$api.rmStorage('groupid');
+			$api.rmStorage('groupname');
+			$api.rmStorage('groupname');
+			$api.rmStorage('userdate');
+			$api.rmStorage('cache_userpic');
+		}
+    //清除缓存
+		function clearCache() {
+			api.clearCache(function() {
+				api.toast({
+					msg : '清除完成'
+				});
+				$('#cache_size').text('0 B');
+			});
+		}
+
+		//计算缓存大小
+		function cachesize() {
+			var bytes = api.getCacheSize({
+				sync : true
+			});
+			if (bytes === 0)
+				return '0 B';
+			var k = 1024, sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'], i = Math.floor(Math.log(bytes) / Math.log(k));
+			return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+		}
+
+     //退出
+		function back_btn() {
+			layer.msg('你确定退出吗？', {
+				time : 0,
+				btn : ['确认', '点错了'],
+				yes : function(index) {
+					layer.close(index);
+					layer.load(2);
+					$.post(app_url + "/app-php/index.php?m=User&a=close_user", function(result) {
+						if (result == 'success') {
+							$.post(zhibo_url+'/Home/User/close','',function(result) {	});
+							$('#login').css('display', 'block');
+							$('#info').css('display', 'none');
+							$('#userinfo').attr('onclick', "skip('login_window')");
+							$('#userpic').attr('src', '../image/img/user.png');
+							layer.closeAll('loading');
+							layer.msg('退出成功');
+							$api.clearStorage();
+							del_userinfo();
+							userinfo();
+						}
+					});
+
+				}
+			});
+		}
+
+
+		/**
+		 * 解密
+		 *
+		 * @param str 解密字符
+		 */
+		function de(str) {
+			var key = CryptoJS.enc.Utf8.parse("7411851119631123");
+			// 秘钥
+			var iv = CryptoJS.enc.Utf8.parse('1234567890123412');
+			//向量iv
+			var decrypted = CryptoJS.AES.decrypt(str, key, {
+				iv : iv,
+				padding : CryptoJS.pad.ZeroPadding
+			});
+			return decrypted.toString(CryptoJS.enc.Utf8);
+		}
+
+		/**
+		 * 加密
+		 * @param str  加密字符
+		 */
+		function en(str) {
+			key = CryptoJS.enc.Utf8.parse("7411851119631123");
+			// 秘钥
+			var iv = CryptoJS.enc.Utf8.parse('1234567890123412');
+			//向量iv
+			var encrypted = CryptoJS.AES.encrypt(str, key, {
+				iv : iv,
+				mode : CryptoJS.mode.CBC,
+				padding : CryptoJS.pad.ZeroPadding
+			});
+			return encrypted.toString();
+		}
+
+
+
+	</script>
+</html>

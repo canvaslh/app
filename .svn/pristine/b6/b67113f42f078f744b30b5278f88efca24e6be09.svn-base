@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>爱牛宝宝网-修改密码</title>
+		<link rel="stylesheet" href="../css/miniubb.css">
+		<link rel="stylesheet" href="../css/login.css">
+		<link rel="stylesheet" href="../css/register.css">
+		<link rel="stylesheet" href="../css/forget_pwd.css">
+		<script type="text/javascript" src="../script/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="../layer/layer.js"></script>
+	</head>
+
+	<body>
+		<header class="aui-bar aui-bar-nav _color" id="head" style="position: unset;">
+			<a class="aui-btn _color  aui-pull-left" onclick="backs()">
+				<span class="aui-iconfont aui-icon-left"></span>
+			</a>
+			<div class="aui-title">修改密码</div>
+		</header>
+		<div class="">
+			<!--忘记密码-->
+			<div class="m_forgetpwd">
+				<!--form-->
+				<div class="m_register_form">
+					<form name="setpwd">
+						<ul>
+							<li>
+								<div class="m_register_box m_login_pwd">
+									<span class="m_registerhp_icon"></span>
+									<label for=""><input type="number" class="m_loginpwd" placeholder="填写手机号" name="phone" id="phone"></label>
+								</div>
+							</li>
+							<li class="m_register_yzmbox">
+								<div class="m_register_box m_login_pwd m_register_yzmbox_">
+									<span class="m_registeryzm_icon"></span>
+									<label for=""><input type="number" class="m_registerpwd" placeholder="输入验证码" name="code" id="code"></label>
+
+								</div>
+								<input type="button" value="获得验证码" class="m_register_yz">
+							</li>
+							<li class="m_register_yzmbox">
+								<div class="m_register_box m_login_pwd m_register_yzmbox_">
+									<span class="m_forgetyzm_icon"></span>
+									<label for=""><input type="password" class="m_loginpwd" placeholder="请设置新密码" name="newpassword" id="newpassword"></label>
+								</div>
+								<!--<span class="m_forgetpwd_yz"></span>-->
+							</li>
+							<li class="m_register_yzmbox">
+								<div class="m_register_box m_login_pwd m_register_yzmbox_">
+									<span class="m_forgetyzm_icon"></span>
+									<label for=""><input type="password" class="m_loginpwd" placeholder="再次确认密码" name="yespassword" id="yespassword"></label>
+
+								</div>
+								<!--<span class="m_forgetpwd_yz"></span>-->
+							</li>
+						</ul>
+
+						<input type="submit" value="重置密码" class="m_register_btn" />
+
+					</form>
+					<div class="m_forgetpwd_items">
+						<img src="../image/login/forgetpwd_items.png" alt="">疑难问题？请联系爱牛宝宝<span class="cr_299cf7">客服人员</span>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script>
+		$(function() {
+
+			var setpwd = $('form[name="setpwd"]');
+
+			var url = app_url+"/app-php/index.php?m=User&a=setpwd";
+			var yzm_url = app_url+"/app-php/index.php?m=User&a=setpwd_yzm";
+			//			var step = 10;
+			//			var _res = '';
+			$('.m_register_yz').click(function() {
+
+				if($('#phone').val() == '') {
+					
+					 toast('手机号码不能为空',1000,'middle');
+					$('#phone').focus();
+					return false;
+				}
+
+				var reg = /^1[3|4|5|8|7|9|8][0-9]\d{4,8}$/;
+
+				if(!reg.test($('#phone').val())) {
+					
+					 toast('手机号码格式不正确',1000,'middle');
+					$('#phone').focus();
+					return false;
+				}
+
+				layer.load(2);
+
+				$.post(yzm_url, {
+					phone: $('#phone').val()
+				}, function(html) {
+
+					layer.closeAll('loading');
+					switch(html['result']) {
+						case 0:
+							
+							 toast('手机号码不能为空',1000,'middle');
+							break;
+						case 1:
+							
+							 toast('手机号码格式不正确',1000,'middle');
+							break;
+						case 2:
+							
+							 toast('手机号码不存在',1000,'middle');
+							break;
+						case 5:
+							layer.msg('发送失败,错误代码:' + html['txt'] + ',请联系客服人员。', {
+								icon: 5
+							});
+							break;
+						case 8:
+							layer.msg('发送成功', {
+								icon: 1
+							});
+
+							timeout(60);
+
+							break;
+						default:
+							layer.msg('发送失败', {
+								icon: 2
+							});
+							break;
+					}
+				})
+
+				return false;
+
+			})
+
+			function timeout(step) {
+				var _res = setInterval(function() {
+					$(".m_register_yz").attr("disabled", true);
+					$(".m_register_yz").val(step + '秒后重新发送');
+					step -= 1;
+					if(step <= 0) {
+						$(".m_register_yz").removeAttr("disabled");
+						$(".m_register_yz").val('重新获取');
+						clearInterval(_res);
+					}
+				}, 1000);
+
+			}
+
+			setpwd.submit(function() {
+
+				if($('#phone').val() == '') {
+					
+					 toast('手机号码不能为空',1000,'middle');
+					$('#phone').focus();
+					return false;
+				}
+
+				var reg = /^1[3|4|5|8|7|9|8][0-9]\d{4,8}$/;
+
+				if(!reg.test($('#phone').val())) {
+					
+					 toast('手机号码格式不正确',1000,'middle');
+					$('#phone').focus();
+					return false;
+				}
+
+				if($('#code').val() == '') {
+				
+					 toast('请输入验证码',1000,'middle');
+					$('#code').focus();
+					return false;
+				}
+
+				if($('#newpassword').val() == '') {
+					
+					toast('请输入新密码',1000,'middle');
+					$('#newpassword').focus();
+					return false;
+				}
+
+				if($('#yespassword').val() == '') {
+					
+					toast('请确认密码',1000,'middle');
+					$('#yespassword').focus();
+					return false;
+				}
+
+				if($('#newpassword').val() != $('#yespassword').val()) {
+					lay_msg('两次密码输入不一致');
+					//					$('#newpassword').focus();
+					return false;
+				}
+
+				var data = setpwd.serialize();
+				layer.load(2);
+				$.post(url, data, function(ret) {
+					layer.closeAll('loading');
+
+					if(ret.result != 8) {
+						lay_msg(ret.txt);
+					} else {
+						layer.msg('修改成功', {
+							icon: 1
+						});
+						skip('setpwd_success');
+					}
+				})
+
+				return false;
+			})
+
+			var lay_height = $(window).height() - 200;
+			var lay_time = 1000;
+
+			function lay_msg(text) {
+				layer.msg(text, {
+					offset: lay_height,
+					time: lay_time,
+					anim: 6
+				});
+			}
+		})
+	</script>
+
+</html>

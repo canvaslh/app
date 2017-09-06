@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>添加地址</title>
+    <link rel="stylesheet" href="../../css/common.css">
+    <!--<link rel="stylesheet" href="../../css/style.css">-->
+    <link rel="stylesheet" href="../../css/miniubb.css">
+    <link rel="stylesheet" href="../../css/user/add_address.css">
+    <script type="text/javascript" src="../../script/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="../../script/vue.js"></script>
+</head>
+<body>
+<div class="m_iniubb">
+    <!--添加收货地址-->
+    <div class="m_add_address">
+    	<form  method="post" name="address">
+        <div class="m_add_addressc">
+
+
+            <!--其他-->
+            <div class="m_address_02" rel="" >
+            	
+            		<input type="hidden" name="id" v-bind:value="site.addressid"/>
+            		<input type="hidden" name="dfg" value="" />
+                <ul>
+                	 <li>
+                        <label for="">地址名称</label>
+                       
+                        <input type="text" v-bind:value="site.addressname"  name="addressname" placeholder="地址名称/标签" maxlength="10" value>
+                    </li>
+                    <li>
+                        <label for="">真实姓名</label>
+
+                        <input type="text"  v-bind:value="site.truename"  name="truename" placeholder="收件人姓名" maxlength="10" value>
+                    </li>
+                    <li>
+                        <label for="">手机电话</label>
+                        <input type="tel"  v-bind:value="site.phone"  name="phone" placeholder="电话号码" maxlength="11" value>
+                    </li>
+                    <li>
+                        <label for="">微信/QQ</label>
+                        <input type="text"   v-bind:value="site.oicq" name="oicq" placeholder="可选填" maxlength="20" value>
+                    </li>
+                    <li>
+                        <label for="">收货地址</label>
+                    </li>
+                    <li>
+                        <!--<input type="text" placeholder="输入详细地址" class="write_details">
+                        <input type="text" value="" >-->
+                        <textarea placeholder="输入详细地址" class="write_details" name="full_address" maxlength="30" value>{{site.address}}</textarea>
+                    </li>
+                    <li>
+                        <label for="">客服代表</label>
+                        <input type="text" value="" placeholder="可选填" name="kf" maxlength="10" value>
+                    </li>
+                </ul>
+              
+            </div>
+            <input type="submit" class="m_address_btn" value="提交表单">
+              </form>
+        </div>
+    </div>
+</div>
+</body>
+			<script type="text/javascript" src="../../script/api.js"></script>
+<script src="../../layer/layer.js" charset="utf-8"></script>
+<script>
+	
+	
+	
+	$('input[name=dfg]').val(userid);
+	
+	
+	function getUrlParam(name) {
+	 var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+	 var r = window.location.search.substr(1).match(reg); //匹配目标参数
+	 if (r != null) return unescape(r[2]); return null; //返回参数值
+	}
+	
+	
+	var _list = {
+				site: ''
+			};
+
+			var address_vm = new Vue({
+				el: '.m_address_02',
+				data: _list
+			})
+	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+	
+	
+	var id = getUrlParam('id');
+
+	
+    	
+      if(id!=''){
+      	
+    	$.post(app_url + '/app-php/index.php?m=User&a=edit_address',{
+    		'sitli':$api.getStorage('rnd'),'dfg':userid,'id': id,'type':12
+    	},function(ret){
+    		_list.site = ret.address;
+//  		console.log(ret);
+    	})
+    	
+      }
+
+	$(function(){
+		var address = $('form[name=address]');
+		address.submit(function(){
+		var data = address.serialize();
+		
+		    if($('input[name=addressname]').val() == '') {lay_msg('地址名称不能为空');return false;}
+		    if($('input[name=truename]').val() == '') {lay_msg('用户名不能为空');return false;}
+		    if($('input[name=phone]').val() == '') {lay_msg('手机号不能为空');return false;}
+		    if($('input[name=city]').val() == '') {lay_msg('城市不能为空');return false;}
+		    if($('textarea[name=full_address]').val() == '') {lay_msg('收货地址不能为空');return false;}
+		    $.post(app_url + '/app-php/index.php?m=User&a=edit_address',data,function(citp){
+		    	if(citp.r==0 || citp.r==3){
+		    		console.log(citp);
+		    		layer.msg(citp.t, {icon: 2,time: 1000});
+		    	}else if(citp.r==2){
+		    	
+		    		layer.msg(citp.t, {icon: 1,time: 1000});
+		    		
+		    		parent.$('.manager_address').show();
+		    		
+		    		 parent.def_address(citp.id);
+		    		 
+		    		 
+		    		 parent.layer.msg(citp.t, {icon: 1,time: 1000});
+		    		 
+		    		 parent.layer.close(index);
+		    		  
+		    		
+		    	}else{
+		    		layer.msg('修改失败', {icon: 2,time: 1000});
+		    	}
+		    });
+		   	
+		    return false;
+	    })
+		
+	})
+	function lay_msg(text) {
+				layer.msg(text, {
+					time: 1000,
+					anim: 6
+				});
+			}
+
+	
+</script>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>文档</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+   <style>
+   	div{
+   		margin: 50px;
+   	}
+   </style>
+</head>
+<body >
+	<!--导航-->
+			<!-- <header class="aui-bar aui-bar-nav _color" style="height: 40px;line-height: 40px">
+				<div class="aui-title">直播</div>
+			</header> -->
+  	<!--<div class="clickbtn" tapmode="active" onclick="showBrowserView()" >观看直播</div>-->
+   <iframe src="http://www.ainiubaobao.com/rlive/m/index.php?rid=2" width="100%" height="100%"></iframe>
+</body>
+  <script type="text/javascript" src="../script/api.js"></script>
+<script>
+var home = "http://www.ainiubaobao.com/rlive/m/index.php?rid=2";
+
+    apiready = function(){
+    start_hideProgress();
+    setTimeout(stop_hideProgress(),3000);//延时3秒
+//		var browser = api.require('webBrowser');
+//		browser.openView({
+//		    url: home,
+//		    rect: {
+//		        x: 0,
+//		        y: 64,
+//		        w: 'auto',
+//		        h: 'auto',
+//		         marginBottom:200
+//
+//		    }
+//		}, function(ret, err) {
+//		    switch (ret.state) {
+//		        case 0:
+//		            break;
+//		        case 1:
+//		            break;
+//		        case 2:
+//		            break;
+//		        case 3:
+//		            break;
+//		        case 4:
+//		            break;
+//		        default:
+//		            break;
+//		    }
+//		});
+//var browser = api.require('webBrowser');
+//browser.open({
+//  url: home,
+//  progress:{
+//				color:'#1d80e6'
+//			},
+//  titleBar:{
+//
+//    visible:true,
+//				bg:'#1d80e6',
+//				textColor:'#fff'
+//  }
+//}, function(ret){
+////			stop_hideProgress();
+//		});
+
+    };
+
+
+</script>
+</html>

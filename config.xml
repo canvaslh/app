@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widget id="A6946090227181" version="0.0.1"> 
+  <name>ainiubaobao</name>  
+  <description>爱牛宝宝</description>  
+  <author email="1124134058@qq.com" href="http://www.apicloud.com">辉哥_0808</author>  
+  <content src="index.html"/>  
+  <preference name="appBackground" value="#fff"/>  
+  <preference name="windowBackground" value="red"/>  
+  <preference name="frameBackgroundColor" value="red"/>  
+  <preference name="hScrollBarEnabled" value="false"/>  
+  <preference name="vScrollBarEnabled" value="false"/>  
+  <preference name="autoLaunch" value="true"/>  
+  <preference name="autoUpdate" value="true"/>  
+  <preference name="smartUpdate" value="true"/>  
+  <preference name="debug" value="true"/>  
+  <preference name="statusBarAppearance" value="true"/>  
+  <preference name="iOS7StatusBarAppearance" value="true"/>  
+  <preference name="urlScheme" value="ainiubaobao"/>  
+  <permission name="location"/>  
+  <permission name="internet"/>  
+  <permission name="bootCompleted"/>  
+  <access origin="*"/>  
+  <feature name="baiduLocation"> 
+    <param name="apiKey" value="QFwYyb5W9XmpqUVGWhF4niHiesKShRBC"/> 
+  </feature>  
+  <feature name="aliPay"> 
+    <param name="ainiubaobao" value="AliPayA6946090227181"/> 
+  </feature>  
+  <feature name="qq"> 
+    <param name="urlScheme" value="tencent101064640"/>  
+    <param name="apiKey" value="101064640"/> 
+  </feature>  
+  <feature name="ajpush"> 
+    <param name="app_key" value="8c20ea1208d73cf921c54d35"/>  
+    <param name="channel" value="your channel"/> 
+  </feature>  
+  <feature name="wx"> 
+    <param name="urlScheme" value="wxfb7da15a7a447852"/>  
+    <param name="apiKey" value="wxfb7da15a7a447852"/>  
+    <param name="apiSecret" value="45a54e8931336c88fd507a84f1fdb815"/> 
+  </feature> 
+</widget>

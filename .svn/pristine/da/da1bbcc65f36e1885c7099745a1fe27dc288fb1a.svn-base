@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>我的课程</title>
+	</head>
+	<body></body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript">
+				apiready = function() {
+				api.closeWin();
+			start_hideProgress();
+			var userid = $api.getStorage('userid');
+			var username = $api.getStorage('username');
+			var groupid = $api.getStorage('groupid');
+			var rnd = $api.getStorage('rnd');
+			//判断是否登录
+			if (!isNaN(userid)) {
+				var url = 'http://zhibo.ainiubaobao.com/Home/User/myvideo';
+			} else {
+				api.openWin({
+					name : 'login_window',
+					url : '../login_window.html',
+					pageParam : {
+					}
+				});
+			}
+			var browser = api.require('webBrowser');
+			browser.open({
+				url : url,
+				progress : {
+					color : '#1d80e6'
+				},
+				titleBar : {
+					visible : true,
+					bg : '#1d80e6',
+					textColor : '#fff'
+				}
+			}, function(ret) {
+				stop_hideProgress();
+			});
+		};
+	</script>
+</html>

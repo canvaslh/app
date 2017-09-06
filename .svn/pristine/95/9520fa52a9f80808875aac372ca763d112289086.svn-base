@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<script type="text/javascript" charset="utf-8" src="http://yuntv.letv.com/player/vod/bcloud.js"></script>
+		<script type="text/javascript" src="../script/jquery-1.7.2.min.js"></script>
+		<style>
+			body {}
+		</style>
+	</head>
+
+	<body>
+
+	<!--<div style="width: 100%;height: 250px">
+		<script id="autoJs34049e62d1" type="text/javascript">
+			var pNode = document.getElementById("autoJs34049e62d1").parentNode,
+				pt, pb, dWidth = pNode.clientWidth,
+				pHeight = pNode.clientHeight,
+				dHeight = ReCallHeight(pHeight, dWidth, pNode);
+
+			function ReCallHeight(h, w, a) { try { pt = window.getComputedStyle(a, null).paddingTop;
+					pb = window.getComputedStyle(a, null).paddingBottom; } catch(e) { pt = a.currentStyle.paddingTop;
+					pb = a.currentStyle.paddingBottom; } h = h - parseInt(pt) - parseInt(pb); if(h && (typeof h == "number") && h == h && h > 0) { return h; } else { var ua = navigator.userAgent.toLowerCase(); var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+						isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+						isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+						isMobile = isIphone || isAndroid; if(isMobile) { return w * 9 / 16; } else { return(w * 9 / 16) + 36; } } };
+			var player = new CloudVodPlayer();
+			player.init({ "uu": "ee4e346336", "vu": "113becbb01", "auto_play": 1, "gpcflag": 1, "width": dWidth, "height": dHeight, "lang": "zh_CN",'controls':'0' ,'dfull':'1'});
+		</script>
+		
+</div>-->
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		
+
+start_hideProgress();
+
+	var video_id = api.pageParam["id"];
+	var name = api.pageParam["name"];
+	var userid = $api.getStorage('userid');
+	var username = $api.getStorage('username');
+	var groupid = $api.getStorage('groupid');
+	var rnd = $api.getStorage('rnd');
+	//判断是否登录
+	if(!isNaN(userid)){
+		var url = app_url+'/video/'+video_id+'.html?userid='+userid+'&username='+username+'&groupid='+groupid+'&rnd='+rnd;
+	}else{
+	  var url = app_url+'/video/'+video_id+'.html';
+	}
+	
+			
+
+//			alert(url);
+			
+var browser = api.require('webBrowser');
+browser.open({
+    url: url,
+    progress:{
+				color:'#FC403F'
+			},
+    titleBar:{
+     
+      visible:true,
+				bg:'#FC403F',
+				textColor:'#fff'
+    }
+}, function(ret){
+			stop_hideProgress();
+		});
+
+//browser.openView({
+//  url: url,
+//progress:{
+//color:'#fff'
+//},
+//
+//  rect: {
+//      x: 0,
+//      y: 65,
+//      w: 'auto',
+//      h: 'auto'
+//  }
+//}, function(ret, err) {
+//
+//  switch (ret.state) {
+//    
+//      case 2:stop_hideProgress();
+//          break;
+//
+//  }
+//});
+
+
+//var obj = api.require('UIWebBrowser');
+//obj.open({
+//  rect: {
+//       x: 0,	
+//      y: -50,
+//      w: 'auto',
+//      h: 650	
+//  },
+//  path: url,
+//  fixedOn: api.frameName,
+//  fixed: true,
+// 
+//}, function(ret) {
+////  api.alert({
+////      msg: JSON.stringify(ret)
+////  });
+//});
+
+		}
+	</script>
+
+</html>

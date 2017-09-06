@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="tephone=no,email=no,date=no,address=no">
+		<style type="text/css">
+			html{ background-color: white; }
+			header{ border-bottom: 1px solid #ccc; padding: 25px 0; }
+			span {
+				padding: 5px 15px;
+				margin: 10px;
+				display: inline-block;
+				background-color: #e8e8e8;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1>UIScrollPicture</h1>
+			<mark>
+				使用前请详细阅读 文档 使用规则
+			</mark>
+		</header>
+		<span tapmode onclick="fnOpen()">open()</span>
+		<span tapmode onclick="fnClose()">close()</span>
+		<span tapmode onclick="fnShow()">show()</span>
+		<span tapmode onclick="fnHide()">hide()</span>
+		<span tapmode onclick="fnSetCurrentIndex()">setCurrentIndex()</span>
+		<span tapmode onclick="fnReloadData()">reloadData()</span>
+		<span tapmode onclick="fnAddEventListener()">addEventListener()</span>
+	</body>
+	<script type="text/javascript">
+		var UIScrollPicture;
+		apiready = function() {
+			UIScrollPicture = api.require('UIScrollPicture');
+		};
+
+		function fnOpen() {
+			UIScrollPicture.open({
+				rect : {
+					x : 0,
+					y : 240,
+					w : api.winWidth,
+					h : 300
+				},
+				data : {
+					paths : ['http://p2.so.qhimg.com/t011d3ccbad92e11237.jpg', 'widget://res/t01c8026adad49a51f.jpg', 'widget://res/gogd.jpg'],
+					captions : ['猫', '可爱的萌宠喵星人', '西伯利亚,哈士奇犬,狗,两个,成年人,坐,一起', 'title4', 'title5']
+				},
+				styles : {
+					caption : {
+						height : 35,
+						color : '#E0FFFF',
+						size : 13,
+						bgColor : '#696969',
+						position : 'bottom'
+					},
+					indicator : {
+						align : 'center',
+						color : '#FFFFFF',
+						activeColor : '#DA70D6'
+					}
+				},
+				placeholderImg : 'widget://res/slide1.jpg',
+				contentMode : 'scaleToFill',
+				interval : 3,
+				loop : true,
+				fixed : false
+			}, function(ret, err) {
+				if (ret) {
+					alert(JSON.stringify(ret));
+				} else {
+					alert(JSON.stringify(err));
+				}
+			});
+		};
+		function fnClose() {
+			UIScrollPicture.close();
+		};
+		function fnShow() {
+			UIScrollPicture.show();
+		};
+		function fnHide() {
+			UIScrollPicture.hide();
+		};
+		function fnSetCurrentIndex() {
+			UIScrollPicture.setCurrentIndex({
+				index : 2
+			});
+		};
+		function fnReloadData() {
+			UIScrollPicture.reloadData({
+				data : {
+					paths : ['http://p2.so.qhimg.com/t017ccbb9391da2b4a7.jpg', 'http://p3.so.qhimg.com/t01d12e93583a86b823.jpg', 'http://p1.so.qhimg.com/t01cf5cad6fa213da81.jpg'],
+					captions : ['title1', 'title2', 'title3']
+				}
+			});
+		};
+
+		function fnAdEventListener() {
+			UIScrollPicture.addEventListener({
+				name : 'scroll'
+			}, function(ret, err) {
+				if (ret) {
+					alert(JSON.stringify( ret ));
+				} else {
+					alert(JSON.stringify( err ));
+				}
+			});
+		};
+	</script>
+</html>

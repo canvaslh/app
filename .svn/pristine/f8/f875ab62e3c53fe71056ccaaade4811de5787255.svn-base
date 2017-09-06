@@ -1,0 +1,74 @@
+.m_pay_success{
+    width: 100%;
+    background: #f4f4f4;
+}
+.m_pay_notice{
+    /*background: #1d80e6;*/
+
+    background: #ffffff;
+    font-size:20px;
+    color: #1d80e6;
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+}
+.m_pay_proinfor{
+    margin-top: 7px;
+    background: #fafafa;
+
+}
+.m_pay_prodetails{
+    margin-top: 7px;
+}
+.m_pay_proadress{
+    background: #ffffff;
+    padding-top: .7em;
+    padding-bottom: .7em;
+}
+.m_pay_proadress ul{
+
+}
+.m_pay_proadress ul li {
+    padding-left: 1em;
+    padding-right: 1em;
+    line-height:1.6em;
+}
+.pay_cr01{
+    color: #686c6d;
+}
+.pay_success_box{
+    padding-left: 1em;
+    padding-right: 1em;
+    background: #ffffff;
+}
+.pay_success_box ul{
+    padding-top: .5em;
+    padding-bottom: .5em;
+}
+.pay_success_box ul li{
+    line-height: 1.8em;
+    font-size:9pt;
+    color: #b1b1b1;
+}
+.pay_success_price{
+    float: right;
+    color: #505557;
+}
+.pay_success_price01{
+    float: right;
+    color: #ff5500;
+    font-size: 14px;
+}
+.m_pay_order_d{
+    margin-top: 7px;
+    background: #ffffff;
+}
+.m_pay_order_d ul{
+    padding: 1em;
+}
+.m_pay_order_d ul li{
+    line-height: 2em;
+    color: #b1b1b1;
+    font-size: 9pt;
+}

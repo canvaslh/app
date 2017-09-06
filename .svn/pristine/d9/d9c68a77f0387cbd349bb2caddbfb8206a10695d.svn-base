@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+	<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>开发</title>
+		
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+	<link rel="stylesheet" href="../css/miniubb.css">
+		 	<script type="text/javascript" src="../script/jquery-1.7.2.min.js"></script>
+
+ <script src="../script/vue.js"></script>
+	</head>
+	<body>
+	<!--导航-->
+			<header class="aui-bar aui-bar-nav _color" style="margin-bottom:5px;height: 40px;line-height: 40px;    ">
+				<a class="aui-pull-left"> <span class="aui-iconfont "> <!--<img src="../image/index/shares.png" alt="" />--> </span> </a>
+				<div class="aui-title">
+					视频中心
+				</div>
+				<a class="aui-pull-right" onclick="islogin_skip('user/userinfo_window')"> <span class="aui-iconfont aui-icon-my"></span> </a>
+			</header>
+	<!--课程-->
+<div class="m_iniubb" id="video" >
+    <div class="m_cate">
+        <!--初级班-->
+        <div class="m_cate_cjb" v-for="c in category" v-cloak>
+            <!--title-->
+            <div class="m_cate_title" style="    width: 100%;">
+                <h3 class="m_cate_t cr_299cf7">{{c.sitesclass}}</h3>
+            </div>
+            <!--cont-->
+            <div class="m_cate_cont">
+                <ul>
+                  <li v-for="a in c.sites">
+                        <div class="m_cate_block"  v-bind:onclick="['video_list_skip('+a.classid+',&quot; '+a.classname+'&quot;,0,'+c.sitesclassid+')']" v-cloak>
+                            <span class="m_cate_icon"><img v-bind:src="'http://www.ainiubaobao.com/images/app_video/'+a.classid+'.png'"></span>
+                            <span class="m_cate_name">{{a.classname}}</span>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+       
+
+    </div>
+</div>
+
+	</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script>
+	apiready = function(){
+
+// start_hideProgress();
+   show();
+
+}
+</script>
+
+<script>
+
+show();
+function show(){
+
+
+
+	$.ajax({
+
+				url: app_url+'/app-php/index.php?m=Videolist&a=index', //请求的url地址
+				method : 'get',
+				data : {type:1},
+				success: function(data) {
+//					alert( JSON.stringify(data) );
+//                stop_hideProgress();
+                 new Vue({
+						el: '#video',
+						data: {
+							category:[
+							    {
+									sites: data[0]['video_list'],
+									sitesclass: data[0]['classname'],
+									sitesclassid: data[0]['classid']
+						      },{
+									sites: data[1]['video_list'],
+									sitesclass: data[1]['classname'],
+									sitesclassid: data[1]['classid']
+						        }, {
+									sites: data[2]['video_list'],
+									sitesclass: data[2]['classname'],
+									sitesclassid: data[2]['classid']
+						        }, {
+									sites: data[3]['video_list'],
+									sitesclass: data[3]['classname'],
+									sitesclassid: data[3]['classid']
+						        }, {
+									sites: data[4]['video_list'],
+									sitesclass: data[4]['classname'],
+									sitesclassid: data[4]['classid']
+						        }
+							]
+						}
+						 
+						  
+						
+						
+						
+						
+					})
+					
+			
+					
+				},
+				
+				//请求失败
+				error: function(err) {
+					api.toast({
+					    msg: '数据获取失败，请检查你的网络连接',
+					    duration: 5000,
+					    location: 'middle'
+					});
+				}
+			})
+			
+			}
+</script>
+</html>

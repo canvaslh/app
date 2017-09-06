@@ -1,0 +1,70 @@
+<!doctype html>		
+<html>		
+  <head>			<link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+
+    <meta charset="utf-8">		
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>		
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">		
+    <title></title>		
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />		
+       <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />		
+       <script type="text/javascript" src="../../script/jquery-1.7.2.min.js"></script>
+  </head>		
+  <body>		
+    <div id="wrap">		
+      		
+      <div id="main">		
+        		
+      </div>		
+     	
+    </div>		
+  </body>		
+  <script type="text/javascript" src="../../script/api.js"></script>		
+  <script type="text/javascript">		
+   var main = $api.byId('main');		
+   var mainPos = $api.offset(main);		
+
+    apiready = function(){	
+    
+     api.setStatusBarStyle({		
+            style: 'light',
+            color: '#1d80e6'
+        });		
+//  	   api.closeToWin({
+//			    name: 'root'
+//			});
+                                 
+	
+ 	
+        	var hotheader = $api.byId('head');	
+        $api.fixIos7Bar(hotheader);	
+        var hotheader = $api.offset(hotheader);	
+        var type = api.pageParam["type"];
+        var main = $api.byId('main');		
+        var mainPos = $api.offset(main);		
+        var footer = $api.byId('footer');		
+        var footerPos = $api.offset(footer);	
+        var header = $api.dom('header');
+             $api.fixStatusBar(header);	
+        api.openFrame ({		
+            name: 'pay_success_frame1',		
+            url: './pay_success_frame1.html',		
+            rect : {
+					x : 0,
+					y : 24,
+					w : 'auto',
+					h : $api.dom('#main').offsetHeight - 24
+				},	
+            bounces: false,		
+            opaque: false,		
+            vScrollBarEnabled:false,		
+            hScrollBarEnabled:false,
+            pageParam: {
+	          type: type,
+//	          name: video_name
+	    }	
+        });		
+    };		
+  </script>		
+</html>		

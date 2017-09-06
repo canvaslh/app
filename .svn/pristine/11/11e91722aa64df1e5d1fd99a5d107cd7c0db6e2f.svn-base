@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>确认订单</title>
+		<link rel="stylesheet" href="../css/miniubb.css">
+		<link rel="stylesheet" href="../css/shop/pay_sure.css">
+		<link rel="stylesheet" href="../css/shop/add_address.css">
+		<script type="text/javascript" src="../script/jquery-1.7.2.min.js"></script>
+		<script src="../layer/layer.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../script/vue.js"></script>
+	</head>
+	<body>
+		<header class="aui-bar aui-bar-nav _color" id="head">
+			<a class="aui-btn _color aui-pull-left" onclick="backs()">
+				<span class="aui-iconfont aui-icon-left"></span>
+			</a>
+			<div class="aui-title">确认订单</div>
+			
+		</header>
+		<div class="pay_sure nav_header" id="shop_pay_info">
+			
+				<div class="m_address_total"  onclick="edit_address()"  v-if="site.classid === '573'">
+					<input type="hidden"  name="addressid" v-if="site.address == null" value=""/>
+				  <input type="hidden" name="addressid" v-bind:value="site.address.addressid" v-else/>
+					<div class="m_address_name">
+						<div>姓名：
+							<span class="truename" v-if="site.address == null"></span>
+							<span class="truename" v-else>{{site.address.truename}}</span>
+						</div>
+						<div>电话：
+						<span class="truename" v-if="site.address == null"></span>
+							<span class="truename" v-else>{{site.address.phone}}</span>
+							</div>
+					</div>
+					<div class="m_address_t">
+						收货地址：
+					</div>
+					<div class="m_address_real">
+						
+							<p rel="0"  v-if="site.address == null">请输入你的收货信息</p>
+							
+							<p rel="1" class="address" v-else>
+								{{site.address.address}}
+							</p>
+					</div>
+				</div>
+			<!--tt-->
+			<div class="pay_sure_title">
+				<div class="pay_sure_tt">
+					<h3>商品信息</h3>
+				</div>
+			</div>
+			<!--details-->
+			<div class="pay_pro_details">
+				
+				
+					<ul v-if="site.classid === '535'">
+						<li>商品名称：{{site.title}}</li>
+						<li>开通账号：{{user.username}}</li>
+						<li>商品金额：{{site.price}}</li>
+						<li>有效时长：{{site.g_days}}天</li>
+						<li>开始时间：{{site.g_start}}</li>
+						<li>结束时间：{{site.g_endtime}}</li>
+					</ul>
+					
+					<ul v-else-if="site.classid === '564'">
+						<li>商品名称：{{site.title}}</li>
+						<li>商品金额：{{site.price}}</li>
+						<li>有效时长：30天</li>
+						<li>课程详情：{{site.video_name}}(总共：{{site.video_count}}节课)
+						</li>
+					</ul>
+					
+					<ul v-else-if="site.classid === '573'">
+					<ul>
+						<li>商品名称：{{site.title}}</li>
+						<li>商品金额：{{site.price}}</li>
+						<li>商品类型：实物</li>
+						<li>快递物流：免邮费</li>
+					</ul>
+					
+
+			</div>
+			<!--pay_ways
+			<div class="pay_sure_ways">
+				<!--tt-->
+
+				<div class="pay_sure_tt">
+					<h3>支付方式</h3>
+				</div>
+
+				<!--cont-->
+				<div class="pay_box">
+					<ul>
+						<form  method="post" name="_pay" >
+						<li>
+							
+							
+							<input type="hidden" name="id"    v-bind:value="site.id"/>
+							<input type="hidden" name="classid" v-bind:value="site.classid" />
+							<input type="checkbox" id="checkbox-1-2" class="regular-checkbox" checked="checked" name="pay" value="alipay" /><label for="checkbox-1-2"></label>
+							<img src="../image/shop/alipay_logo.png" alt=""> 支付宝支付
+						</li>
+						<li>
+							<input type="checkbox" id="checkbox-1-3" class="regular-checkbox" name="pay" value="yue" /><label for="checkbox-1-3"></label>
+							<img src="../image/shop/yue_logo.png" alt=""> 余额支付
+							<span>(余额 <span class="pri_pri">{{user.money}}</span>
+							<a href="/Home/User/recharge">立即充值</a>)</span>
+						</li>
+						</form>
+					</ul>
+					<div class="pay_btnbox">
+						
+						
+							<input type="button" class="pay_sure_btn pay_sure_btn_s" value="确认支付购买"  v-if="site.classid === '573'">
+						 
+						    <input type="button" class="pay_sure_btn pay_sure_btn_x" value="确认支付购买" v-else>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script>
+	
+	var id = '';
+	var classid = '';
+			apiready = function() {
+			id = api.pageParam["id"];
+			classid = api.pageParam["classid"];
+			pay_shop_info(id,classid);
+		};
+		
+		var shop_inf = {
+			site : '',
+			user : ''
+		};
+		
+		var vm = new Vue({
+						el : '#shop_pay_info',
+						data : shop_inf
+					})
+			
+//		pay_shop_info(84,535);  //会员组
+//		pay_shop_info(68,564);  //书籍
+//		pay_shop_info(78,573);
+		function pay_shop_info(id,classid){
+//			$api.getStorage('userid')
+		  $.post(app_url + '/app-php/index.php?m=Shop&a=pay_shop_info',{'sitli':$api.getStorage('rnd'),'dfg':2326,'id':id,'classid':classid},function(ret){
+//		    alert(JSON.stringify(ret));
+		    console.log(ret);
+		    shop_inf.site = ret.shop_info;
+		     shop_inf.user = ret.user_info;
+		  })
+		}
+	
+	
+	</script>
+	<script>
+	
+
+		$(function() {
+			$(':checkbox[type="checkbox"]').each(function() {
+				$(this).click(function() {
+					if($(this).attr('checked')) {
+						$(':checkbox[type="checkbox"]').removeAttr('checked');
+						$(this).attr('checked', 'checked');
+					}
+				});
+			});
+			//实物 
+			$('.pay_sure_btn_s').click(function() {
+                if($('.m_address_real p').attr('rel')==0){
+                	layer.msg('请先添加收货地址',{time:1000});
+                }else{
+                	pay_shop(1);
+                }
+              
+			})
+			//虚物
+			$('.pay_sure_btn_x').click(function() {
+				pay_shop(2);
+			})
+		});
+		/**
+		 *支付宝支付 
+		 */
+		function pay_shop(type){
+			 $pay_type =  $(':checkbox[checked="checked"]').val();
+               if($pay_type=='alipay'){
+	               	layer.confirm('确认使用支付宝进行支付吗？', {
+						btn: ['是的，马上支付', '等会再支付'], //按钮
+						title: '爱牛宝宝温馨提示'
+					}, function() {
+						layer.msg('正在为你支付,请稍等', {
+							icon: 16,
+							shade: 0.01,
+							time: 0
+						});
+//						var _pay = $('form[name=_pay]');
+//						_pay.attr('action','/Home/Shop/buyshop');
+//						_pay.submit();
+	
+					}, function() {
+						layer.msg('你放弃了本次支付', function() {});
+						
+					});
+               }else if($pay_type=='yue'){
+               	 yue_pay(type);
+               }
+		}
+		/**
+		 *余额支付 
+		 */
+		function yue_pay(){
+			layer.confirm('<p class="pop_info_show">确认使用余额进行支付吗？</p>', {
+				icon: 3,
+				title: "支付提醒",
+				area: '320px',
+				btn: ['确认', '取消']
+			}, function() {
+				$.post(app_url + '/app-php/index.php?m=Shop&a=yue_pay',{
+					'aids':$('input[name=addressid]').val(),'id':$('input[name=id]').val(),'classid':$('input[name=classid]').val(),
+					'sitli':rnd,'dfg':userid
+					},function(yaf){
+					console.log(yaf);
+					if(yaf.r==0){
+						layer.msg(yaf.t, {icon: 2});
+					}else if(yaf.r==88){
+						if(yaf.type==535){
+							layer.alert('<p class="pop_info_show">'+yaf.name+'  '+yaf.t+'</p><p>到期时间:'+yaf.enddate+'</p>', {
+								icon: 1,
+//								time: 5000,
+								end: function() {
+//									window.location.href='/Home/User';
+                                   pay_success(yaf);
+								}
+							});
+						}else if(yaf.type==573){
+							layer.msg('购买成功', {
+								icon: 1,time:2000
+							},function(){
+//							    window.location.href="/Home/Shop/pay_success/src/"+yaf.src;
+  pay_success(yaf);
+							}
+							);
+							
+							
+						}else if(yaf.type==564){
+							layer.msg('购买成功', {
+								icon: 1,time:2000
+							},function(){
+//							    window.location.href="/list/0/id/"+yaf.viclassid+"/classid/"+yaf.viid;
+//pay_success(yaf);
+video_list_skip(yaf.viclassid,yaf.name,0,yaf.viid);
+api.closeWin({
+									    name: 'shop_info_window'
+									});
+									api.closeWin({
+									    name: 'confirm_shop_window'
+									});
+							}
+							);
+						}
+					
+					}
+				})
+			}, function() {
+				layer.msg('已取消',{time:1000});
+			})
+			
+		}
+		
+		function pay_success(yaf){
+		  api.openWin({
+									    name: 'pay_success_window',
+									    url: './pay/pay_success_window.html',
+									    animation:{
+									      type:"cube",                
+										    subType:"from_top",       
+										    duration:300  
+									    },
+									    pageParam: {
+									        type: yaf
+									    }
+									});
+									
+									api.closeWin({
+									    name: 'shop_info_window'
+									});
+									api.closeWin({
+									    name: 'confirm_shop_window'
+									});
+		
+		}
+		
+		/**
+		 *打开地址管理页面 
+		 */
+		function edit_address(){
+			var li_a = layer.open({
+				  type: 2,
+				  title:'地址管理',
+				  area: ['100%', '100%'],
+				  anim:2,
+				  content:'user/address.html',
+				   success: function(layero, index){
+                      $('.nav_header').hide();
+                      $('.header_seach').hide();
+                  },
+				  cancel: function(index, layero){ 
+					   $('.nav_header').show();
+                       $('.header_seach').show();
+					  
+					}  
+				});
+				layer.full(li_a);
+		}
+		
+		    /*
+		     * edit.address.html页面回调
+		     */
+			function edits_address(id,title){
+				
+				var index = layer.open({
+				  type: 2,
+				  title:title,
+				   anim:2,
+				  area: ['100%', '100%'],
+				  content: 'user/edit_address.html?id='+id,
+				  success: function(layero, index){
+				  	 var $body = layer.getChildFrame('body', index);
+                     $body.find('.m_address_02').attr('rel',id);
+                   
+
+                     $('.nav_header').hide();
+                      $('.header_seach').hide();
+                  },
+				  cancel: function(index, layero){ 
+					   $('.nav_header').show();
+                       $('.header_seach').show();
+					}  
+				});
+				layer.full(index);
+			}
+		
+		/**
+		 *address.html页面地址回调 
+		 */
+		function def_address(id){
+			  $('.nav_header').show();
+                       $('.header_seach').show();
+			$.post(app_url + '/app-php/index.php?m=User&a=defa_address',{
+				'sitli':$api.getStorage('rnd'),'dfg':2326,'id': id
+			},function(ref){
+//				console.log(ref);
+				if(ref.t==1){
+					var a = ref.r;
+					$('.truename').text(a.truename);
+					$('.phone').text(a.phone);
+					$('.address').text(a.address);
+//					$('.m_address_total').attr('data-ari',a.addressid);
+					$('input[name=addressid]').val(a.addressid);
+					$('.m_address_').val(a.addressid);
+				}else{
+					layer.msg('出错了',{time:1000});
+				}
+			})
+			
+		}
+		
+	
+		
+	</script>
+
+</html>

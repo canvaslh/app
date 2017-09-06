@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+	
+	
+	
+	
+		
+	</head>
+
+	<body>
+		
+<div id="app">
+
+</div>
+<div id="s"></div>
+	</body>
+	<script type="text/javascript" src="../script/jquery-1.7.2.min.js"></script>
+	
+	
+	<script type="text/javascript">
+		
+		showlist();
+    
+		function showlist() {
+			$.ajax({
+				url: 'http://www.ainiubaobao.com/app-php/index.php?m=Index&a=index', //请求的url地址
+				success: function(data) {
+					var s="";
+					
+//for(var o in data){        
+//       a = "名字:"+data[o].username+" id:"+data[o].userid;
+// }
+  
+   
+   var s="";
+ for(var i = 0 ; i < data.length;i++){
+        data[i];
+         s += '名字：'
+        s += data[i].username; 
+        s += '---账号：'
+        s += data[i].userid;
+        s += '<br>'
+       }
+ 
+ 
+    $('#app').html(s);
+    
+				},
+				//请求失败
+				error: function(err) {
+					alert('修改失败');
+				}
+			})
+
+		}
+	
+
+	</script>
+
+</html>

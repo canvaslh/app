@@ -1,0 +1,55 @@
+.ainiu_success{
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+}
+/*设置密码成功*/
+.m_success_notice{
+    text-align: center;
+    padding-top: 15%;
+
+}
+.m_success_notice img{
+    vertical-align: middle;
+}
+.m_success_notice p{
+    text-align: center;
+    line-height: 3em;
+    padding-top: 10%;
+    font-size: 15px;
+    color: #474646;
+}
+.ainiu_success .m_login_btn{
+    width: 70%;
+}
+.m_success_set{
+    width: 68%;
+    margin:0 auto;
+    overflow: auto;
+    text-align: center;
+    padding-top: 3em;
+
+
+}
+.m_success_set img{
+    width: 20%;
+    display: inline-block;
+    vertical-align: middle;
+    float: left;
+    padding-top: .8rem;
+}
+.m_success_notice02{
+
+}
+.m_success_font{
+    width: 80%;
+    float: left;
+}
+.m_success_set p{
+
+
+    text-align: left;
+    padding:1em;
+    line-height:2em;
+    color: #474646;
+}

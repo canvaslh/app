@@ -1,0 +1,205 @@
+.m_usercenter{
+    width: 100%;
+
+    background: #f0f8ff;
+}
+.m_user_ctop{
+    text-align: center;
+    background: url("../image/user_center/m_user_ctop.png");
+    background-size: cover;
+    padding-top: 1em;
+
+
+}
+.m_user_tx{
+    padding-top: 1em;
+
+    position: relative;
+
+}
+.m_user_via{
+   text-align: center;
+    margin: 0 auto;
+    width: 98px;
+    height: 98px;
+    border-radius: 49px;
+    border: 2px solid #ffffff;
+        overflow: hidden;
+}
+.m_user_via img{
+
+    display: block;
+    width: 100%;
+}
+.m_user_login_box{
+    overflow: auto;
+
+    padding-bottom: 1em;
+}
+.m_user_login_box input{
+    display: inline-block;
+    background: none;
+    border: 1px solid #ffffff;
+    padding: .5em 1.5em;
+    color: #ffffff;
+}
+.m_user_login{
+    width: 50%;
+    float: left;
+    text-align: right;
+}
+.m_user_login input{
+    margin-right: 1em;
+}
+.m_user_register{
+    width: 50%;
+    float: left;
+    text-align: left;
+}
+.m_user_register input{
+    margin-left: 1em;
+}
+.m_user_rank,.m_user_price{
+    line-height: 3em;
+    font-size: 12px;
+    color: #fbfbaf;
+    letter-spacing: .05em;
+}
+.m_user_rank{
+    padding-right: .5em;
+}
+.m_user_price{
+    padding-left: .5em;
+}
+.m_user_name{
+    color: #ffffff;
+    letter-spacing: .05em;
+
+}
+.m_user_login_{
+
+}
+.m_user_setimg{
+    width: 98px;
+    margin: 0 auto;
+    text-align: right;
+}
+.m_user_setimg img{
+    width: 20px;
+    margin-top: -40px;
+
+}
+.m_user_cmiddle{
+    margin-top: .7em;
+    background: #ffffff;
+}
+.m_userc_classes{
+
+}
+.m_userc_classes ul{
+    overflow: auto;
+}
+.m_userc_classes ul li{
+    display: block;
+    float: left;
+    width: 25%;
+    text-align: center;
+    padding-top: .8em;
+    padding-bottom: .8em;
+}
+.m_userc_classes ul li img{
+
+}
+.m_user_imgicon{
+
+}
+.m_userc_classes ul li span{
+    font-size: 9pt;
+    color: #9a9898;
+    line-height: 2.5em;
+    display: block;
+}
+.m_user_imgicon{
+    width: 100%;
+    text-align: center;
+}
+.m_user_imgicon img{
+    vertical-align: middle;
+    width: 40px;
+    display: block;
+    margin: 0 auto;
+}
+.m_user_clists{
+    margin-top: .7em;
+    height: auto;
+
+}
+.m_user_lists{
+
+}
+.m_user_lists li{
+    height: 36px;
+    line-height: 36px;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-bottom: 1px solid #e0e3e5;
+    background: #ffffff;
+
+    color: #666666;
+    font-size:9pt;
+    letter-spacing: .05em;
+}
+.m_user_lists li:last-child{
+    border: none;
+}
+.m_user_vmore{
+    display: block;
+    float:right;
+    width: 20px;
+    height: inherit;
+    background: url("../image/user_center/v_uc_more.png")center center no-repeat;
+}
+.m_user_icon{
+    display: block;
+    width: 20px;
+    float: left;
+    height: inherit;
+    padding-right: 1em;
+
+}
+.m_user_icon01{
+    background: url("../image/user_center/m_user_icon01.png") center center no-repeat;
+    background-size: 17px 17px;
+}
+.m_user_icon02{
+    background: url("../image/user_center/m_user_icon02.png") center center no-repeat;
+    background-size: 17px 17px;
+}
+.m_user_icon03{
+    background: url("../image/user_center/m_user_icon03.png") center center no-repeat;
+    background-size: 17px 17px;
+}
+.m_user_icon04{
+    background: url("../image/user_center/m_user_icon04.png") center center no-repeat;
+    background-size: 17px 17px;
+}
+.m_user_icon05{
+    background: url("../image/user_center/m_user_icon05.png") center center no-repeat;
+    background-size: 17px 17px;
+}
+.m_user_icon06{
+    background: url("../image/user_center/m_user_icon06.png") center center no-repeat;
+    background-size: 17px 17px;
+}
+.m_user_icon07{
+    background: url("../image/user_center/m_user_icon07.png") center center no-repeat;
+    background-size: 17px 17px;
+}
+.m_user_icon08{
+    background: url("../image/user_center/m_user_icon08.png") center center no-repeat;
+    background-size: 17px 17px;
+}
+.m_user_icon09{
+    background: url("../image/user_center/m_user_icon09.png") center center no-repeat;
+    background-size: 17px 17px;
+}

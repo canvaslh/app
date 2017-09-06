@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" href="../css/miniubb.css">
+		<script type="text/javascript" src="../script/jquery-1.7.2.min.js"></script>
+		<script src="../script/vue.js"></script>
+		<script src="../layer/layer.js"></script>
+		<script>
+//			$(function() {
+//				bannerRotate.bannerInit();
+//			});
+//
+//			var bannerRotate = {
+//				_time: 3000,
+//				_fade: 200,
+//				_i: 0,
+//				_interval: null,
+//				_navId: "#mb-inav",
+//				_navBox: "#mb-ibox",
+//				_navTxt: "#mb-itxt",
+//				bannerShow: function() {
+//					$(this._navId).find("li a").removeClass("cur");
+//					$(this._navId).find("li:eq(" + this._i + ")").find("a").addClass("cur");
+//
+//					$(this._navBox).find("a").fadeOut(this._fade);
+//					$(this._navBox).find("a:eq(" + this._i + ")").fadeIn(this._fade);
+//
+//					$(this._navTxt).find("div").hide();
+//					$(this._navTxt).find("div:eq(" + this._i + ")").fadeIn(this._fade);
+//				},
+//				bannerStart: function() {
+//					var _this = this;
+//					_this._interval = setInterval(function() {
+//						if(_this._i >= 2) {
+//							_this._i = 0;
+//						} else {
+//							_this._i++;
+//						}
+//						_this.bannerShow();
+//					}, _this._time);
+//				},
+//				bannerInit: function() {
+//					var _this = this;
+//					_this.bannerStart();
+//
+//					$(_this._navId).find("li a").bind("mouseover", function() {
+//						clearInterval(_this._interval);
+//						_this._i = $(this).parent().index();
+//						_this.bannerShow();
+//						_this.bannerStart();
+//					});
+//				}
+//			};
+		</script>
+		<style>
+			[v-cloak] {
+				display: none;
+			}
+			
+			.header_seach {
+				width: 100%;
+				height: 40px;
+				background: #fff;
+			}
+			
+			.searchWrap {
+				width: 60%;
+				height: 100%
+			}
+			
+			.searchWrap input {
+				width: 100%;
+				height: 30px;
+				margin-top: 5px;
+				border-radius: 10px;
+				background: #fff;
+				border: 1px solid #ccc;
+				
+			}
+			
+			._seach {
+				
+				line-height: 40px;
+				    position: fixed;
+    top: 45px;
+    background: #fff;
+    width: 100%;
+    z-index: 9999
+			}
+			
+			._seach div {
+				float: left;
+			}
+			
+			.icon_hender {
+				width: 35%;
+				margin-left: 10px;
+				height: 100%
+			}
+			
+			.icon_hender ul {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.icon_hender ul li {
+				float: left;
+				margin-right: 4px;
+			}
+			
+			.icon_hender ul li img {
+				margin-top: 6px;
+			}
+			
+			.kc2,
+			.kc3 {
+				display: none
+			}
+			
+			#headnew {
+				position: relative;
+			}
+			/* m-banner */
+			
+			.m-banner {
+				width: 100%;
+				padding: 0 7px;
+				background-color: #fff;
+			}
+			
+			.mb-news {
+				width: 100%;
+				padding: 0 15px;
+			}
+			
+			.mb-news h4 {
+				word-break: break-all;
+				word-wrap: break-word
+			}
+			
+			.mb-news h4 a {
+				font-size: 18px;
+				color: #8c3608;
+				line-height: 1.6;
+				word-break: break-all;
+				word-wrap: break-word
+			}
+			
+			.mb-news p {
+				font-size: 14px;
+				color: #a59d9d;
+				margin-top: 15px;
+				overflow: hidden;
+				word-wrap: break-word;
+				text-indent: 2em;
+				height: 64px;
+			}
+			
+			.mb-news h4 a:hover {
+				text-decoration: underline
+			}
+			
+			.mb-img {
+				width: 100%;
+			}
+			
+			.mb-inav {
+				width: 100%;
+				
+				margin-right: 1px
+			}
+			
+			.mb-inav li {
+				float: left;
+				margin-right: 15px;
+			}
+			
+			.mb-inav li a {
+				display: block;
+				width: 10px;
+				height: 10px;
+				background: #bdbdbd;
+				border-radius: 5px;
+			}
+			
+			.mb-inav li a.cur {
+				background: #1d80e6
+			}
+			
+			.mb-ibox {
+				width: 100%;
+				height: 239px;
+				position: relative;
+				overflow: hidden
+			}
+			
+			.mb-ibox a {
+				display: block;
+				width: 444px;
+				height: 239px;
+				overflow: hidden;
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 10;
+				display: none;
+			}
+			
+			#mb-itxt>div {
+				width: 100%;
+				height: 100px;
+			}
+			
+			.btn_tea {
+				width: 150px;
+				height: 30px;
+				margin: 5px auto;
+				background-color: #1d80e6;
+				text-align: center;
+				line-height: 30px;
+				display: block;
+				color: #fff;
+			}
+			
+			.clear {
+				clear: both;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="header_seach">
+			<!--导航-->
+			<header class="aui-bar aui-bar-nav _color" style="margin-bottom:5px;height: 40px;line-height: 40px;    ">
+				<a class="aui-pull-left"> <span class="aui-iconfont "> <!--<img src="../image/index/shares.png" alt="" />--> </span> </a>
+				<div class="aui-title">
+					首页
+				</div>
+				<a class="aui-pull-right" onclick="islogin_skip('user/userinfo_window')"> <span class="aui-iconfont aui-icon-my"></span> </a>
+			</header>
+			<!--搜索-->
+			<div class="_seach">
+				<div class="searchWrap" onclick="skip('seach_window')">
+					<input type="search" placeholder="  点击搜索精品课程" id="te" disabled="disabled" value="">
+				</div>
+				<div class="icon_hender">
+					<ul>
+						<!--<li><img src="../image/index/yuyin.png" alt="" onclick="te()" width="25" height="25" />
+						</li>-->
+						<li><img src="../image/index/jilu.png" alt="" width="25" height="25" />
+						</li>
+						<li><img src="../image/index/che.png" alt=""  width="25" height="25" />
+						</li>
+						<li><img src="../image/index/xiaoxi.png" alt=""  width="25" height="25" />
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!--内容  空出 margin 放轮播图-->
+		<div class="m_iniubb" style="margin-top:245px">
+			<!--导航-->
+			<div class="m_index_nav ft-12">
+				<ul>
+					<li>
+						<span><img src="../image/m_index.png" alt="" class="img_re"></span><span>首页</span>
+					</li>
+					<li onclick="skip('nav/information_window')">
+						<span><img src="../image/m_anzx.png" alt="" class="img_re"></span><span>爱牛资讯</span>
+					</li>
+					<li onclick="open_web('http://m.ainiubaobao.com/mo/index.php?rid=2')">
+						<span><img src="../image/m_live.png" alt="" class="img_re"></span><span>直播课程</span>
+					</li>
+					<li>
+						<span><img src="../image/m_select.png" alt="" class="img_re"></span><span>智能选股</span>
+					</li>
+					<li onclick="video_list_skip(0,'免费',4)">
+						<span><img src="../image/m_free.png" alt="" class="img_re"></span><span> 免费课程</span>
+					</li>
+				</ul>
+				<ul>
+					<li onclick="skip('nav/shares_window')">
+						<span><img src="../image/m_es.png" alt="" class="img_re"></span><span>每日牛股</span>
+					</li>
+					<li onclick="skip('nav/core_window')">
+						<span><img src="../image/m_hxnc.png" alt="" class="img_re"></span><span>核心内参</span>
+					</li>
+					<li onclick="skip('nav/teacher_window')">
+						<span><img src="../image/m_gt.png" alt="" class="img_re"></span><span> 金牌讲师</span>
+					</li>
+					<li onclick="islogin_skip('user/userinfo_window')">
+						<span><img src="../image/m_pc.png" alt="" class="img_re"></span><span>个人中心</span>
+					</li>
+					<li onclick="islogin_skip('user/money_window')">
+						<span><img src="../image/m_cz.png" alt="" class="img_re"></span><span>在线充值</span>
+					</li>
+				</ul>
+			</div>
+			<!--精品课程-->
+			<div class="m_bou_class">
+				<img src="../image/m_jpkc.png" alt="" style="vertical-align: middle;width: 20px;height: 20px;">
+				<h3>精品课程</h3>
+			</div>
+			<!--广告-->
+			<!--    <div class="m_bou_ads">
+			<img src="" alt="">
+			</div>-->
+			<!--课程-->
+			<div class="m_index_classes">
+				<ul class="m_classes_lists" id="jpkc">
+					<li v-for="jpkcs in jpkc" v-cloak>
+						<div class="m_class_div" v-bind:onclick="['video_skip('+jpkcs.id+',&quot; '+jpkcs.title+'&quot;)']" v-cloak>
+							<div class="m_class_divimg">
+								<img v-bind:src="'http://www.ainiubaobao.com'+jpkcs.titlepic" alt="">
+							</div>
+							<div class="m_class_divcont">
+								<div class="m_class_tt" v-cloak>
+									{{ jpkcs.title }}
+								</div>
+							</div>
+							<div class="m_class_divpri">
+								<!--<span class="lf free_pri">免费</span>-->
+								<span class="lf free_pri" v-cloak v-if="jpkcs.point === '0'">免费</span>
+								<em style="vertical-align: middle;" class="pri_pri" v-cloak v-else> <img src="../image/img/nb.png" alt="" style="display: inline;width: 12px;height: 12px;margin: 0 auto;vertical-align: middle;">{{ jpkcs.point }}牛币 </em>
+								<span class="rt cr_bdbab7"> <img src="../image/m_view.png" alt="" style="vertical-align:middle;margin-right: 3px;"> <i style="font-style: normal;vertical-align: middle;" v-cloak>{{ jpkcs.onclick }}</i> </span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+		<!--	<div class="m-banner">
+				<div class="m_floor">
+					<div class="m_floor_icon lf">
+						<img src="../image/m_floor_icon.png" alt="" style="height:20px;width: 5px;vertical-align: middle;">
+					</div>
+					<span class="m_floor_tt"> 爱牛讲师 </span>
+					<div class="m_floor_rt rt" onclick="" class="font10 a_link">
+						<img src="../image/more.png" alt="" style="vertical-align: middle;">
+					</div>
+				</div>
+				<div class="mb-img fl clearfix">
+
+					<div id="mb-ibox" class="mb-ibox fl">
+						<a href="" style="display:block;"><img src="http://www.ainiubaobao.com/d/file/video/stocksIntroduction/zbyf/2017-07-20/02e8ea8cb3504419cc7c4d19c8a9e1d0.png" alt="111" /></a>
+						<a href=""><img src="http://www.ainiubaobao.com/d/file/video/softvideo/band/2017-07-14/34a9e7c3bef72195d4be94248ea900da.png" alt="222" /></a>
+						<a href=""><img src="http://www.ainiubaobao.com/d/file/video/stocksIntroduction/cjlsz/2017-07-18/19326894ad8c2b099a0632889d6139fd.png" alt="333" /></a>
+					</div>
+					<div id="mb-itxt" class="mb-news fl">
+						<div style="display:block;">
+							<p>本节课程从量价关系着手，帮助用户了解到量价的重要的实战用法，利用量价配合在不同的位置结构帮助我们找到股票的机会与风险，从而方便广大用户更好的利用量价分析实现临盘操作的提高！</p>
+							<button class="btn_tea">查看讲师详情</button>
+						</div>
+						<div style="display:none;"
+							<p>本节课程从量价关系着手，帮助用户了解到量价的重要的实战用法，利用量价配合在不同的位置结构帮助我们找到股票的机会与风险，从而方便广大用户更好的利用量价分析实现临盘操作的提高！</p>
+							<button class="btn_tea">查看讲师详情</button>
+						</div>
+						<div style="display:none;">
+							<p>本节课程从量价关系着手，帮助用户了解到量价的重要的实战用法，利用量价配合在不同的位置结构帮助我们找到股票的机会与风险，从而方便广大用户更好的利用量价分析实现临盘操作的提高！</p>
+							<button class="btn_tea">查看讲师详情<button>
+					</div>
+				</div>
+						<ul id="mb-inav" class="mb-inav clear">
+						<li><a class="cur"></a></li>
+						<li><a></a></li>
+						<li><a></a></li>
+					</ul>
+				
+				</div> 
+			
+			</div>-->
+			
+			
+			<!--爱牛头条-->
+			<div class="m_headline">
+				<!--标题-->
+				<div class="m_headline_tt">
+					<div class="lf m_headline_ttlf">
+						<img src="../image/m_headline_icon.png" alt="">&nbsp;&nbsp; <img src="../image/m_headline.png" alt="" style="width: 100px">
+					</div>
+					<div class="rt m_headline_ttrt">
+						<img src="../image/more.png" alt="">
+					</div>
+				</div>
+				<!--头条图片-->
+				<div class="m_headline_cont">
+					<div class="m_headline_ads">
+						<img src="" alt="">
+					</div>
+					<div id="headnew" v-bind:onclick="['headnew('+headnew.id+')']">
+						<div class="m_headlinie_att">
+							<span>{{ headnew.title}}</span>
+						</div>
+						<img v-bind:src="'http://www.ainiubaobao.com'+headnew.titlepic" alt="" width="96%" height="200" style="margin: 0 2%;">
+					</div>
+				</div>
+				<div class="m_headline_lists">
+					<ul id="headnews">
+						<li v-for="headnews in headnews" v-bind:onclick="['headnew('+headnews.id+')']">
+							<img src="../image/m_headline_lists_li.png" alt=""><span>{{ headnews.title }}</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--免费课程、精品课程、热门课程-->
+			<div class="m_freeclass">
+				<ul>
+					<li class="kc-1">
+						<span>免费课程</span>
+					</li>
+					<li class="kc-2">
+						<span>热门课程</span>
+					</li>
+					<li class="kc-3">
+						<span>精品推荐</span>
+					</li>
+				</ul>
+			</div>
+			<div class="m_index_classes">
+				<ul class="m_classes_lists kc1" id="mfkc">
+					<li v-for="mfkcs in mfkc" v-cloak>
+						<div class="m_class_div" v-bind:onclick="['video_skip('+mfkcs.id+',&quot; '+mfkcs.title+'&quot;)']">
+							<div class="m_class_divimg">
+								<img v-bind:src="'http://www.ainiubaobao.com'+mfkcs.titlepic" alt="">
+							</div>
+							<div class="m_class_divcont">
+								<div class="m_class_tt" v-cloak>
+									{{ mfkcs.title }}
+								</div>
+							</div>
+							<div class="m_class_divpri">
+								<span class="lf free_pri" v-cloak v-if="mfkcs.point === '0'">免费</span>
+								<em style="vertical-align: middle;" class="pri_pri" v-cloak v-else> <img src="../image/img/nb.png" alt="" style="display: inline;width: 12px;height: 12px;margin: 0 auto;vertical-align: middle;">{{ jpkcs.point }}牛币 </em>
+								<span class="rt cr_bdbab7"> <img src="../image/m_view.png" alt="" style="vertical-align:middle;margin-right: 3px;"> <i style="font-style: normal;vertical-align: middle;" v-cloak>{{ mfkcs.onclick }}</i> </span>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<ul class="m_classes_lists kc2" id="rmkc">
+					<li v-for="rmkcs in rmkc" v-cloak>
+						<div class="m_class_div" v-bind:onclick="['video_skip('+rmkcs.id+',&quot; '+rmkcs.title+'&quot;)']">
+							<div class="m_class_divimg">
+								<img v-bind:src="'http://www.ainiubaobao.com'+rmkcs.titlepic" alt="">
+							</div>
+							<div class="m_class_divcont">
+								<div class="m_class_tt" v-cloak>
+									{{ rmkcs.title }}
+								</div>
+							</div>
+							<div class="m_class_divpri">
+								<span class="lf free_pri" v-cloak v-if="rmkcs.point === '0'">免费</span>
+								<em style="vertical-align: middle;" class="pri_pri" v-cloak v-else> <img src="../image/img/nb.png" alt="" style="display: inline;width: 12px;height: 12px;margin: 0 auto;vertical-align: middle;">{{ rmkcs.point }}牛币 </em>
+								<span class="rt cr_bdbab7"> <img src="../image/m_view.png" alt="" style="vertical-align:middle;margin-right: 3px;"> <i style="font-style: normal;vertical-align: middle;" v-cloak>{{ rmkcs.onclick }}</i> </span>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<ul class="m_classes_lists kc3" id="jptj">
+					<li v-for="jptjs in jptj" v-cloak>
+						<div class="m_class_div" v-bind:onclick="['video_skip('+jptjs.id+',&quot; '+jptjs.title+'&quot;)']">
+							<div class="m_class_divimg">
+								<img v-bind:src="'http://www.ainiubaobao.com'+jptjs.titlepic" alt="">
+							</div>
+							<div class="m_class_divcont">
+								<div class="m_class_tt" v-cloak>
+									{{ jptjs.title }}
+								</div>
+							</div>
+							<div class="m_class_divpri">
+								<span class="lf free_pri" v-cloak v-if="jptjs.point === '0'">免费</span>
+								<em style="vertical-align: middle;" class="pri_pri" v-cloak v-else> <img src="../image/img/nb.png" alt="" style="display: inline;width: 12px;height: 12px;margin: 0 auto;vertical-align: middle;">{{ jptjs.point }}牛币 </em>
+								<span class="rt cr_bdbab7"> <img src="../image/m_view.png" alt="" style="vertical-align:middle;margin-right: 3px;"> <i style="font-style: normal;vertical-align: middle;" v-cloak>{{ jptjs.onclick }}</i> </span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="floor floor_01" id="video">
+				<div v-for="c in category">
+					<!--股市初级班-->
+					<div class="m_floor">
+						<div class="m_floor_icon lf">
+							<img src="../image/m_floor_icon.png" alt="" style="height:20px;width: 5px;vertical-align: middle;">
+						</div>
+						<span class="m_floor_tt" v-cloak> {{ c.sitesclass }} </span>
+						<div class="m_floor_rt rt" v-bind:onclick="['video_list_skip('+c.sitesclassid+',&quot; '+c.sitesclass+'&quot;'+',1'+')']" class="font10 a_link">
+							<img src="../image/more.png" alt="" style="vertical-align: middle;">
+						</div>
+					</div>
+					<div class="m_index_classes">
+						<ul class="m_classes_lists">
+							<li v-for="site in c.sites" v-cloak>
+								<div class="m_class_div" v-bind:onclick="['video_skip('+site.id+',&quot; '+site.title+'&quot;)']">
+									<div class="m_class_divimg">
+										<img v-bind:src="'http://www.ainiubaobao.com'+site.titlepic" alt="">
+									</div>
+									<div class="m_class_divcont">
+										<div class="m_class_tt" v-cloak>
+											{{ site.title }}
+										</div>
+									</div>
+									<div class="m_class_divpri">
+										<span class="lf free_pri" v-cloak v-if="site.point === '0'">免费</span>
+										<em style="vertical-align: middle;" class="pri_pri" v-cloak v-else> <img src="../image/img/nb.png" alt="" style="display: inline;width: 12px;height: 12px;margin: 0 auto;vertical-align: middle;" v-cloak>{{ site.point }}牛币 </em>
+										<span class="rt cr_bdbab7"> <img src="../image/m_view.png" alt="" style="vertical-align:middle;margin-right: 3px;"> <i style="font-style: normal;vertical-align: middle;" v-cloak>{{ site.onclick }}</i> </span>
+									</div>
+								</div>
+							</li>
+							<!-- <li>
+							<div class="m_class_div">
+							<div class="m_class_divimg">
+							<img src="http://www.ainiubaobao.com/d/file/video/stocksIntroduction/xtxlkc/2017-06-13/ebcb256a6ed94577d129f20be588752e.jpg" alt="">
+							</div>
+							<div class="m_class_divcont">
+							<div class="m_class_tt">股票T+0交易技巧股票T+0交易技巧股票T+0交易技巧</div>
+							</div>
+							<div class="m_class_divpri">
+							<span class="lf pri_pri">
+							<img src="http://www.ainiubaobao.com/suning/img/nb.png" alt="" style="display: inline;width: 12px;height: 12px;margin: 0 auto;vertical-align: middle;">
+							<em style="vertical-align: middle;">20牛币</em>
+							</span>
+							<span class="rt cr_bdbab7"><img src="../image/m_view.png" alt="" style="vertical-align:middle;margin-right: 3px;"><i style="font-style: normal;vertical-align: middle;">783</i></span>
+							</div>
+							</div>
+							</li>-->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+		var arr_img = new Array;
+		var arr_img_url = new Array;
+		var one = '';
+		apiready = function() {
+//		alert(userid);
+		
+			//获取轮播图数据
+			arr_img = img_lb();
+			/**轮播模块*******/
+			var UIScrollPicture = api.require('UIScrollPicture');
+			UIScrollPicture.open({
+				rect : {
+					x : 0,
+					y : 90,
+					w : api.winWidth,
+					h : 150,
+				},
+				data : {
+					paths : arr_img,
+				},
+				styles : {
+					indicator : {
+						align : 'center',
+						color : '#cccccc',
+						activeColor : '#ffffff'
+					}
+				},
+				placeholderImg : 'widget://image/index/2.png',
+				contentMode : 'scaleToFill', //图片填充模式  scaleToFill（填充）  scaleAspectFit（适应）
+				interval : 3, //轮播间隔
+				fixedOn : api.frameName,
+				loop : true, //图片是否循环播放
+				fixed : false //模块是否随所属 window 或 frame 滚动
+			}, function(ret, err) {
+				/**
+				 status: true,                  //布尔型；true||false
+				 eventType: 'click'||'show',    //字符串类型；交互事件类型，  取值范围：click（用户点击）  show（模块打开成功）
+				 index：0                       //数字类型；当前图片的索引
+				 */
+				if (ret) {
+					//      alert(JSON.stringify(ret));
+					if (ret.eventType == 'click') {
+						alert(arr_img_url[ret.index]);
+					}
+				} else {
+					//      alert(JSON.stringify(err));
+				}
+			});
+			//指定当前项
+			UIScrollPicture.setCurrentIndex({
+				index : 1
+			});
+			
+//			
+//			var UIScrollPicture1 = api.require('UIScrollPicture');
+//			UIScrollPicture1.open({
+//				rect : {
+//					x : 0,
+//					y : 200,
+//					w : api.winWidth,
+//					h : 150,
+//				},
+//				data : {
+//					paths : arr_img,
+//				},
+//				styles : {
+//					indicator : {
+//						align : 'center',
+//						color : '#cccccc',
+//						activeColor : '#ffffff'
+//					}
+//				},
+//				placeholderImg : 'widget://image/index/2.png',
+//				contentMode : 'scaleToFill', //图片填充模式  scaleToFill（填充）  scaleAspectFit（适应）
+//				interval : 3, //轮播间隔
+//				fixedOn : api.frameName,
+//				loop : true, //图片是否循环播放
+//				fixed : false //模块是否随所属 window 或 frame 滚动
+//			}, function(ret, err) {
+//				/**
+//				 status: true,                  //布尔型；true||false
+//				 eventType: 'click'||'show',    //字符串类型；交互事件类型，  取值范围：click（用户点击）  show（模块打开成功）
+//				 index：0                       //数字类型；当前图片的索引
+//				 */
+//				if (ret) {
+//					//      alert(JSON.stringify(ret));
+//					if (ret.eventType == 'click') {
+////						alert(arr_img_url[ret.index]);
+//					}
+//				} else {
+//					//      alert(JSON.stringify(err));
+//				}
+//			});
+			
+			
+			
+			
+			
+			
+			
+			/**轮播模块***********结束***/
+			/***下拉刷新***/
+			api.setRefreshHeaderInfo({
+				loadingImg : 'widget://image/loading_more.png',
+				bgColor : '#ccc',
+				textColor : '#fff',
+				textDown : '下拉刷新...',
+				textUp : '松开刷新...'
+			}, function(ret, err) {
+				show();
+			});
+			//start_hideProgress();
+			
+		};
+		 index_tj();
+		//延时加载页面数据
+		setTimeout(function() {
+			show()
+		}, 2000);
+		//获取轮播图
+		function img_lb() {
+			$.ajax({
+				url : app_url + '/app-php/index.php?m=Index&a=img_lb',
+				async : false,
+				success : function(str) {
+					one = str.one;
+					for (var i = 0; i < str['img'].length; i++) {
+						arr_img[i] = str.img[i]['pic_url'];
+						arr_img_url[i] = str.img[i]['url'];
+					}
+					//  	alert(JSON.stringify(arr_img));
+				}
+			})
+			return arr_img;
+		}
+
+		/**
+		 *视频分类
+		 */
+		function show() {
+			$.ajax({
+				url : app_url + '/app-php/index.php?m=Indexvideo&a=video', //请求的url地址
+				success : function(data) {
+					//				alert(JSON.stringify(data));
+					//            stop_hideProgress();
+					setTimeout(function() {
+						api.refreshHeaderLoadDone();
+					}, 2000)
+					new Vue({
+						el : '#video',
+						data : {
+							category : [{
+								sites : data[0]['video_list'],
+								sitesclass : data[0]['classname'],
+								sitesclassid : data[0]['classid']
+							}, {
+								sites : data[1]['video_list'],
+								sitesclass : data[1]['classname'],
+								sitesclassid : data[1]['classid']
+							}, {
+								sites : data[2]['video_list'],
+								sitesclass : data[2]['classname'],
+								sitesclassid : data[2]['classid']
+							}, {
+								sites : data[3]['video_list'],
+								sitesclass : data[3]['classname'],
+								sitesclassid : data[3]['classid']
+							}, {
+								sites : data[4]['video_list'],
+								sitesclass : data[4]['classname'],
+								sitesclassid : data[4]['classid']
+							}]
+						}
+					})
+				},
+				//请求失败
+				error : function(err) {
+					toast_err5();
+				}
+			})
+		}
+
+		//语音搜索
+		function te() {
+			var speechRecognizer = api.require('speechRecognizer');
+			api.showProgress({
+				title : '录音中，请对着话筒',
+				text : '说出你想要的内容...',
+				modal : false
+			});
+			speechRecognizer.record({
+				vadbos : 8000,
+				vadeos : 8000,
+				rate : 16000,
+				asrptt : 0,
+				audioPath : 'fs://speechRecogniser/speech.mp3'
+			}, function(ret, err) {
+				if (ret.status) {
+					//					$('#te').val(ret.wordStr);
+					speechRecognizer.stopRecord();
+					api.showProgress({
+						title : '录音成功...',
+						text : '识别中，请稍后...',
+						modal : false
+					});
+					api.hideProgress();
+					api.openWin({
+						name : 'seach_result_window.html',
+						url : 'seach_result_window.html',
+						pageParam : {
+							seach : ret.wordStr
+						}
+					})
+					//api.alert({ msg: ret.wordStr });
+				} else {
+					//      api.alert({ msg: err.msg });
+				}
+			});
+		}
+
+		/**
+		 *首页 精品/推荐/免费/热门     头条
+		 */
+		function index_tj() {
+			$.ajax({
+				url : app_url + '/app-php/index.php?m=Index&a=index_tj',
+				success : function(ret1) {
+					//				  alert(JSON.stringify(ret1.headnews));
+					//				   alert(JSON.stringify(ret1.headnew));
+					new Vue({
+						el : '#headnews',
+						data : {
+							headnews : ret1.headnews
+						}
+					})
+					new Vue({
+						el : '#headnew',
+						data : {
+							headnew : ret1.headnew
+						}
+					})
+					new Vue({
+						el : '#jpkc',
+						data : {
+							jpkc : ret1.arr[0]
+						}
+					})
+					new Vue({
+						el : '#mfkc',
+						data : {
+							mfkc : ret1.arr[1]
+						}
+					})
+					new Vue({
+						el : '#rmkc',
+						data : {
+							rmkc : ret1.arr[2]
+						}
+					})
+					new Vue({
+						el : '#jptj',
+						data : {
+							jptj : ret1.arr[3]
+						}
+					})
+				}
+			})
+		}
+
+        
+		$('.kc-1').click(function() {
+			$('.kc1').css('display', 'block');
+			$('.kc2').css('display', 'none');
+			$('.kc3').css('display', 'none');
+		})
+		$('.kc-2').click(function() {
+			$('.kc2').css('display', 'block');
+			$('.kc1').css('display', 'none');
+			$('.kc3').css('display', 'none');
+		})
+		$('.kc-3').click(function() {
+			$('.kc3').css('display', 'block');
+			$('.kc1').css('display', 'none');
+			$('.kc2').css('display', 'none');
+		})
+		/**
+		 *头条新闻
+		 */
+		function headnew(id) {
+			alert(id);
+		}
+        //微信分享
+		function wx() {
+			var wx = api.require('wx');
+			wx.shareText({
+				apiKey : 'wxfb7da15a7a447852',
+				scene : 'timeline',
+				text : '我分享的文本'
+			}, function(ret, err) {
+				if (ret.status) {
+					alert('分享成功');
+				} else {
+					alert(err.code);
+				}
+			});
+		}
+
+    //监听页面滚动控制轮播图显示隐藏
+    $(window).scroll(function () {
+     
+     if ($(window).scrollTop() >= 160) {
+     
+	     var UIScrollPicture = api.require('UIScrollPicture');
+	     UIScrollPicture.hide();
+      }else if($(window).scrollTop() < 160){
+        var UIScrollPicture = api.require('UIScrollPicture');
+         UIScrollPicture.show();
+      }
+    });
+
+	</script>
+
+</html>
+</html>

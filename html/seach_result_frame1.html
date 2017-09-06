@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<script type="text/javascript" src="../script/jquery-1.7.2.min.js"></script>
+		<script src="../script/vue.js"></script>
+		<style>
+			.aui-title {
+				height: 100%;
+				border-radius: 4px;
+				background: #EEE;
+				margin-top: 4px !important;
+				height: 75%;
+				right: 80px !important;
+				left: 50px !important;
+			}
+			.seach_icon {
+				display: inline-block;
+				margin-top: 1px;
+				width: 8%;
+				float: left;
+				height: 25px;
+				background: url(../image/index/seach_icon.png) no-repeat 100% 100%;
+			}
+			.yuyin_icon {
+				display: inline-block;
+				margin: 8px 0px 0 15px;
+				width: 7%;
+				float: left;
+				height: 25px;
+				background: url(../image/index/yuyin.png) no-repeat;
+				background-size: 100%;
+			}
+			.aui-title form {
+				height: 100%;
+				overflow: hidden;
+			}
+			.aui-title input {
+				border: none;
+				margin-top: -2px;
+				width: 90%;
+				height: 40px;
+				font-family: "微软雅黑";
+				font-size: 16px;
+				line-height: 40px;
+				vertical-align: top;
+				background: none;
+				padding: 0;
+				margin: 0;
+			}
+			.search-wrap {
+				min-height: 508px;
+				padding: 0 !important;
+				background: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="aui-bar aui-bar-nav aui-bar-danger navbar-fixed-top" style="50px" onclick="skip1('seach_window')">
+			<a class="aui-btn aui-btn-danger aui-pull-left"> <span class="aui-iconfont aui-icon-left"></span> </a>
+			<div class="aui-title" style="  width: 75%;    background: #fff;color: #000">
+				<i class="seach_icon"></i>
+				<div style="width: 60%;height: 100%;" class="lf">
+					<input type="search" id="seach_text" name="seach" disabled="disabled" placeholder="请输入您要搜索的内容"   value=''>
+				</div>
+				<i class="yuyin_icon"></i>
+			</div>
+			<div class="rt">
+				搜索
+			</div>
+		</header>
+		<div id="video_list" class="floor floor_01 " style="display: none;height: 100%">
+			<div class="floor_01_content">
+				<div class="floor_img">
+					<div id="seach_ts">
+						共查询到<span id="num"></span>条数据
+					</div>
+					<ul id="text_1">
+						<li v-for="site in sites" v-cloak>
+							<span v-bind:onclick="['video_skip('+site.id+',&quot; '+site.title+'&quot;)']"> <img v-bind:src="'http://www.ainiubaobao.com'+site.titlepic" alt="" class="img-responsive"> <span class="index_title" v-cloak>{{ site.title }}</span>
+								<div class="index_price">
+									<span class="pri lf"> <i class="price_green" v-cloak v-if="site.point === '0'">免费</i> <i class="price_green" v-cloak v-else>{{ site.point }}</i> </span>
+									<div class="index_num rt">
+										<span v-cloak>{{ site.onclick }}</span>
+										<span v-cloak>人学</span>
+									</div>
+								</div> </span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div>
+				向上滑动加载更多数据
+			</div>
+		</div>
+		<input type="number" id="page" max="" value="2" style="display: none">
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			var seach = api.pageParam["seach"];
+			seach_submit(seach);
+			$('#seach_text').val(seach);
+			//		   $('#seach_text').val(seach);
+			//			setTimeout(function() {
+			//				$('#seach_text').focus();
+			//			}, 1000);
+			//监听页面滑到底部
+			var page_val = $('#page').val();
+			api.addEventListener({
+				name : 'scrolltobottom',
+				extra : {
+					threshold : -200 //设置距离底部多少距离时触发，默认值为0，数字类型
+				}
+			}, function(ret, err) {
+				//alert(typeof page_val+'-'+ typeof  $('#page').attr('max'));
+				if (parseInt(page_val) > parseInt($('#page').attr('max'))) {
+					api.toast({
+						msg : '已经加载完了',
+						duration : 3000,
+						location : 'bottom'
+					});
+				} else {
+					start_hideProgress();
+					$.post(app_url + '/app-php/index.php?m=Seach&a=index&p=' + page_val, {
+						'seach' : seach
+					}, function(html) {
+						if (html.type == '0') {
+						//没有值
+							toast('加载成功', 1000, 'bottom');
+						$('#seach_ts').html('没有找到你想要的内容,为你推荐了以下精品视频');
+						if (html) {
+								ret = html.result;
+								stop_hideProgress();
+								for (var i = 0; i < ret.length; i++) {
+									var point = ret[i]['point'];
+									if (point == 0) {
+										point = '免费';
+									}
+									var html1 = '<li>';
+									html1 += '<span onclick=video_skip(' + ret[i]["id"] + ',&quot;' + ret[i]["title"] + '&quot;)>';
+									html1 += '<img src=http://www.ainiubaobao.com' + ret[i]["titlepic"] + '  class="img-responsive">';
+									html1 += '   <span class="index_title" >' + ret[i]["title"] + '</span>';
+									html1 += '<div class="index_price">';
+									html1 += '<span class="pri lf">';
+									html1 += '  <i class="price_green" >' + point + '</i>';
+									html1 += '</span>';
+									html1 += '<div class="index_num rt">';
+									html1 += '<span >' + ret[i]["onclick"] + '</span><span >人学</span>';
+									html1 += '</div>';
+									html1 += '</div>';
+									html1 += '</span>';
+									html1 += '</li>';
+//									alert(html1);
+									$("#text_1").append(html1);
+								}
+								page_val = parseInt(page_val) + 1;
+								
+								//	api.alert({ msg: JSON.stringify(ret) });
+							} 
+							stop_hideProgress();
+						} else {
+							if (html) {
+								ret = html.result;
+								stop_hideProgress();
+								for (var i = 0; i < ret.length; i++) {
+									var point = ret[i]['point'];
+									if (point == 0) {
+										point = '免费';
+									}
+									var html1 = '<li>';
+									html1 += '<span onclick=video_skip(' + ret[i]["id"] + ',&quot;' + ret[i]["title"] + '&quot;)>';
+									html1 += '<img src=http://www.ainiubaobao.com' + ret[i]["titlepic"] + '  class="img-responsive">';
+									html1 += '   <span class="index_title" >' + ret[i]["title"] + '</span>';
+									html1 += '<div class="index_price">';
+									html1 += '<span class="pri lf">';
+									html1 += '  <i class="price_green" >' + point + '</i>';
+									html1 += '</span>';
+									html1 += '<div class="index_num rt">';
+									html1 += '<span >' + ret[i]["onclick"] + '</span><span >人学</span>';
+									html1 += '</div>';
+									html1 += '</div>';
+									html1 += '</span>';
+									html1 += '</li>';
+//									alert(html1);
+									$("#text_1").append(html1);
+								}
+								page_val = parseInt(page_val) + 1;
+								toast('加载成功', 1500, 'buttom');
+								//	api.alert({ msg: JSON.stringify(ret) });
+							} else {
+								//	api.alert({ msg: JSON.stringify(err) });
+							}
+						}
+					});
+				}
+			});
+		}
+		function seach_submit(seach_text) {
+			$('#video_list').css('display', 'none');
+			if (seach_text == '') {
+				$('#seach_text').focus();
+				toast2('请输入要搜索的内容');
+			} else {
+				api.showProgress({
+					title : '正在为你搜索...',
+					text : '请稍后...',
+					modal : false
+				});
+				$.post(app_url + '/app-php/index.php?m=Seach&a=index', {
+					'seach' : seach_text
+				}, function(ret) {
+					if (ret.type == '0') {
+						toast('没有找到你想要的内容,为你推荐了精品视频', 1000, 'bottom');
+						$('#seach_ts').html('没有找到你想要的内容,为你推荐了以下精品视频');
+						if (ret) {
+							$('#seach_text').blur();
+							var max_num = parseInt(ret.max_num);
+							$('#num').html(max_num);
+							$('#page').attr('max', Math.ceil(max_num / 10));
+							stop_hideProgress();
+							new Vue({
+								el : '#video_list',
+								data : {
+									sites : ret.result
+								}
+							})
+							$('#video_list').css('display', 'block');
+							$('#video_list').css('margin-top', '50px');
+						} else {
+							toast_err5();
+						}
+					} else {
+						if (ret) {
+							$('#seach_text').blur();
+							var max_num = parseInt(ret.max_num);
+							$('#num').html(max_num);
+							$('#page').attr('max', Math.ceil(max_num / 10));
+							stop_hideProgress();
+							new Vue({
+								el : '#video_list',
+								data : {
+									sites : ret.result
+								}
+							})
+							$('#video_list').css('display', 'block');
+							$('#video_list').css('margin-top', '50px');
+						} else {
+							toast_err5();
+						}
+						//		          alert(JSON.stringify(html.result));
+					}
+				});
+			}
+			//			return false;
+		}
+		
+			function skip1(list){
+					api.closeWin();
+					api.closeFrame({
+    name: 'seach_result_frame1'
+});
+		api.openWin({
+	    name: list,
+	    url: list+'.html',
+	    
+	    pageParam: {
+	       
+	    }
+	  });
+	  
+	}
+	</script>
+</html>

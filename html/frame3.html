@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>爱牛宝宝网--商城</title>
+		<link rel="stylesheet" href="../css/miniubb.css">
+		<link rel="stylesheet" href="../css/index.css">
+		<link rel="stylesheet" href="../css/shopstore.css">
+		<script type="text/javascript" src="../script/jquery-1.7.2.min.js"></script>
+		<script src="../script/vue.js"></script>
+	</head>
+	<body >
+		<!--导航-->
+			<header class="aui-bar aui-bar-nav _color" style="height: 40px;line-height: 40px">
+				<div class="aui-title">商城</div>
+			</header>
+ <div class="m_iniubb">
+        <div class="shop_store">
+            <!--广告-->
+            <div class="shop_ads">
+                <img src="../image/shop/ads/shop_ads.png" alt="">
+            </div>
+            <!--活动-->
+            <div class="shop_acitivty">
+                <ul>
+                    <li>
+                        <img src="../image/shop/ads/1.png" alt="">
+                        <span class="shop_act_f">零特财富 <em class="shop_actz">+</em></span>
+                    </li>
+                    <li>
+                        <img src="../image/shop/ads/2.png" alt="">
+                        <span>零特套餐</span>
+                    </li>
+                    <li>
+                        <img src="../image/shop/ads/3.png" alt="">
+                        <span>视频全网通</span>
+                    </li>
+                    <li>
+                        <img src="../image/shop/ads/4.png" alt="">
+                        <span>汇款方式</span>
+                    </li>
+                </ul>
+            </div>
+            <!--楼层-->
+            <div class="shop_floor" id="shop">
+            	
+                
+                <div class="shop_floor_cart" v-for="c in category">
+                    <!--title-->
+                    <div class="shop_floor_title">
+                        <div class="shop_floor_tt">
+                            <h3 class="shop_floor_th3" v-bind:rel="c.classid">{{c.sitesnum}}F {{ c.sitesclass }}</h3>
+                            <div  class="shop_floor_tbg">
+                                <img src="../image/shop/title_bg.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <!--content-->
+                    <div class="shop_floor_content">
+                        <ul class="shop_floor_ul">
+                        	
+                            <li v-for="site in c.sites">
+                                <div class="shop_pro" v-bind:onclick="['shop_info_skip('+site.id+',&quot;'+site.title+'&quot;)']">
+                                	
+                                    <div class="shop_pro_img">
+                                        <img v-bind:src="'http://www.ainiubaobao.com'+site.titlepic" alt="" >
+                                    </div>
+                                    <div class="shop_pro_cont">
+                                        <div class="shop_floor_prices">
+                                            <!--lf-->
+                                            <div class="shop_floor_prlf">
+                                                                                                                                                抢购价：￥{{ site.price}}
+                                            </div>
+                                            <!--rt-->
+                                            <div class="shop_floor_prrt">
+                                                                                                                                                 市场价：￥{{ site.tprice}}
+                                            </div>
+                                        </div>
+                                        <div class="shop_floor_buybtn">
+                                            <!--lf-->
+                                            <div class="shop_floor_buynum">
+                                              {{ site.onclick}}人购买
+                                            </div>
+                                            <!--rt-->
+                                            <div class="shop_floor_buybtn_">
+                                                <input type="button" class="shop_buybtn" value="立即购买">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </li>
+                          
+                        </ul>
+                    </div>
+                </div>
+</volist>
+            </div>
+        </div>
+    </div>
+		
+	</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+
+
+
+<script>
+  apiready = function(){
+   start_hideProgress();
+  show();
+  }  
+ 
+function show(){
+	$.ajax({
+
+				url: app_url+'/app-php/index.php?m=Shoplist&a=index', //请求的url地址
+				
+				success: function(data) {
+				
+//				alert(JSON.stringify(data));
+				
+			
+               
+			 new Vue({
+						el: '#shop',
+						data: {
+							category:[
+							    {
+									sites: data[0]['shop_list'],
+									sitesclass: data[0]['classname'],
+									sitesnum: data[0]['num']
+						      },{
+									sites: data[1]['shop_list'],
+									sitesclass: data[1]['classname'],
+									sitesnum: data[1]['num']
+						        }, {
+									sites: data[2]['shop_list'],
+									sitesclass: data[2]['classname'],
+									sitesnum: data[2]['num']
+						        }
+							]
+						}
+						 
+						  
+						
+						
+						
+						
+					})
+						 setTimeout(  stop_hideProgress(),3000);  
+				},
+				
+				//请求失败
+				error: function(err) {
+				   toast_err5();
+				}
+			})
+			}
+</script>
+</html>

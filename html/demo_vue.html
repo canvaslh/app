@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+	</head>
+	<body>
+		
+		<div id="app">
+		<div  v-for="site in sites">
+			<ol>
+				<li >
+					{{ site.username }} {{ site.userid }}
+				</li>
+			</ol>
+		</div>
+		</div>
+		
+	</body>
+	<script type="text/javascript" src="../script/jquery-1.7.2.min.js"></script>
+	<script src="../script/vue.js"></script>
+
+	<script type="text/javascript">
+		showlist();
+
+		function showlist() {
+			$.ajax({
+
+				url: 'http://www.ainiubaobao.com/app-php/index.php?m=Index&a=index', //请求的url地址
+				success: function(data) {
+
+					new Vue({
+						el: '#app',
+						data: {
+							sites: data
+						}
+					})
+					
+					
+				},
+				//请求失败
+				error: function(err) {
+					alert('数据获取失败，请检查你的网络连接');
+				}
+			})
+
+		}
+	</script>
+
+</html>

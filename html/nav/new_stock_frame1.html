@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>新股申购</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    	body{
+    		
+    	}
+    </style>
+</head>
+<body>
+	
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		start_hideProgress();
+//		var userid = $api.getStorage('userid');
+//	var username = $api.getStorage('username');
+//	var groupid = $api.getStorage('groupid');
+//	var rnd = $api.getStorage('rnd');
+	//判断是否登录
+//	if(!isNaN(userid)){
+//		var url = app_url+'/shares/newshares/index.html?userid='+userid+'&username='+username+'&groupid='+groupid+'&rnd='+rnd;
+//	}else{
+//	    api.openWin({
+//			    name: 'login_window',
+//			    url: '../login_window.html',
+//			    pageParam: {
+//		      
+//		         }
+//			  });
+//	}
+	var browser = api.require('webBrowser');
+
+browser.openView({
+    url: app_url+'/new_stock.html',
+    progress:{
+color:'#FC403F'
+},
+scaleEnabled:true,
+    rect: {
+        x: 0,
+        y: 64,
+        w: 'auto',
+        h: 'auto'
+    }
+}, function(ret, err) {
+stop_hideProgress();
+
+});
+	};
+</script>
+</html>

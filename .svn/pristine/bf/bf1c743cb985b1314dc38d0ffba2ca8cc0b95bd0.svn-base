@@ -1,0 +1,125 @@
+.manager_address{
+    width: 100%;
+    height: 100%;
+    padding-top: 7px;
+    /*background: #eeeeee;*/
+}
+.manager_address ul{
+    /*margin-top: 10px;*/
+    background: #eeeeee;
+    padding-bottom: 1px;
+}
+.manager_address ul li{
+    padding:.5em 1em .5em 1em;
+
+    line-height: 2em;
+    color: #77787a;
+    background: #FFFFFF;
+    margin-bottom: 7px;
+}
+.manager_address_top{
+    overflow: auto;
+}
+.manager_addtop_lf{
+    float: left;
+}
+.manager_addtop_rt{
+    float: right;
+}
+.manager_address_bot{
+    overflow: auto;
+}
+.default_address{
+    color: #d86431;
+}
+.manager_addresses{
+
+}
+.edit_address{
+    overflow: auto;
+    height: 2em;
+    line-height: 2em;
+    margin-top: .5em;
+}
+.edit_address_lf{
+    float: left;
+}
+/* RADIO */
+
+.regular-radio {
+    display: none;
+    vertical-align: middle;
+}
+
+.regular-radio + label {
+    -webkit-appearance: none;
+    background-color: #fafafa;
+    border: 1px solid #cacece;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+    padding:7px;
+    border-radius: 50px;
+    display: inline-block;
+    position: relative;
+    vertical-align: sub;
+}
+
+.regular-radio:checked + label:after {
+    content: ' ';
+    width: 12px;
+    height:12px;
+    border-radius: 50px;
+    position: absolute;
+    top:1px;
+    background: #ea4e3d;
+    box-shadow: inset 0px 0px 10px rgba(0,0,0,0.3);
+    text-shadow: 0px;
+    left: 1px;
+    font-size: 16px;
+}
+
+.regular-radio:checked + label {
+    background-color: #e9ecee;
+    color: #99a1a7;
+    border: 1px solid #adb8c0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1), inset 0px 0px 10px rgba(0,0,0,0.1);
+}
+
+.regular-radio + label:active, .regular-radio:checked + label:active {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.edit_address_rt{
+    float: right;
+}
+.edit_address_rt span{
+    display: block;
+}
+.edit_address_rt span{
+    padding-left: 25px;
+    padding-right: 15px;
+    /*height: 25px;*/
+    float: left;
+    margin-bottom:0;
+    line-height:inherit;
+}
+.address_edit{
+    background: url("../../image/address_edit.png")left center no-repeat !important;
+}
+.delete_address{
+
+    background: url("../../image/address_delete.png") left center no-repeat !important;
+}
+.add_address_{
+    padding-top: 2em;
+    padding-bottom: 5em;
+}
+.add_address_btn{
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+    height: 2.5em;
+    line-height: 2.5em;
+    background: #5dc7f9;
+    color: #ffffff;
+    border: none;
+}

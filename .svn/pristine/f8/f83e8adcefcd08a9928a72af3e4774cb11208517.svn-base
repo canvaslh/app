@@ -1,0 +1,209 @@
+def_address<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>修改地址</title>
+		<link rel="stylesheet" href="../../css/common.css">
+		<!--<link rel="stylesheet" href="../../css/style.css">-->
+		<link rel="stylesheet" href="../../css/user/address.css">
+		<link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+		<!--<link rel="stylesheet" href="../../layer/build/css/layui.css" media="all">-->
+		<script type="text/javascript" src="../../script/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="../../script/vue.js"></script>
+       
+	</head>
+
+	<body>
+		<div class="manager_address">
+			<form class="layui-form">
+				<ul>
+
+					<li v-for="c in site">
+						<div class="manager_addresses" v-bind:onclick="['edit_fa('+c.addressid+')']">
+							<div class="manager_address_top">
+								<div class="manager_addtop_lf">
+									{{c.truename}}
+								</div>
+								<div class="manager_addtop_rt">
+									{{c.phone}}
+								</div>
+							</div>
+							<div class="manager_address_bot">
+
+								{{c.address}}
+							</div>
+						</div>
+						<div class="edit_address ">
+							<div class="edit_address_lf">
+
+								<span v-if="c.isdefault == '1'">
+									<input type="radio" class="aui-switch aui-switch-primary " v-bind:value="c.addressid" checked name="address" disabled="disabled" >
+									<!--<input type="radio" name="address" v-bind:value="c.addressid" title=" "   lay-filter="address"  checked="" >-->
+			                        <span class="default_address" >默认地址</span>
+								</span>
+								<span v-else>
+									<input type="radio" class="aui-switch aui-switch-primary " v-bind:value="c.addressid" name="address" v-bind:onclick="['defaultaddress('+c.addressid+')']" >
+			                       <!--<input type="radio" name="address" v-bind:value="c.addressid" title="  "  lay-filter="address" >-->
+                               </span>
+                               
+							</div>
+							<div class="edit_address_rt">
+								<span class="address_edit" v-bind:onclick="['edit_address('+c.addressid+',&quot;编辑地址&quot;)']">
+                                 <!--<a :href="'/Home/User/edit_address/id/'+c.addressid">编辑</a>-->   
+                                 编辑
+                        </span>
+								<span class="delete_address" v-bind:onclick="['del_address('+c.addressid+')']">
+                                                                                             删除
+                        </span>
+
+							</div>
+						</div>
+
+					</li>
+
+				</ul>
+			</form>
+
+			<div class="add_address_">
+				<input type="button" value="添加新地址" class="add_address_btn" onclick="edit_address('','添加新地址')">
+			</div>
+		</div>
+			<script type="text/javascript" src="../../script/api.js"></script>
+		<script src="../../layer/build/layui.js" ></script>
+		<script>
+			var _list = {
+				site: ''
+			};
+
+			var address_vm = new Vue({
+				el: '.layui-form',
+				data: _list
+			})
+
+			
+			var indexs;
+			layui.use(['layer',  'element'], function() {
+				var layer = layui.layer;
+				indexs = parent.layer.getFrameIndex(window.name); 
+//				form = layui.form();
+//				form.render('radio');
+//				form.render();
+//				form.on('radio(address)', function(data) {
+//					console.log(data.value);
+//					defaultaddress(data.value);
+//					form.render();
+//				});
+
+			});
+			
+			
+				
+			
+			
+			
+             /**
+              *修改默认地址 
+              */
+			function defaultaddress(id) {
+				
+				
+				$.post(app_url + '/app-php/index.php?m=User&a=defaultaddress', {
+					'sitli':rnd,'dfg':userid,'id': id
+				}, function(ret) {
+						console.log(ret);
+					if(ret.r == 0) {
+						layer.msg('修改默认地址失败', {
+							time: 1000
+						}, function() {});
+					} else if(ret.r == 1) {
+						layer.msg('修改成功', {
+							time: 1000
+						});
+						$('input[type=address]').attr('checked','');
+						$('input[type=address][value]='+id).attr('checked','checked');
+						address_list(1);
+					}
+				})
+				return false;
+				
+			}
+			address_list(0);
+            /**
+             *初始化 
+             */
+			function address_list(tag) {
+				$.post(app_url + '/app-php/index.php?m=User&a=address',{
+					'sitli':rnd,'dfg':userid,
+				}, function(ret) {
+					_list.site = ret.list;
+					//					console.log(ret);
+				})
+			
+				
+			}
+			/**
+			 *删除地址 
+			 */
+			function del_address(id){
+				layer.confirm('<p class="pop_info_show">确认删除这条地址信息吗</p>', {
+					icon: 3,
+					title: "爱牛宝宝温馨提醒",
+					area: '320px',
+					btn: ['确认', '取消']
+				}, function() {
+					$.post(app_url + '/app-php/index.php?m=User&a=deladdress', {
+						'sitli':$api.getStorage('rnd'),'dfg':2326,'id': id
+					}, function(ret) {
+//				         console.log(ret);
+				         address_list(1);
+				         if(ret.r == 0) {
+							layer.msg('删除失败', {time: 1000}, function() {});
+						} else  if(ret.r == 1) {
+	
+							layer.msg('删除成功', {time: 1000});
+							
+						}else if(ret.r == 2){
+							layer.msg('删除成功,快去添加新的收货地址吧！', {time: 1000});
+				
+					}
+				})
+			})
+				}
+			/**
+			 *编辑地址  打开编辑地址页面  关闭当前页面 
+			 */
+			function edit_address(id,title){
+				 parent.edits_address(id,title);
+				 parent.layer.close(indexs);
+//				var index = layer.open({
+//				  type: 2,
+//				  title:title,
+//				  content: '/Home/User/edit_address/id/'+id,
+//				  success: function(layero, index){
+////				  	 console.log(layero);
+//				  	 
+//                     $('.manager_address').hide();
+//                },
+//				  cancel: function(index, layero){ 
+//					   $('.manager_address').show();
+//					  
+//					}  
+//				});
+//				layer.full(index);
+			}
+			/**
+			 * 修改当前订单地址
+			 */
+			function edit_fa(id){
+				  parent.$('.nav_header').show();
+                      parent.$('.header_seach').show();
+                parent.def_address(id);
+                parent.layer.close(indexs);
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,130 @@
+.pay_sure{
+    background: #f6f4f2;
+    height:inherit;
+    padding: 1em;
+}
+.pay_sure_title{
+    background: #ffffff;
+
+    border-radius:5px;
+    margin-bottom: 10px;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+.pay_sure_tt{
+    /*height: 35px;*/
+    /*line-height: 35px;*/
+
+
+    padding-top:.4em;
+    padding-bottom: 1.1em;
+}
+.pay_sure_tt h3{
+    font-weight: normal;
+    display: inline;
+    padding-bottom:.3em;
+    padding-left: 1em;
+    padding-right: 1em;
+    color: #333333;
+    border-bottom: 2px solid;
+    border-image: -webkit-linear-gradient( #b8b8b8,#707070) 30 30;
+    border-image: -moz-linear-gradient(#b8b8b8,#707070) 30 30;
+    border-image: linear-gradient( #b8b8b8,#707070) 30 30;
+}
+.pay_pro_details{
+    background: #ffffff;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: .7em 1.5em .7em 1.5em;
+}
+.pay_pro_details ul{
+
+}
+.pay_pro_details ul li{
+    line-height: 2.3em;
+    color: #666666;
+}
+.pay_sure_ways{
+    border-radius: 5px;
+    background: #ffffff;
+    padding: .5em 1em 1em 1em;
+}
+.pay_box{
+
+}
+.regular-checkbox {
+    display: none;
+}
+
+.regular-checkbox + label {
+    background-color: #fafafa;
+    border: 1px solid #cacece;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+    padding: 9px;
+    border-radius:18px;
+    display: inline-block;
+    position: relative;
+}
+
+.regular-checkbox + label:active, .regular-checkbox:checked + label:active {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.regular-checkbox:checked + label {
+    background-color: #e54b4b;
+    border: 1px solid #e54b4b;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+    color: #ffffff;
+}
+
+.regular-checkbox:checked + label:after {
+    content: '\2714';
+    font-size: 14px;
+    position: absolute;
+    top: -16px;
+    left: 3px;
+    color: #ffffff;
+}
+.pay_box ul{
+
+}
+.pay_box ul li{
+    line-height: 3.7em;
+
+    padding-left: 1em;
+    padding-right: 1em;
+    border-bottom: 1px dotted #7a7a7a;
+}
+.pay_box ul li .regular-checkbox + label{
+
+    vertical-align: middle;
+    margin-right:1em;
+
+}
+.pay_box ul li img{
+    margin-right: 1em;
+}
+.pay_btnbox{
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+.pay_sure_btn{
+    display: block;
+    background: #439bfa;
+    color: #ffffff;
+    line-height: 2.6em;
+    width: 95%;
+    margin: 0 auto;
+    border: none;
+    text-align: center;
+}
+.m_address_name{
+	width: 100%;
+}
+.m_address_name div{
+	display: inline-block;
+	width: 40%;
+}
+.m_address_name div span{
+	color: #666666;
+}

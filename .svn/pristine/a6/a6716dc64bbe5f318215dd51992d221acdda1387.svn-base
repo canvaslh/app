@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 	<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+   <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>云API</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+
+   	<script type="text/javascript" src="../script/jquery-1.7.2.min.js"></script>
+
+ <script src="../script/vue.js"></script>
+ <style>
+ .searchWrap{
+ display: inline-block;
+
+ }
+ [v-cloak] {
+  display: none;
+}
+
+ </style>
+
+</head>
+<body style="margin-top: 210px">
+
+<!--<header class="aui-bar aui-bar-nav aui-bar-info" style="position: fixed" >
+		<a class="aui-btn aui-btn-primary aui-pull-left active" style="background: #FC403F;">
+  		<img src="../image/img/logo.png" alt="爱牛宝宝" class="img-rounded img-responsive" height="25px" width="25px" >
+  	</a>
+	  <div class="searchWrap" style=" float: left;" >
+            <input type="search" placeholder="爱牛宝宝" style="margin: 0;padding: 0;color: #000000;    width: 60%;" id="te">
+        </div>
+        <div style="display: inline-block;">
+        	 <img src="../image/index/yuyin.png" alt="" onclick="te()"/>
+        </div>
+
+
+</header>-->
+<!--轮播-->
+<!--<div id="swipe" class="swipe" >
+		<div class="swipe-wrap">
+			<div class="swipe-box">
+				<a href="http://www.ainiubaobao.com"><img src="http://www.ainiubaobao.com/img/carousel/1.jpg" alt=""></a>
+			</div>
+			<div class="swipe-box">
+				<img src="http://www.ainiubaobao.com/img/carousel/2.jpg" alt="">
+			</div>
+			<div class="swipe-box">
+				<img src="http://www.ainiubaobao.com/img/carousel/1.jpg" alt="">
+			</div>
+		</div>
+		<div class="title-box">
+            <ul class="title-box-ul">
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+	</div>-->
+
+<!--导航-->
+<ul class="notice_02">
+        <li><a onclick="skip('nav/information_window')"><img src="../image/index/notice_01.png"><span>财经资讯</span></a></li>
+        <li><a onclick="skip('nav/shares_window')"><img src="../image/index/notice_02.png"><span>每日牛股</span></a></li>
+        <li><a onclick="skip('nav/new_stock_window')"><img src="../image/index/notice_03.png"><span>新股申购</span></a></li>
+        <li><a onclick="skip('nav/teacher_window')"><img src="../image/index/notice_04.png"><span>金牌讲师</span></a></li>
+        <li><a onclick="skip('nav/core_window')"><img src="../image/index/notice_05.png"><span>核心内参</span></a></li>
+        <li><a onclick="islogin_skip('user/money_window')"><img src="../image/index/notice_06.png"><span>我要充值</span></a></li>
+    </ul>
+<a href="mqqwpa://im/chat?chat_type=wpa&uin=2132989827">点击进入qq</a>
+<a href="mqqapi://card/show_pslcard?src_type=internal&version=1&uin=105157120&card_type=group&source=qrcode">和Qun聊天</a>
+
+	<!--股市初级班-->
+	<div class="floor floor_01" id="video">
+		<div v-for="c in category">
+    <div class="floor_01_top" v-cloak style="    width: 100%;">
+     	{{ c.sitesclass }}
+        	<span class="rt"><a v-bind:onclick="['video_list_skip('+c.sitesclassid+',&quot; '+c.sitesclass+'&quot;'+',1'+')']" class="font10 a_link">查看更多</a></span>
+    </div>
+    <div class="floor_01_content">
+        <div class="floor_img">
+            <ul >
+              <li v-for="site in c.sites">
+                    <span v-bind:onclick="['video_skip('+site.id+',&quot; '+site.title+'&quot;)']" >
+                        <img v-bind:src="'http://www.ainiubaobao.com'+site.titlepic" alt="" class="img-responsive">
+                        <span class="index_title" v-cloak>{{ site.title }}</span>
+
+                    <div class="index_price">
+                        <span class="pri lf">
+                            <i class="price_green" v-cloak v-if="site.point === '0'">免费</i>
+                             <i class="price_green" v-cloak v-else>{{ site.point }}</i>
+                        </span>
+                        <div class="index_num rt">
+                            <span v-cloak >{{ site.onclick }}</span>
+                            <span v-cloak>人学</span>
+                        </div>
+                    </div>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
+
+
+<script type="text/javascript">
+  var arr_img = new Array;
+  var arr_img_url = new Array;
+  var one = '';
+	apiready = function(){
+	
+
+	
+	
+	
+	
+	
+	
+	arr_img =  img_lb();
+	
+
+var UIScrollPicture = api.require('UIScrollPicture');
+UIScrollPicture.open({
+    rect: {
+        x: 0,
+        y: 0,
+        w: api.winWidth,
+        h: 200,
+    },
+    data: {
+        paths: arr_img,
+
+    },
+    styles: {
+        
+        indicator: {
+            align: 'center',
+            color: '#cccccc',
+            activeColor: '#ffffff'
+        }
+    },
+    placeholderImg: '',
+    contentMode: 'scaleToFill',    //图片填充模式  scaleToFill（填充）  scaleAspectFit（适应）
+    interval: 3,    //轮播间隔
+    fixedOn: api.frameName,
+    loop: true,  //图片是否循环播放
+    fixed: false    //模块是否随所属 window 或 frame 滚动
+}, function(ret, err) {
+/**
+    status: true,                  //布尔型；true||false
+    eventType: 'click'||'show',    //字符串类型；交互事件类型，  取值范围：click（用户点击）  show（模块打开成功）
+    index：0                       //数字类型；当前图片的索引
+ */
+    if (ret) {
+//      alert(JSON.stringify(ret));
+     if(ret.eventType=='click'){
+        alert( arr_img_url[ret.index]);
+       
+     }
+
+
+    } else {
+//      alert(JSON.stringify(err));
+    }
+});
+
+//指定当前项
+UIScrollPicture.setCurrentIndex({
+    index: 1
+});
+
+
+
+
+
+
+api.setRefreshHeaderInfo({
+    loadingImg: 'widget://image/loading_more.png',
+    bgColor: '#ccc',
+    textColor: '#fff',
+    textDown: '下拉刷新...',
+    textUp: '松开刷新...'
+}, function(ret, err) {
+show();
+
+});
+
+
+//start_hideProgress();
+show();
+
+	};
+
+
+
+
+
+	
+
+	window.onload = function() {
+		var li = $api.domAll('.title-box-ul li');
+		var mySwiper = Swipe($api.byId('swipe'),{
+			auto:3000,
+			continuous: true,
+			callback: function(index,elem) {
+                var i = li.length;
+                while (i--) {
+                    li[i].className = '';
+                }
+                li[index].className = 'active';
+            }
+		});
+	}
+
+
+</script>
+ <script>
+ 
+
+ function img_lb(){
+   $.ajax({
+    	url: app_url+'/app-php/index.php?m=Index&a=img_lb', 
+    	
+    	async:false,
+    	success:function(str){
+    	  
+    	 one = str.one;
+    	for(var i=0;i<str['img'].length;i++){
+    	  arr_img[i] = str.img[i]['pic_url'];
+    	  arr_img_url[i] = str.img[i]['url'];
+    	}
+//  	alert(JSON.stringify(arr_img));
+   }
+   
+ 
+ 
+ })
+ return arr_img;
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+show();
+ 	function show(){
+ 	$.ajax({
+
+				url: app_url+'/app-php/index.php?m=Indexvideo&a=video', //请求的url地址
+
+				success: function(data) {
+//				alert(JSON.stringify(data));
+//            stop_hideProgress();
+
+setTimeout(function () {api.refreshHeaderLoadDone();
+},2000)
+			 new Vue({
+						el: '#video',
+						data: {
+							category:[
+							    {
+									sites: data[0]['video_list'],
+									sitesclass: data[0]['classname'],
+									sitesclassid: data[0]['classid']
+						      },{
+									sites: data[1]['video_list'],
+									sitesclass: data[1]['classname'],
+									sitesclassid: data[1]['classid']
+						        }, {
+									sites: data[2]['video_list'],
+									sitesclass: data[2]['classname'],
+									sitesclassid: data[2]['classid']
+						        }, {
+									sites: data[3]['video_list'],
+									sitesclass: data[3]['classname'],
+									sitesclassid: data[3]['classid']
+						        }, {
+									sites: data[4]['video_list'],
+									sitesclass: data[4]['classname'],
+									sitesclassid: data[4]['classid']
+						        }
+							]
+						}
+
+
+
+
+
+
+					})
+
+				},
+
+				//请求失败
+				error: function(err) {
+					toast_err5();
+				}
+			})
+			}
+
+
+
+
+ </script>
+</html>

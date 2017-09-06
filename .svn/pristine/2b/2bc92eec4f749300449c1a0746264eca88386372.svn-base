@@ -1,0 +1,208 @@
+/*课程列表*/
+.m_iniubb{
+    background: #eeeeee;
+    height: 100%;
+
+}
+.m_catelists{
+    background: #f6f6f6;
+    height: 100%;
+    position: relative;
+}
+.m_catelists_tt{
+    text-align: center;
+
+
+}
+.m_catelists_nav{
+    height: 35px;
+    line-height:35px;
+    background: #ffffff;
+    border-top: 1px solid #cbcbcb;
+    border-bottom: 1px solid #cbcbcb;
+}
+.m_catelists_tt .m_catelists_nav ul{
+    overflow: auto;
+}
+.m_catelists_tt .m_catelists_nav ul li{
+    display: block;
+    float: left;
+    width: 50%;
+
+}
+.m_catelists_tt .m_catelists_nav ul li span{
+    display: inline-block;
+}
+.m_catelists_nav0{
+    border-bottom: 1px solid #cbcbcb;
+}
+.m_catelists_nav0 ul{
+    overflow: auto;
+    height: 35px;
+    line-height:35px;
+    background: #ffffff;
+}
+.m_catelists_nav0 ul li{
+    width: 33%;
+    display: block;
+    float: left;
+    font-size: 10px;
+    letter-spacing: .05em;
+}
+.m_catelists_nav0 ul li span{
+  display: block;
+    color: #898989;
+
+}
+.m_catelists_nav0 ul li:last-child span{
+    border-right: none;
+}
+.m_navcont{
+    position: fixed;
+    top:71px;
+    left: 0;
+    right: 0;
+
+    /*background: rgba(102,103,103,.6);*/
+  z-index: 99;
+  /*display: none;*/
+}
+.m_navcont01{
+    display: none ;
+}
+.m_navcont02{
+    display: none ;
+}
+.m_navcont03{
+    display: none ;
+}
+.m_navcont01,.m_navcont02,.m_navcont03{
+
+    background: #FFFFFF;
+
+    font-size: 12px;
+}
+.m_navcont01 ul,.m_navcont02 ul,.m_navcont03 ul{
+
+}
+.m_navcont01 ul li,.m_navcont02 ul li,.m_navcont03 ul li{
+    line-height:2.6em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    letter-spacing: .05em;
+    color: #898989;
+    border-bottom: 1px solid #f6f6f6;
+
+
+}
+.catelista_active{
+    color: #06acfa;
+    border-bottom: 1px solid #06acfa;
+}
+
+.m_catalists_cont{
+    width: 100%;
+    margin-top: .5em;
+    background: #ffffff;
+    overflow: auto;
+
+}
+.m_catalists_cart{
+    /*padding: .5em;*/
+    padding-left: .5em;
+    padding-right: .5em;
+}
+.m_catalists_{
+
+ width: 100%;
+
+    overflow: auto;
+    padding-top: .5em;
+    padding-left: .7em;
+
+    padding-bottom: .5em;
+    border-bottom: 1px solid #cbcbcb;
+
+}
+.m_catelists_img{
+    width: 40%;
+    position: relative;
+}
+.m_catelists_img img{
+    width: 100%;
+}
+.m_catalists_contt{
+    width: 60%;
+}
+.m_catelists_title{
+    width: 100%;
+}
+.m_catelists_title h3{
+    font-weight: normal;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size:10pt;
+    color: #242424;
+    line-height: 25px;
+    height: 50px;
+    overflow: hidden;
+}
+.m_catelists_share{
+    overflow: auto;
+}
+.m_catelists_view{
+    overflow: auto;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    font-size: 9pt;
+}
+.m_catelists_view span{
+    display: block;
+    width: 50%;
+    line-height: 20px;
+    height: 20px;
+
+}
+.catelists_free{
+    color: #5ac6f9;
+}
+.catelists_pri{
+    color: #ff0000;
+    background: url("../image/catelists/nb.png") left center no-repeat;
+}
+.m_catevp{
+    /*padding-left: 24px;*/
+    background: url("../image/catelists/view.png") left center no-repeat;
+}
+.m_catelists_view .catelists_pri i{
+    font-style: normal;
+    padding-left: 15px;
+}
+.m_catelists_view .m_catevp i{
+    font-style: normal;
+    padding-left: 20px;
+    color: #8f8c8c;
+
+}
+.m_catelists_status{
+    font-size: 6pt;
+    /*background: #454545;*/
+    background: rgba(102,103,103,.6);
+    color: #ffffff;
+    padding-top: .1em;
+    padding-bottom: .1em;
+    position: absolute;
+    bottom: 6px;
+    display: block;
+    width: 100%;
+}
+.m_catelists_status span{
+    display: block;
+    padding-left: .5em;
+    padding-right: .5em;
+    letter-spacing: .05em;
+}
+.m_catelists_num{
+    font-style: normal;
+
+}

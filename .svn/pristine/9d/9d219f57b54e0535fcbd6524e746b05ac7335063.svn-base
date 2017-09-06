@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+	<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>开发</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+
+		 	<script type="text/javascript" src="../script/jquery-1.7.2.min.js"></script>
+
+ <script src="../script/vue.js"></script>
+	</head>
+	<body>
+	<!--导航-->
+			<header class="aui-bar aui-bar-nav _color" style="height: 40px;line-height: 40px">
+				<div class="aui-title">视频中心</div>
+			</header>
+
+		<div class="cate_content" id="video">
+			
+			<div class="categories"  >
+				<div class="cate_title" v-for="c in category" v-cloak>
+					{{c.sitesclass}}
+					<div class="cate_ul" >
+					<ul>
+						<li v-for="a in c.sites">
+						<span v-bind:onclick="['video_list_skip('+a.classid+',&quot; '+a.classname+'&quot;)']" v-cloak>{{a.classname}}</span>
+						</li>
+					</ul>
+				</div>
+				</div>
+				
+			</div>
+
+		</div>
+	</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script>
+	apiready = function(){
+
+// start_hideProgress();
+   show();
+
+}
+</script>
+
+<script>
+
+show();
+function show(){
+
+
+
+	$.ajax({
+
+				url: app_url+'/app-php/index.php?m=Videolist&a=index', //请求的url地址
+				
+				success: function(data) {
+//                stop_hideProgress();
+                 new Vue({
+						el: '#video',
+						data: {
+							category:[
+							    {
+									sites: data[0]['video_list'],
+									sitesclass: data[0]['classname']
+						      },{
+									sites: data[1]['video_list'],
+									sitesclass: data[1]['classname']
+						        }, {
+									sites: data[2]['video_list'],
+									sitesclass: data[2]['classname']
+						        }, {
+									sites: data[3]['video_list'],
+									sitesclass: data[3]['classname']
+						        }, {
+									sites: data[4]['video_list'],
+									sitesclass: data[4]['classname']
+						        }
+							]
+						}
+						 
+						  
+						
+						
+						
+						
+					})
+					
+			
+					
+				},
+				
+				//请求失败
+				error: function(err) {
+					api.toast({
+					    msg: '数据获取失败，请检查你的网络连接',
+					    duration: 5000,
+					    location: 'middle'
+					});
+				}
+			})
+			
+			}
+</script>
+</html>
